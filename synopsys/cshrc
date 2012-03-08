@@ -58,11 +58,15 @@ if ( $?EMACS ) then
 else
     set prompt = "%{[0;32m%}%S%m%s%{[0m%}: %~ > "
 endif
-setenv DEFAULT_EMACS_SERVER_NAME default
-if ( ! $?EMACS_SERVER_NAME ) then
-  setenv EMACS_SERVER_NAME $DEFAULT_EMACS_SERVER_NAME
+setenv DEFAULT_WORKSPACE default
+
+#
+# WORKSPACE can be from ~/bin/workspace script.
+#
+if ( $?WORKSPACE == 0 ) then
+  setenv WORKSPACE $DEFAULT_WORKSPACE
 endif
-setenv EDITOR "emacsclient -s $EMACS_SERVER_NAME -t -a ''"
+setenv EDITOR "emacsclient -s $WORKSPACE -t -a ''"
 
 # ############################################################
 # Platform dependent settings.
@@ -95,7 +99,7 @@ else if ( x$SNPSTYPE == xamd64 ) then
   # --------------------------------------------------
   set GOOGLE_PERFTOOLS_DIR = /depot/google-perftools-1.5
 
-  set path = ( /depot/global-5.9.7/bin /depot/binutils-2.18/bin  \
+  set path = ( /depot/global-5.9.7/bin /depot/binutils-2.18/bin \
                ~/tools/screen/$SNPSTYPE/bin ~/tools/dvtm-0.7/bin \
                ~/tools/emacs/bin \
                ~/tools/tmux-1.5/bin \
@@ -134,8 +138,7 @@ limit coredumpsize unlimited
 set WORK_STORAGE="/remote/dept5242c/users/yenliang" 
 set QA_STORAGE="/remote/dept5242h/users/yenliang" 
 set TESTCASE_STORAGE="/remote/dept5242b/users/yenliang" 
-alias cd2src       "cd $WORK_STORAGE/src"
-alias cd2srchead   "cd $WORK_STORAGE/src/head"
+alias cd2src       "cd $WORK_STORAGE/src/head.${WORKSPACE}"
 alias cd2qa        "cd $QA_STORAGE/regression"
 alias cd2case      "cd $TESTCASE_STORAGE/testcase"
 
@@ -159,6 +162,8 @@ setenv TARGET_ARCH $SNPSTYPE
 source ~/Settings/SOURCE_ME
 # setenv STARRC_OA_LIBS /remote/dept5242a/users/ylchen/code/head_new3/oareader/lib-${SNPSTYPE}:/global/libs/oa_qsce_2010.09_stlport4/${SNPSTYPE}/lib/opt:/depot/gcc-4.2.0/lib64
 
+set path = ( ${WORK_STORAGE}/src/head.${WORKSPACE}/obj/bin-${TARGET_ARCH} $path )
+
 ##### The following is to override the LICENSE setting in SOURCE_ME
 unsetenv SNPSLMD_LICENSE_FILE
 setenv LM_LICENSE_FILE 26585@us01_lic6:26585@us01_lic5:26585@us01_lic4:26585@us01_lic3:26585@us01_lic2
@@ -181,19 +186,14 @@ alias goldx.g '~/goldx/trunk/bin/goldx.g'
 # ##################################################
 # Unit Test
 # ##################################################
-# don't delete the run directory: hdl_tmp
-setenv TEST_DONT_DELETE 1
-setenv STARRC_REG_ROOT $WORK_STORAGE/src/head
-setenv TEST_ROOT $STARRC_REG_ROOT
-setenv REGRESSO_BASE $STARRC_REG_ROOT
-setenv REGRESSO_ROOT unit
-setenv SYNOPSYS $STARRC_REG_ROOT
-alias unit 'test_make -e /bin/csh'
-alias unit2 '/depot/testtools/bin/regresso -exec /bin/csh -test_extensions ext'
+# I will always run test_make somewhere under p4 client root
+set path = ( /depot/testtools/bin $path )
+alias unit  "~/bin/unit.csh test_make"
+alias unit2 "~/bin/unit.csh regresso"
+# alias unit2 '/depot/testtools/bin/regresso -exec /bin/csh -test_extensions ext'
+# alias unit2 '/depot/testtools/bin/regresso -exec /bin/csh -test_extensions ext'
 # LSF
-# alias unit2 '/depot/testtools/bin/regresso -exec /bin/csh -test_extensions ext -host LSF'
 # alias unit2 '/depot/testtools/bin/regresso -exec /bin/csh -test_extensions ext -host LSF -package <package_file>'
-alias unitall 'test_make -e /bin/csh $REGRESSO_BASE/$REGRESSO_ROOT'
 
 ########## Setup Purify environment #####################
 setenv RSU_LICENSE_MAP /depot/pure/PurifyPlus_License_Map
@@ -254,23 +254,28 @@ alias myps       'ps -aux | grep ${USER}'
 alias rm         'rm -i'
 alias gr         'grep -n'
 
-# current projects I am working on.
-if ( $?SCREEN == 0 && -e ~/bin/workspace ) then
-    echo "creating ws aliases"
-    foreach p ( study goldx debug $DEFAULT_EMACS_SERVER_NAME )
+# $WINDOW is created by GNU screen to indicate current window number.
+if ( $?WINDOW == 0 && -e ~/bin/workspace ) then
+    # Create aliases to start my workspaces.
+    foreach p ( study xin2gx bug $DEFAULT_WORKSPACE )
         alias ws_$p "~/bin/workspace $p"
     end
 endif
 alias et         "$EDITOR"
-# "emacsclient -s $EMACS_SERVER_NAME -t -a ''"
+# "emacsclient -s $WORKSPACE -t -a ''"
 alias kill-emacs "$EDITOR --eval '(kill-emacs)'"
-alias start-emacs-server "emacs --daemon=$EMACS_SERVER_NAME"
+alias start-emacs-server "emacs --daemon=$WORKSPACE"
 
 # Create 5 aliases to create 5 dvtm sessions
-foreach s ( 1 2 3 4 5 6 7 8 9 )
-    alias dvtm$s "dtach -A /tmp/dvtm-session-${EMACS_SERVER_NAME}-$s dvtm"
-end
-alias dvtm     "dtach -A /tmp/dvtm-session dvtm"
+if ( $?WINDOW ) then
+    # Create aliases for every screen window to make dedicate dvtm session.
+    alias dvtm "dtach -A /tmp/dvtm-session-${WORKSPACE}-${WINDOW} dvtm"
+else
+    foreach s ( 1 2 3 4 5 6 7 8 9 )
+        alias dvtm$s "dtach -A /tmp/dvtm-session-${WORKSPACE}-$s dvtm"
+    end
+    alias dvtm     "dtach -A /tmp/dvtm-session dvtm"
+endif
 
 alias synmake-g  'synmake BUILD_TYPE=pure exec-g'
 alias cgrep      "find . -type f -iregex '.*\.\(c\|C\|cc\|h\|ht\|hh\|cpp\)' -print0 | xargs -0 grep --color -n"

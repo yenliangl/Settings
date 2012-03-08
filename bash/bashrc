@@ -141,29 +141,33 @@ alias gr='grep -n'
 alias cls='clear'
 alias scp='scp -Cr'
 
-DEFAULT_EMACS_SERVER_NAME=5
-if [ -z $EMACS_SERVER_NAME ]; then
-    EMACS_SERVER_NAME=$DEFAULT_EMACS_SERVER_NAME
+export DEFAULT_WORKSPACE=5
+if [ -z $WORKSPACE ]; then
+    WORKSPACE=$DEFAULT_WORKSPACE
 fi
 
-if [ -z $SCREEN ]; then
+if [ -z $WINDOW ] && [ -x ~/bin/workspace ]; then
     # Don't create ws aliases if already in workspace
-    for w in 1 2 3 4 $DEFAULT_EMACS_SERVER_NAME
+    for w in 1 2 3 4 $DEFAULT_WORKSPACE
     do
         alias ws$w="~/bin/workspace $w"
     done
 fi
-export EDITOR="emacsclient -s $EMACS_SERVER_NAME -t -a ''"
+export EDITOR="emacsclient -s $WORKSPACE -t -a ''"
 alias et="$EDITOR"
 alias kill-emacs="$EDITOR --eval '(kill-emacs)'"
 # in case (MacOS and Cygwin), emacs server can't be started by this way.
-alias start-emacs-server="emacs --daemon=$EMACS_SERVER_NAME"
+alias start-emacs-server="emacs --daemon=$WORKSPACE"
 
 # create dvtm sessions
-for s in {1..5}
-do
-    alias dvtm$s="dtach -A /tmp/dvtm-session-${EMACS_SERVER_NAME}-$s dvtm"
-done
+if [ -z $WINDOW ]; then
+    for s in {1..5}
+    do
+        alias dvtm$s="dtach -A /tmp/dvtm-session-${WORKSPACE}-$s dvtm"
+    done
+else
+    alias dvtm="dtach -A /tmp/dvtm-session-${WORKSPACE}-${WINDOW} dvtm"
+fi
 
 alias cgrep="find . -type f -iregex '.*\.\(c\|C\|h\|ht\|cpp\)' -print0 | xargs -0 grep --color -n"
 alias hgrep="find . -type f -iregex '.*\.\(h\|ht\)' -print0 | xargs -0 grep --color -n"
