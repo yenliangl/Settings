@@ -1,7 +1,0 @@
-#!/bin/bash
-
-export WORKSPACE=$1
-if [ -z $WORKSPACE ]; then
-   WORKSPACE=$DEFAULT_WORKSPACE
-fi
-screen -mS ${WORKSPACE} -DR

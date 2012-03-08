@@ -1,7 +1,0 @@
-#!/bin/csh -f
-
-setenv WORKSPACE $1
-if ( $WORKSPACE == "" ) then
-    setenv WORKSPACE $DEFAULT_WORKSPACE
-endif
-screen -mS ${WORKSPACE} -DR
