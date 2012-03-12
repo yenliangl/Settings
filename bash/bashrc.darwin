@@ -4,23 +4,12 @@
 # Settings for MacOSX
 # ######################################################################
 
-# ################################################
-# Bring Homwbrew binaries into alive
-# ################################################
 export PATH=/usr/local/bin:$PATH
-
-COREUTILS_ALIAS_FILE=/usr/local/Cellar/coreutils/8.15/aliases
-if [ -f $COREUTILS_ALIAS_FILE ]; then
-    . $COREUTILS_ALIAS_FILE
-fi
-alias ls='gls'
-
-export EDITOR="vim"
 
 # ################################################
 # Git
 # ################################################
-export GIT_EDITOR="vim"
+#export GIT_EDITOR="$EDITOR"
 
 # ######################################################################
 # Some example functions
@@ -51,7 +40,7 @@ alias myjdb='jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 # ##############################################################################
 # Alias definitions.
 # ##############################################################################
-alias tar='gtar'
+#alias tar='gtar'
 
 # ######################################################################
 # Populate PATH into MacOS app
@@ -69,3 +58,21 @@ export CLICOLOR=1
 
 export LSCOLORS=GxFxCxDxBxegedabagaced # for dark
 export LSCOLORS=ExFxBxDxCxegedabagacad # for light
+
+# ##################################################
+# Add colors to man pages
+# ##################################################
+export PAGER="`which less` -s"
+export BROWSER="$PAGER"
+export LESS_TERMCAP_mb=$'\E[38;5;167m'
+export LESS_TERMCAP_md=$'\E[38;5;39m'
+export LESS_TERMCAP_me=$'\E[38;5;231m'
+export LESS_TERMCAP_se=$'\E[38;5;231m'
+export LESS_TERMCAP_so=$'\E[38;5;167m'
+export LESS_TERMCAP_ue=$'\E[38;5;231m'
+export LESS_TERMCAP_us=$'\E[38;5;167m'
+
+#
+# Create cd2src aliases for workspaces
+#
+alias cd2src="cd ~/Work/Android/$WORKSPACE-android"

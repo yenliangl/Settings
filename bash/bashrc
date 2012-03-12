@@ -89,7 +89,7 @@ fi
 # ##################################################
 # Basic GIT settings
 # ##################################################
-export GIT_EDITOR="vim"
+#export GIT_EDITOR="vim"
 export LESSCHARSET=utf-8
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
@@ -141,16 +141,16 @@ alias gr='grep -n'
 alias cls='clear'
 alias scp='scp -Cr'
 
-export DEFAULT_WORKSPACE=5
+export DEFAULT_WORKSPACE=default
 if [ -z $WORKSPACE ]; then
-    WORKSPACE=$DEFAULT_WORKSPACE
+    export WORKSPACE=$DEFAULT_WORKSPACE
 fi
 
 if [ -z $WINDOW ]; then
     # Don't create ws aliases if already in workspace
-    for w in 1 2 3 4 $DEFAULT_WORKSPACE
+    for w in bozaalarm tallycounter $DEFAULT_WORKSPACE
     do
-        alias ws$w="export WORKSPACE=$w; screen -mS $w -DR"
+        alias ws-$w="export WORKSPACE=$w; screen -mS $w -DR"
     done
 fi
 export EDITOR="emacsclient -s $WORKSPACE -t -a ''"
