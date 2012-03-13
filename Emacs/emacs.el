@@ -307,9 +307,9 @@
 (add-hook 'after-make-window-system-frame-hooks 'josh/set-small-modeline-font-hook)
 (defun josh/set-small-modeline-font-hook ()
   "Revert the current buffer without confirmation unless explicitly modified."
-  (set-face-attribute 'mode-line nil :height 0.9)
-  (set-face-attribute 'mode-line-inactive nil :height 0.9)
-  (set-face-attribute 'minibuffer-prompt nil :height 0.9)
+  ;; (set-face-attribute 'mode-line nil :height 0.9)
+  ;; (set-face-attribute 'mode-line-inactive nil :height 0.9)
+  ;; (set-face-attribute 'minibuffer-prompt nil :height 0.9)
   )
 
 ;; (add-hook 'after-make-console-frame-hooks 'josh/after-make-console-frame-hook)
@@ -449,16 +449,17 @@
 ;; ----------------------------------------------------------------------
 ;; magit
 ;; ----------------------------------------------------------------------
-;; (require 'magit)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; _+ git official support
 ;;
 (and (boundp 'use-git-mode) use-git-mode
-     (progn
-       (add-to-list 'load-path (concat LISP_HOME "/git"))
-       (require 'git)
-       (require 'git-blame)))
+     (require 'magit))
+
+     ;; (progn
+     ;;   (add-to-list 'load-path (concat LISP_HOME "/git"))
+     ;;   (require 'git)
+     ;;   (require 'git-blame)))
 
 ;; ----------------------------------------------------------------------
 ;; Resize windows
