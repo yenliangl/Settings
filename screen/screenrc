@@ -88,9 +88,14 @@ terminfo wy75-42 nx:xo:Z0=\E[?3h\E[31h:Z1=\E[?3l\E[31h
 #
 # Special xterm hardstatus: use the window title.
 #
-termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
-termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
-termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
+#termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+#termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
+termcapinfo xterm*|rxvt* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+
+#
+# use mouse scroll at scrollback buffer
+#
+termcapinfo xterm*|screen* ti@:te@
 
 #remove some stupid / dangerous key bindings
 bind ^k
@@ -125,11 +130,12 @@ defscrollback 5000
 # allow bold colors - necessary for some reason
 attrcolor b ".I"
 # tell screen how to set colors. AB = background, AF=foreground
-#termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
-# erase background with current bg color
+termcapinfo xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+termcapinfo xterm-color "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
 #defbce "on"
 #defmousetrack off
 #term xterm-256color
+term "screen-256color"
 
 # ------------------------------------------------------------
 # Create 5 default windows

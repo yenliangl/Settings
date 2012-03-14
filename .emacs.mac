@@ -7,6 +7,11 @@
       use-git-mode t
       use-jdee t
       use-tabbar t)
+
+;; When running Aquamacs, initial color-theme
+(when (featurep 'aquamacs)
+  (color-theme-initialize))
+
 (load-file (expand-file-name "~/Work/Settings/Emacs/emacs.el"))
 
 (custom-set-variables
@@ -14,33 +19,29 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(blink-cursor-mode t)
- '(column-number-mode t)
- '(jde-jdk-registry (quote (("1.6.0" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0"))))
- '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(org-agenda-files (quote ("/Users/yenliangl/Dropbox/Org/NOTE.org" "/Users/yenliangl/Dropbox/Org/TASK.org" "/Users/yenliangl/Dropbox/Org/index.org" "/Users/yenliangl/Dropbox/Org/journal-2009.org" "/Users/yenliangl/Dropbox/Org/journal-2010.org" "/Users/yenliangl/Dropbox/Org/journal-2011.org" "/Users/yenliangl/Dropbox/Org/journal-2012.org" "/Users/yenliangl/Dropbox/Org/project_alchip.org" "/Users/yenliangl/Dropbox/Org/project_altek.org" "/Users/yenliangl/Dropbox/Org/project_android.org" "/Users/yenliangl/Dropbox/Org/project_career.org" "/Users/yenliangl/Dropbox/Org/project_english.org" "/Users/yenliangl/Dropbox/Org/project_finance.org" "/Users/yenliangl/Dropbox/Org/project_study.org" "/Users/yenliangl/Dropbox/Org/reference.org" "/Users/yenliangl/Dropbox/Org/tcl.org" "/Users/yenliangl/Dropbox/Org/todo.org"))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
-)
+ )
 
 ;; ----------------------------------------------------------------------
 ;; Set English/Chinese font.
 ;; ----------------------------------------------------------------------
-(setq ns-antialias-text nil)
 (when window-system
   (progn
-    ;; (set-default-font "-apple-Ubuntu_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    (set-default-font "-apple-Lucida_Sans_Typewriter-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-    ;; (set-default-font "-apple-Lucida_Console-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-    ;; (set-default-font "-apple-Anonymous_Pro-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+    (setq ns-antialias-text t)
+
+    ;; (set-default-font "-apple-Lucida_Sans_Typewriter-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+    ;; (set-default-font "-apple-Ubuntu_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
     ;; (set-default-font "-apple-Monaco-medium-r-normal--12-*-*-*-*-*-*-*")
-    ;; (set-default-font "-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+    ;; (set-default-font "-apple-Andale_Mono-medium-r-normal--13-*-*-*-*-*-*-*")
+    ;; (set-default-font "-apple-Consolas-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 
     ;; Set chinese font.
-    (unless ns-antialias-text
+    (if ns-antialias-text
         (set-fontset-font (frame-parameter nil 'font)
                           'han '("MingLan" . "unicode-bmp"))
       (set-fontset-font (frame-parameter nil 'font)
@@ -84,13 +85,12 @@
     (progn
       ;;
       (setq custom-file "~/.emacs")
-      (tabbar-mode nil)
+      (tabbar-mode 0)
 
       ;; Use the same font for all modes
       (aquamacs-autoface-mode nil)
 
       ;; restore classic Emacs selection behavior
-      (cua-mode 0)
       (transient-mark-mode 1)
 
       ;; Open buffers in the same frame
@@ -104,3 +104,6 @@
               (call-process "/usr/bin/open" nil 0 nil file-name))))
       ;; (define-key dired-mode-map "o" 'dired-open-mac)
      ))
+
+(load-file (concat LISP_HOME "/color-theme-tomorrow.el"))
+(color-theme-tomorrow-night-bright)

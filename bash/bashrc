@@ -89,7 +89,7 @@ fi
 # ##################################################
 # Basic GIT settings
 # ##################################################
-export GIT_EDITOR="vim"
+#export GIT_EDITOR="vim"
 export LESSCHARSET=utf-8
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
@@ -99,7 +99,7 @@ export SHELL=/bin/bash
 export TERM=xterm-256color
 # export LC_CTYPE="zh_TW.utf8"
 export SCREENRC=$HOME/Settings/screen/screenrc
-export PATH="$HOME/local/bin:$HOME/bin:$PATH"
+export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 
 # ##################################################
 # Machine-dependent settings
@@ -141,16 +141,16 @@ alias gr='grep -n'
 alias cls='clear'
 alias scp='scp -Cr'
 
-export DEFAULT_WORKSPACE=5
+export DEFAULT_WORKSPACE=default
 if [ -z $WORKSPACE ]; then
-    WORKSPACE=$DEFAULT_WORKSPACE
+    export WORKSPACE=$DEFAULT_WORKSPACE
 fi
 
 if [ -z $WINDOW ]; then
     # Don't create ws aliases if already in workspace
-    for w in 1 2 3 4 $DEFAULT_WORKSPACE
+    for w in bozaalarm tallycounter $DEFAULT_WORKSPACE
     do
-        alias ws$w="export WORKSPACE=$w; screen -mS $w -DR"
+        alias ws-$w="export WORKSPACE=$w; screen -mS $w -DR"
     done
 fi
 export EDITOR="emacsclient -s $WORKSPACE -t -a ''"
@@ -174,3 +174,11 @@ alias hgrep="find . -type f -iregex '.*\.\(h\|ht\)' -print0 | xargs -0 grep --co
 alias mgrep="find . -regextype posix-egrep -iregex '(.*\/Makefile|.*\/Makefile\..*|.*\.make|.*\.mak|.*\.mk)' -type f -print0 | xargs -0 grep --color -n"
 alias sgrep="find . -type f -iregex '.*\.\(c\|C\|h\|cpp\|S\|java\|xml\|sh\|hier\|make\)' -print0 | xargs -0 grep --color -n"
 alias jgrep="find . -type f -iregex '.*\.\(java\)' -print0 | xargs -0 grep --color -n"
+
+# Function that converts flac files to alac files
+function flac2alac {
+    for f in *.flac; do ffmpeg -i "$f" -acodec alac "${f%.flac}.m4a"; done
+}
+function alac2flac {
+    for f in *.m4a; do ffmpeg -i "$f" -acodec flac "${f%.m4a}.flac"; done
+}
