@@ -182,3 +182,9 @@ function flac2alac {
 function alac2flac {
     for f in *.m4a; do ffmpeg -i "$f" -acodec flac "${f%.m4a}.flac"; done
 }
+function alac2mp3 {
+    for f in *.m4a; do ffmpeg -i "$f" -ab 320k "${f%.m4a}.mp3"; done
+}
+function flac2mp3 {
+    for f in *.flac; do ffmpeg -i "$f" -ab 320k "${f%.flac}.mp3"; done
+}
