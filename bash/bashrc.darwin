@@ -4,7 +4,7 @@
 # Settings for MacOSX
 # ######################################################################
 
-export PATH=/usr/local/bin:$PATH
+export PATH=$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # ################################################
 # Git
@@ -23,24 +23,21 @@ function find-all
 # ##############################################################################
 # Android
 # ##############################################################################
-export ANDROID_SDK="$HOME/tools/android-sdk-mac_x86"
-export ANDROID_NDK="$HOME/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
-export ANDROID_SRC=/Volumes/Android
+MY_ANDROID_PROJECT_DIR=~/Work/Android
+ANDROID_SDK="~/tools/android-sdk-mac_x86"
+ANDROID_NDK="~/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
+export ANDROID_SRC=/Volumes/android
 export PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 
-function mount_android {
-    hdiutil attach ~/Work/Android/android-head.dmg -mountpoint /Volumes/Android;
-    export ANDROID_PRODUCT_OUT=/Volumes/Android/out/target/product/generic
-    export BUILD_SYSTEM=/Volumes/Android/build/core
-    alias parse_stack='python ~/Dropbox/bin/stack.py --symbols-dir $ANDROID_PRODUCT_OUT/symbols'
+mount_dev_image_darwin () {
+    if [ ! -f /Volumes/$1 ]; then
+        echo "mounting dev mage $1"
+        hdiutil attach ~/Work/Android/$1.sparseimage -mountpoint /Volumes/$1;
+    fi
 }
 
 alias myjdb='jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 -sourcepath "/Volumes/Leo21/eclair_21/packages/apps/Clock/src:/Volumes/Leo21/eclair_21/frameworks/altek/java:/Volumes/Leo21/eclair_21/frameworks/base/core/java:/Volumes/Leo21/eclair_21/frameworks/base/graphics/java:/Volumes/Leo21/eclair_21/packages/apps/Email/src"'
-
-# ##############################################################################
-# Alias definitions.
-# ##############################################################################
-#alias tar='gtar'
+alias cd2src="cd $MY_ANDROID_PROJECT_DIR/$WORKSPACE-android"
 
 # ######################################################################
 # Populate PATH into MacOS app
@@ -71,8 +68,3 @@ export LESS_TERMCAP_se=$'\E[38;5;231m'
 export LESS_TERMCAP_so=$'\E[38;5;167m'
 export LESS_TERMCAP_ue=$'\E[38;5;231m'
 export LESS_TERMCAP_us=$'\E[38;5;167m'
-
-#
-# Create cd2src aliases for workspaces
-#
-alias cd2src="cd ~/Work/Android/$WORKSPACE-android"
