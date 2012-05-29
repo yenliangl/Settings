@@ -16,7 +16,6 @@
 ;; --------------------------------------------------
 ;; (message ">>>>> [Emacs23] Setting load-path for org-mode <<<<<")
 (setq ORG_LISP_HOME (concat LISP_HOME "/org/org-7.8.09"))
-
 (add-to-list 'load-path (concat ORG_LISP_HOME "/lisp"))
 (add-to-list 'load-path (concat ORG_LISP_HOME "/contrib/lisp"))
 
