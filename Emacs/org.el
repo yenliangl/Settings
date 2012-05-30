@@ -29,6 +29,11 @@
 (if (boundp 'ORG_HOME)
     (setq org-directory ORG_HOME)
   (setq org-directory (expand-file-name "~/Work/Org")))
+
+(if (boundp 'ORG_HOME_AT_WORK)
+    (setq org-internal-directory ORG_HOME_AT_WORK)
+  (setq org-internal-directory (expand-file-name "~/Org")))
+
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
@@ -55,6 +60,20 @@
 (setq org-tag-persistent-alist
       '(("Task" . nil)
         ("Note" . nil)
+
+        ;; Month
+        ("@January" . nil)
+        ("@Feburary" . nil)
+        ("@March" . nil)
+        ("@April" . nil)
+        ("@May" . nil)
+        ("@June" . nil)
+        ("@July" . nil)
+        ("@August" . nil)
+        ("@September" . nil)
+        ("@October" . nil)
+        ("@November" . nil)
+        ("@December" . nil)
 
         ;; Study group
         ("Study" . nil)
@@ -171,9 +190,9 @@
 (org-clock-persistence-insinuate)
 
 (setq org-agenda-files
-      (list org-directory               ;normal org files sync'd with Dropbox
-            "~/Org")                    ;files that are not supposed to be cloud sync'd
-      )
+      (list org-directory          ;normal org files sync'd with Dropbox
+            org-internal-directory ;files that are not supposed to be cloud sync'd
+      ))
 
 ;; Mark a TODO entry DONE automatically when all children are done
 (defun org-summary-todo (n-done n-not-done)
@@ -183,13 +202,16 @@
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 (require 'org-publish)
-(setq org-internal-directory "~/Org")
-(setq org-internal-static-directory "~/Org/images")
-(setq org-internal-publishing-directory (concat "/ssh:" user-login-name "@starrc01:~/public_html"))
+(setq org-internal-static-directory (concat org-internal-directory "/images"))
+(setq org-static-screenshot-directory (concat org-internal-directory "/screenshots"))
+(if (and (boundp 'my-org-publish-to-remote) my-org-publish-to-remote)
+    (setq org-internal-publishing-directory (concat "/ssh:" user-login-name "@starrc01:~/public_html"))
+  (setq org-internal-publishing-directory "~/public_html"))
+
 (setq org-publish-project-alist
       `(                                ;use back-quote
         ;; publish to public cloud
-        ("org" :components ("org-notes" "org-static" "org-ebooks"))
+        ("org" :components ("org-notes" "org-static" "org-static-screenshot"))
 
         ;; components
         ("org-notes"
@@ -203,7 +225,7 @@
          :htmlized-source t
          :section-numbers nil
          :table-of-contents t
-         :style "<link rel=\"stylesheet\" href=\"css/worg.css\" type=\"text/css\"/>"
+         :style "<link rel=\"stylesheet\" href=\"css/org.css\" type=\"text/css\"/>"
          :auto-preamble t
          :auto-index t
          :index-filename "sitemap.org"
@@ -215,17 +237,17 @@
          :sitemap-sort-files "anti-chronologically"
          )
 
-        ("org-ebooks"
+        ("org-static"
          :base-directory ,org-directory
-         :base-extension "pdf\\|chm"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|mp3\\|ogg\\|swf\\|mm"
          :publishing-directory "~/Dropbox/public_html/"
          :recursive t
          :publishing-function org-publish-attachment
          )
 
-        ("org-static"
-         :base-directory ,org-directory
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|mp3\\|ogg\\|swf\\|mm"
+        ("org-static-screenshot"
+         :base-directory ,org-static-screenshot-directory
+         :base-extension "png\\|jpg\\|gif"
          :publishing-directory "~/Dropbox/public_html/"
          :recursive t
          :publishing-function org-publish-attachment
@@ -245,7 +267,7 @@
          :htmlized-source t
          :section-numbers nil
          :table-of-contents t
-         :style "<link rel=\"stylesheet\" href=\"css/worg.css\" type=\"text/css\"/>"
+         :style "<link rel=\"stylesheet\" href=\"css/org.css\" type=\"text/css\"/>"
          :auto-preamble t
          :auto-index t
          :auto-sitemap t
