@@ -4,21 +4,18 @@
 
 ;; loading color-theme for non-Aquamacs
 (unless (featurep 'aquamacs)
-  (when window-system
-    (progn                                ; non-aquamacs
-      (message ">>>>> [Emacs23] Loading color themes <<<<<")
-      (set-variable 'color-theme-is-global nil)
-      (add-to-list 'load-path (concat ELPA_HOME "/color-theme-6.6.1"))
-      (require 'color-theme)
-      (set-variable 'color-theme-is-global nil)
-      )))
+  (progn
+    (message ">>>>> [Emacs23] Loading color themes <<<<<")
+    (add-to-list 'load-path (concat ELPA_HOME "/color-theme-6.6.1"))
+    (require 'color-theme)
+    ;; (add-hook 'after-make-console-frame-hooks 'color-theme-tty-dark)
+    ))
 
 ;; --------------------------------------------------
 ;; Org-mode
 ;; --------------------------------------------------
 ;; (message ">>>>> [Emacs23] Setting load-path for org-mode <<<<<")
 (setq ORG_LISP_HOME (concat LISP_HOME "/org/org-7.8.09"))
-
 (add-to-list 'load-path (concat ORG_LISP_HOME "/lisp"))
 (add-to-list 'load-path (concat ORG_LISP_HOME "/contrib/lisp"))
 
@@ -48,4 +45,3 @@
 
 ;; hideshow-vis
 (add-to-list 'load-path (concat ELPA_HOME "/hideshowvis-0.3"))
-
