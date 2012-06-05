@@ -1,3 +1,7 @@
+;; ==================================================
+;; Configuration for Emacs/W32.
+;; ==================================================
+
 ;;
 ;; Load cygwin settings for windows-version of Emacs
 ;;
@@ -83,6 +87,4 @@
 ;;
 ;;
 ;; (require 'cygwin-link)
-
-
 (setq-default ispell-program-name "aspell")
