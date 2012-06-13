@@ -57,7 +57,7 @@
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 ; Use full outline paths for refile targets - we file directly with IDO
-(setq org-refile-use-outline-path (quote file))
+(setq org-refile-use-outline-path (quote full-file-path))
 ; Targets complete directly with IDO
 (setq org-outline-path-complete-in-steps t)
 ; Allow refile to create parent tasks with confirmation
@@ -194,8 +194,7 @@
 
 (load-library "find-lisp")
 (setq org-agenda-files
-      (list (find-lisp-find-files org-directory  "\.org$")
-            (find-lisp-find-files org-internal-directory "\.org$")))
+      (append (find-lisp-find-files org-directory  "\.org$") (find-lisp-find-files org-internal-directory "\.org$")))
 
 ;; Mark a TODO entry DONE automatically when all children are done
 (defun org-summary-todo (n-done n-not-done)
