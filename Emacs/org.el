@@ -52,10 +52,16 @@
 
 ;; refile
 (setq org-completion-use-ido t)
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
-                                 (nil :maxlevel . 5))))
-(setq org-refile-use-outline-path (quote file))
+
+; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+; Use full outline paths for refile targets - we file directly with IDO
+(setq org-refile-use-outline-path (quote full-file-path))
+; Targets complete directly with IDO
 (setq org-outline-path-complete-in-steps t)
+; Allow refile to create parent tasks with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
 
 (setq org-tag-persistent-alist
       '(("Task" . nil)
@@ -173,12 +179,9 @@
         ))
 
 (setq org-default-notes-file (concat org-directory "/NOTE.org"))
-;; (define-key global-map "\C-cr" 'org-remember)
-
-;; (require 'org-protocol)
-(setq org-capture-templates `(("t" "Todo" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %? %^g %u %i %a" :prepend t)
+(setq org-capture-templates `(("t" "Tasks" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %? %^g %u %i %a" :prepend t)
                               ("n" "Note" entry (file+headline (concat org-directory "/NOTE.org") "Notes") "* %^{Title}  %^g %? %u %i %a" :prepend t)
-                              ("w" "org-protocol" entry (file (concat org-directory "/NOTE.org")) "* TODO Review %c  :NEXT: %U :PROPERTIES: :Effort: 0:10 :END:" :immediate-finish t)))
+                              ("q" "Quick task" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %^{Task} SCHEDULED: %^t" :immediate-finish t)))
 
 (define-key global-map "\C-cc" 'org-capture)
 
@@ -189,10 +192,9 @@
       )
 (org-clock-persistence-insinuate)
 
+(load-library "find-lisp")
 (setq org-agenda-files
-      (list org-directory          ;normal org files sync'd with Dropbox
-            org-internal-directory ;files that are not supposed to be cloud sync'd
-      ))
+      (append (find-lisp-find-files org-directory  "\.org$") (find-lisp-find-files org-internal-directory "\.org$")))
 
 ;; Mark a TODO entry DONE automatically when all children are done
 (defun org-summary-todo (n-done n-not-done)
@@ -201,9 +203,11 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+;;
+;; org-publish directories
+;;
 (require 'org-publish)
-(setq org-internal-static-directory (concat org-internal-directory "/images"))
-(setq org-static-screenshot-directory (concat org-internal-directory "/screenshots"))
+(setq org-publishing-directory "~/Dropbox/public_html")
 (if (and (boundp 'my-org-publish-to-remote) my-org-publish-to-remote)
     (setq org-internal-publishing-directory (concat "/ssh:" user-login-name "@starrc01:~/public_html"))
   (setq org-internal-publishing-directory "~/public_html"))
@@ -211,13 +215,13 @@
 (setq org-publish-project-alist
       `(                                ;use back-quote
         ;; publish to public cloud
-        ("org" :components ("org-notes" "org-static" "org-static-screenshot"))
+        ("org" :components ("org-notes" "org-css" "org-doc" "org-images"))
 
         ;; components
         ("org-notes"
          :base-directory ,org-directory
          :base-extension "org"
-         :publishing-directory "~/Dropbox/public_html"
+         :publishing-directory ,org-publishing-directory
          :recursive t
          :publishing-function org-publish-org-to-html
          :plain-source t
@@ -237,24 +241,32 @@
          :sitemap-sort-files "anti-chronologically"
          )
 
-        ("org-static"
-         :base-directory ,org-directory
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|mp3\\|ogg\\|swf\\|mm"
-         :publishing-directory "~/Dropbox/public_html/"
+        ("org-css"
+         :base-directory ,(concat org-directory "/css")
+         :base-extension "css\\|js"
+         :publishing-directory ,(concat org-publishing-directory "/css")
          :recursive t
          :publishing-function org-publish-attachment
          )
 
-        ("org-static-screenshot"
-         :base-directory ,org-static-screenshot-directory
+        ("org-doc"
+         :base-directory ,(concat org-directory "/doc")
+         :publishing-directory ,(concat org-publishing-directory "/doc")
+         :base-extension "doc\\|docx\\|ppt\\|pptx\\|pdf"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+
+        ("org-images"
+         :base-directory ,(concat org-directory "/images")
          :base-extension "png\\|jpg\\|gif"
-         :publishing-directory "~/Dropbox/public_html/"
+         :publishing-directory ,(concat org-publishing-directory "/images")
          :recursive t
          :publishing-function org-publish-attachment
          )
 
         ;; publish to internal cloud
-        ("org-internal" :components ("org-internal-notes" "org-internal-static"))
+        ("org-internal" :components ("org-internal-notes" "org-internal-css" "org-internal-images"))
 
         ;; for everythings that should be kept away from public
         ("org-internal-notes"
@@ -279,10 +291,18 @@
          :tags nil
          )
 
-        ("org-internal-static"
-         :base-directory ,org-internal-static-directory
-         :publishing-directory ,org-internal-publishing-directory
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|mp3\\|ogg\\|swf\\|mm"
+        ("org-internal-css"
+         :base-directory ,(concat org-internal-directory "/css")
+         :publishing-directory ,(concat org-internal-publishing-directory "/css")
+         :base-extension "css\\|js"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+
+        ("org-internal-images"
+         :base-directory ,(concat org-internal-directory "/images")
+         :base-extension "png\\|jpg\\|gif"
+         :publishing-directory ,(concat org-internal-publishing-directory "/images")
          :recursive t
          :publishing-function org-publish-attachment
          )
@@ -382,11 +402,8 @@
 
 ;; encryption
 (require 'org-crypt)
-                                        ; Encrypt all entries before saving
-(org-crypt-use-before-save-magic)
-                                        ; Which tag is used to mark headings to be encrypted
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-                                        ; GPG key to use for encryption
+(org-crypt-use-before-save-magic) ; Encrypt all entries before saving
+(setq org-tags-exclude-from-inheritance (quote ("crypt"))) ; Which tag is used to mark headings to be encrypted
 (setq org-crypt-key "0C6F5345") ;; yenliangl@gmail.com
 
 ;; unique id for every task
@@ -542,3 +559,18 @@ org-mode."
         (ltoc . "1")
         (up . :link-up)
         (home . :link-home)))
+
+
+;; link abbreviations
+(setq org-link-abbrev-alist
+      '(("bugzilla"    . "http://10.1.2.9/bugzilla/show_bug.cgi?id=")
+        ("google-play" . "https://play.google.com/store/apps/details?id=")
+        ("gmap"        . "http://maps.google.com/maps?q=%s")
+        ("omap"        . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")
+        ("ads"         . "http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?author=%s&db_key=AST")))
+
+;; mobile-org
+(setq org-mobile-directory (concat org-directory "/MobileOrg"))
+(setq org-mobile-directory org-directory)
+(setq org-mobile-inbox-for-pull (concat org-directory "/TASK.org"))
+;; (setq org-mobile-files
