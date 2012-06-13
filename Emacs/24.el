@@ -1,12 +1,13 @@
 ;; ------------------------------------------------------------
 ;; Stuff that is specific to Emacs 24
 ;; ------------------------------------------------------------
-(message "===> loading settings for Emacs 24")
 
 ;; --------------------------------------------------
 ;; package sources
 ;; --------------------------------------------------
 (require 'package)
+(add-to-list 'package-archives
+             '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives
              '("elpa" . "http://tromey.com/elpa/"))
 ;; Add the user-contributed repository
@@ -16,9 +17,11 @@
 ;; --------------------------------------------------
 ;; Color theme
 ;; --------------------------------------------------
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "/themes/24"))
 (add-hook 'after-make-window-system-frame-hooks
           (lambda ()
-            (load-theme 'tango-dark)
+            ;; (load-theme 'tango-dark)
+            (load-theme 'twilight)
             ))
 
 ;; --------------------------------------------------

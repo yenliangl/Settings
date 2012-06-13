@@ -10,6 +10,6 @@
 ;; Enable EDE (Project Management) features
 (global-ede-mode t)
 
-(semantic-load-enable-minimum-features)
+;; (semantic-load-enable-minimum-features)
 (semantic-load-enable-code-helpers)
 (global-srecode-minor-mode 1)

@@ -46,11 +46,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;+ JDEE settings
 ;;
-;; (setq JDE_LISP_HOME (concat LISP_HOME "/jde/trunk/trunk/jdee/build"))
 (setq JDE_LISP_HOME (concat LISP_HOME "/jde/2.4.0.1"))
-;; (setq JDE_LISP_HOME (concat LISP_HOME "/jde/trunk"))
-
-; (setq debug-on-error nil)
+;; (setq debug-on-error nil)
 (add-to-list 'load-path (concat JDE_LISP_HOME "/lisp"))
 (add-to-list 'load-path (concat LISP_HOME "/elib-1.0"))
 
