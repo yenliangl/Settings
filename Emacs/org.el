@@ -57,7 +57,7 @@
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 ; Use full outline paths for refile targets - we file directly with IDO
-(setq org-refile-use-outline-path (quote file)
+(setq org-refile-use-outline-path (quote file))
 ; Targets complete directly with IDO
 (setq org-outline-path-complete-in-steps t)
 ; Allow refile to create parent tasks with confirmation
@@ -192,15 +192,10 @@
       )
 (org-clock-persistence-insinuate)
 
+(load-library "find-lisp")
 (setq org-agenda-files
-      (list org-directory          ;normal org files sync'd with Dropbox
-            org-internal-directory ;files that are not supposed to be cloud sync'd
-            (concat org-directory "/Journal")
-            (concat org-directory "/Project")
-            (concat org-directory "/Study")
-            (concat org-internal-directory "/Journal")
-            (concat org-internal-directory "/Project")
-            ))
+      (list (find-lisp-find-files org-directory  "\.org$")
+            (find-lisp-find-files org-internal-directory "\.org$")))
 
 ;; Mark a TODO entry DONE automatically when all children are done
 (defun org-summary-todo (n-done n-not-done)
