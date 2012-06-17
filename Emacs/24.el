@@ -21,7 +21,7 @@
 (add-hook 'after-make-window-system-frame-hooks
           (lambda ()
             ;; (load-theme 'tango-dark)
-            (load-theme 'twilight)
+            (load-theme 'monokai)
             ))
 
 ;; --------------------------------------------------
