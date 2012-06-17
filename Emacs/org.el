@@ -181,7 +181,21 @@
 (setq org-default-notes-file (concat org-directory "/NOTE.org"))
 (setq org-capture-templates `(("t" "Tasks" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %? %^g %u %i %a" :prepend t)
                               ("n" "Note" entry (file+headline (concat org-directory "/NOTE.org") "Notes") "* %^{Title}  %^g %? %u %i %a" :prepend t)
-                              ("q" "Quick task" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %^{Task} SCHEDULED: %^t" :immediate-finish t)))
+                              ("q" "Quick task" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %^{Task} SCHEDULED: %^t" :immediate-finish t)
+                              ("l" "Ledger entries")
+                              ("lm" "MBNA" plain
+                               (file "~/Dropbox/Org/ledger")
+                               "%(org-read-date) %^{Payee}
+  Liabilities:MBNA
+  Expenses:%^{Account}  %^{Amount}
+")
+                              ("lc" "Cash" plain
+                               (file "~/Dropbox/Org/ledger")
+                               "%(org-read-date) * %^{Payee}
+  Expenses:Cash
+  Expenses:%^{Account}  %^{Amount}
+")
+                              ))
 
 (define-key global-map "\C-cc" 'org-capture)
 
@@ -333,18 +347,27 @@
 ;;  '(remember-handler-functions (quote (org-remember-handler))))
 
 (setq org-agenda-custom-commands
-      '(("X" agenda    ""        nil ("agenda.html" "agenda.ps"))
-        ("Y" alltodo   ""        nil ("todo.html" "todo.txt" "todo.ps"))
-        ("S" tags-todo "STUDY"   nil ("study.html" "study.txt" "study.ps"))
-        ("F" tags-todo "FINANCE" nil ("finance.html" "finance.txt" "finance.ps"))
-        ("E" tags-todo "EMAIL"   nil ("email.html" "email.txt" "email.ps"))
+      '(("W" "Weekly Habits"
+         ((agenda ""))
+         ((org-agenda-show-log t)
+          (org-agenda-ndays 7)
+          (org-agenda-log-mode-items '(state))
+          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Weekly:"))))
 
-        ("o" "Agenda and Office-related tasks"
-         ((agenda "TODO")
-          (tags-todo "aspirin")
-          (tags "office"))
-         nil
-         ("~/views/office.ps" "~/calendars/office.ics"))))
+        ("D" "Daily Habits"
+         ((agenda ""))
+         ((org-agenda-show-log t)
+          (org-agenda-ndays 7)
+          (org-agenda-log-mode-items '(state))
+          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Daily:"))))
+
+        ("M" "Monthly Habits"
+         ((agenda ""))
+         ((org-agenda-show-log t)
+          (org-agenda-ndays 7)
+          (org-agenda-log-mode-items '(state))
+          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Monthly:"))))
+        ))
 
 ;; (setq org-agenda-exporter-settings
 ;;       '((ps-number-of-columns 2)
