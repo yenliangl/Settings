@@ -47,7 +47,7 @@
       scroll-margin 3
       oll-conservatively 10000
       visible-bell nil
-      x-select-enable-clipboard t
+      x-select-enable-clipboard t       ;already t in Emacs 24.
       column-number-mode t
 
       ;; --------------------------------------------------
