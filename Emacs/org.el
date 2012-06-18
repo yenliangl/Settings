@@ -44,7 +44,7 @@
 ;; STARTED = ACTION
 ;; DONE = FINISHED
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@)" "SOMEDAY(o!)" "MAYBE(m@/!)" "|" "CANCELLED(c@/!)" "DONE(d@/!)")
+      '((sequence "NEXT(n) TODO(t)" "STARTED(s)" "WAITING(w@)" "SOMEDAY(o!)" "MAYBE(m@/!)" "|" "CANCELLED(c@/!)" "DONE(d@/!)")
         (sequence "BUG(b!)" "ASSIGNED(a!)" "|" "REJECTED(j@/!)" "CLOSED(C@/!)" "FIXED(x@)")
         ))
 (setq org-use-fast-todo-selection t)
@@ -178,24 +178,10 @@
         ("Training" . nil)
         ))
 
-(setq org-default-notes-file (concat org-directory "/NOTE.org"))
-(setq org-capture-templates `(("t" "Tasks" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %? %^g %u %i %a" :prepend t)
-                              ("n" "Note" entry (file+headline (concat org-directory "/NOTE.org") "Notes") "* %^{Title}  %^g %? %u %i %a" :prepend t)
-                              ("q" "Quick task" entry (file+headline (concat org-directory "/TASK.org") "Tasks") "* TODO %^{Task} SCHEDULED: %^t" :immediate-finish t)
-                              ("l" "Ledger entries")
-                              ("lm" "MBNA" plain
-                               (file "~/Dropbox/Org/ledger")
-                               "%(org-read-date) %^{Payee}
-  Liabilities:MBNA
-  Expenses:%^{Account}  %^{Amount}
-")
-                              ("lc" "Cash" plain
-                               (file "~/Dropbox/Org/ledger")
-                               "%(org-read-date) * %^{Payee}
-  Expenses:Cash
-  Expenses:%^{Account}  %^{Amount}
-")
-                              ))
+(setq org-default-notes-file (concat org-directory "/REFILE.org"))
+(setq org-capture-templates `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %? %^g %u %i %a" :prepend t)
+                              ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Title}  %^g %? %u %i %a" :prepend t)
+                              ("q" "Quick task" entry (file+headline (concat org-directory "/TASK.org") "Task") "* NEXT %^{Task} SCHEDULED: %^t" :immediate-finish t)))
 
 (define-key global-map "\C-cc" 'org-capture)
 
@@ -246,13 +232,13 @@
          :style "<link rel=\"stylesheet\" href=\"css/org.css\" type=\"text/css\"/>"
          :auto-preamble t
          :auto-index t
-         :index-filename "sitemap.org"
-         :index-title "Sitemap"
+         :auto-sitemap t
          :sitemap-filename "index.html"
          :sitemap-title "Homepage of Liu, Yen-Liang (David)"
          :sitemap-style "tree"
-         :sitemap-sort-folders "first"
+         :sitemap-sort-folders "last"
          :sitemap-sort-files "anti-chronologically"
+         :tags nil
          )
 
         ("org-css"
@@ -322,47 +308,147 @@
          )
         ))
 
+;; --------------------------------------------------
+;; Agenda view
+;; --------------------------------------------------
 ;; tasks with dates are scheduled into the future sometime and you don't
 ;; need to deal with them until the date approaches
 (setq org-agenda-todo-ignore-with-date t)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-skip-timestamp-if-done t)
-
 (setq org-agenda-ndays 7
       org-deadline-warning-days 3
       ;;       org-remember-store-without-prompt nil
       org-agenda-show-all-dates nil
       ;;       remember-annotation-functions (quote (org-remember-annotation))
       ;;       remember-handler-functions (quote (org-remember-handler))
-      org-agenda-include-diary nil
+      org-agenda-include-diary t        ;include Emacs diary
       org-use-property-inheritance t
       org-reverse-note-order t
       )
 
-;; (custom-set-variables
-;;  '(org-fast-tag-selection-single-key (quote expert))
-;;  '(org-remember-store-without-prompt nil)
-;;  '(remember-annotation-functions (quote (org-remember-annotation)))
-;;  '(remember-handler-functions (quote (org-remember-handler))))
+;; Dim blocked tasks
+(setq org-agenda-dim-blocked-tasks t)
+
+;; Compact the block agenda view
+(setq org-agenda-compact-blocks t)
+
+;; Custom agenda command definitions
+
+;; -----------------------------------
+;; Copied from http://doc.norang.ca/org-mode.html#sec-4-4
+;; -----------------------------------
+;; (setq org-agenda-custom-commands
+;;       (quote (("N" "Notes" tags "NOTE"
+;;                ((org-agenda-overriding-header "Notes")
+;;                 (org-tags-match-list-sublevels t)))
+;;               ("h" "Habits" tags-todo "STYLE=\"habit\""
+;;                ((org-agenda-overriding-header "Habits")
+;;                 (org-agenda-sorting-strategy
+;;                  '(todo-state-down effort-up category-keep))))
+;;               (" " "Agenda"
+;;                ((agenda "" nil)
+;;                 (tags "REFILE"
+;;                       ((org-agenda-overriding-header "Tasks to Refile")
+;;                        (org-tags-match-list-sublevels nil)))
+;;                 (tags-todo "-CANCELLED/!"
+;;                            ((org-agenda-overriding-header "Stuck Projects")
+;;                             (org-agenda-skip-function 'bh/skip-non-stuck-projects)))
+;;                 (tags-todo "-WAITING-CANCELLED/!NEXT"
+;;                            ((org-agenda-overriding-header "Next Tasks")
+;;                             (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+;;                             (org-agenda-todo-ignore-scheduled t)
+;;                             (org-agenda-todo-ignore-deadlines t)
+;;                             (org-agenda-todo-ignore-with-date t)
+;;                             (org-tags-match-list-sublevels t)
+;;                             (org-agenda-sorting-strategy
+;;                              '(todo-state-down effort-up category-keep))))
+;;                 (tags-todo "-REFILE-CANCELLED/!-SOMEDAY-WAITING"
+;;                            ((org-agenda-overriding-header "Tasks")
+;;                             (org-agenda-skip-function 'bh/skip-project-tasks-maybe)
+;;                             (org-agenda-todo-ignore-scheduled t)
+;;                             (org-agenda-todo-ignore-deadlines t)
+;;                             (org-agenda-todo-ignore-with-date t)
+;;                             (org-agenda-sorting-strategy
+;;                              '(category-keep))))
+;;                 (tags-todo "-SOMEDAY-CANCELLED/!"
+;;                            ((org-agenda-overriding-header "Projects")
+;;                             (org-agenda-skip-function 'bh/skip-non-projects)
+;;                             (org-agenda-sorting-strategy
+;;                              '(category-keep))))
+;;                 (tags-todo "-CANCELLED/!WAITING|SOMEDAY"
+;;                            ((org-agenda-overriding-header "Waiting and Postponed Tasks")
+;;                             (org-agenda-skip-function 'bh/skip-stuck-projects)
+;;                             (org-tags-match-list-sublevels nil)
+;;                             (org-agenda-todo-ignore-scheduled 'future)
+;;                             (org-agenda-todo-ignore-deadlines 'future)))
+;;                 (tags "-REFILE/"
+;;                       ((org-agenda-overriding-header "Tasks to Archive")
+;;                        (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+;;                        (org-tags-match-list-sublevels nil))))
+;;                nil)
+;;               ("r" "Tasks to Refile" tags "REFILE"
+;;                ((org-agenda-overriding-header "Tasks to Refile")
+;;                 (org-tags-match-list-sublevels nil)))
+;;               ("#" "Stuck Projects" tags-todo "-CANCELLED/!"
+;;                ((org-agenda-overriding-header "Stuck Projects")
+;;                 (org-agenda-skip-function 'bh/skip-non-stuck-projects)))
+;;               ("n" "Next Tasks" tags-todo "-WAITING-CANCELLED/!NEXT"
+;;                ((org-agenda-overriding-header "Next Tasks")
+;;                 (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+;;                 (org-agenda-todo-ignore-scheduled t)
+;;                 (org-agenda-todo-ignore-deadlines t)
+;;                 (org-agenda-todo-ignore-with-date t)
+;;                 (org-tags-match-list-sublevels t)
+;;                 (org-agenda-sorting-strategy
+;;                  '(todo-state-down effort-up category-keep))))
+;;               ("R" "Tasks" tags-todo "-REFILE-CANCELLED/!-SOMEDAY-WAITING"
+;;                ((org-agenda-overriding-header "Tasks")
+;;                 (org-agenda-skip-function 'bh/skip-project-tasks-maybe)
+;;                 (org-agenda-sorting-strategy
+;;                  '(category-keep))))
+;;               ("p" "Projects" tags-todo "-SOMEDAY-CANCELLED/!"
+;;                ((org-agenda-overriding-header "Projects")
+;;                 (org-agenda-skip-function 'bh/skip-non-projects)
+;;                 (org-agenda-sorting-strategy
+;;                  '(category-keep))))
+;;               ("w" "Waiting Tasks" tags-todo "-CANCELLED/!WAITING|SOMEDAY"
+;;                ((org-agenda-overriding-header "Waiting and Postponed tasks"))
+;;                (org-tags-match-list-sublevels nil))
+;;               ("A" "Tasks to Archive" tags "-REFILE/"
+;;                ((org-agenda-overriding-header "Tasks to Archive")
+;;                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+;;                 (org-tags-match-list-sublevels nil))))))
 
 (setq org-agenda-custom-commands
-      '(("W" "Weekly Habits"
-         ((agenda ""))
+      '(("A" "Agenda"
+         ((agenda "")
+          (tags "REFILE"
+                ((org-agenda-overriding-header "Tasks to Refile")
+                 (org-tags-match-list-sublevels nil)))
+          ))
+
+        ("W" "Weekly Habits"
+         ((agenda "")
+          (tags "Habit"))
+
          ((org-agenda-show-log t)
           (org-agenda-ndays 7)
           (org-agenda-log-mode-items '(state))
           (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Weekly:"))))
 
         ("D" "Daily Habits"
-         ((agenda ""))
+         ((agenda "")
+          (tags "Habit"))
          ((org-agenda-show-log t)
           (org-agenda-ndays 7)
           (org-agenda-log-mode-items '(state))
           (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Daily:"))))
 
         ("M" "Monthly Habits"
-         ((agenda ""))
+         ((agenda "")
+          (tags "Habit"))
          ((org-agenda-show-log t)
           (org-agenda-ndays 7)
           (org-agenda-log-mode-items '(state))
@@ -453,11 +539,10 @@
 ;;_+ Babel
 ;;
 
-;; (defconst my-org-ditaa-jar-path "~/Jar/ditaa0_9.jar")
-;; (if (eq system-type 'cygwin)
-;;     (setq org-ditaa-jar-path (shell-command-to-string (concat "cygpath -w " my-org-ditaa-jar-path)))
-;;   (setq org-ditaa-jar-path (expand-file-name my-org-ditaa-jar-path)))
-;; (setq org-ditaa-jar-path "~/Jar/ditaa0_9.jar")
+(defconst my-org-ditaa-jar-path (concat ORG_LISP_HOME "/contrib/scripts/ditaa.jar"))
+(if (eq system-type 'cygwin)
+    (setq org-ditaa-jar-path (replace-regexp-in-string "\n" "" (shell-command-to-string (concat "cygpath -w " my-org-ditaa-jar-path))))
+  (setq org-ditaa-jar-path my-org-ditaa-jar-path))
 ;;(setq org-plantuml-jar-path "~/java/plantuml.jar")
 ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 (setq org-startup-with-inline-images nil)

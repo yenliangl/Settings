@@ -30,22 +30,18 @@
 (require 'cygwin-mount)
 (cygwin-mount-activate)
 
+;; Add Cygwin Info pages
+(setq Info-default-directory-list (append Info-default-directory-list (list "c:/cygwin/usr/info/")))
+
+(setq w32-quote-process-args ?\") ;; " @@@ IS THIS BETTER? ;@@@ WAS THIS BEFORE: (setq w32-quote-process-args t)
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (A) M-x shell: This change M-x shell permanently
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Would call Windows command interpreter. Change it.
-(setq explicit-shell-file-name "bash.exe")
-;; For subprocesses invoked via the shell
-;; (e.g., "shell -c command")
-(setq shell-file-name explicit-shell-file-name)
-
-;; Remove C-m (^M) characters that appear in output
-;; (add-hook 'comint-output-filter-functions
-;;           'comint-strip-ctrl-m)
-(add-hook 'comint-output-filter-functions 'shell-strip-ctrl-m nil t)
-;; (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt nil t)
-
+;; (setq shell-file-name "bash")
+;; (setenv "SHELL" shell-file-name)
+;; (setq explicit-shell-file-name shell-file-name)
+;; (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m) ; Remove C-m (^M) characters that appear in output
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (B) *OR* call following function with M-x my-bash
@@ -81,10 +77,3 @@
       (setq comint-completion-addsuffix '("/" . ""))
       ;;  This variable is local to buffer
       (setq comint-prompt-regexp "^[ \n\t]*[$] ?"))))
-
-
-;;
-;;
-;;
-;; (require 'cygwin-link)
-(setq-default ispell-program-name "aspell")
