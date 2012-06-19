@@ -313,28 +313,22 @@
 ;; --------------------------------------------------
 ;; tasks with dates are scheduled into the future sometime and you don't
 ;; need to deal with them until the date approaches
-(setq org-agenda-todo-ignore-with-date t)
-(setq org-agenda-skip-deadline-if-done t)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-skip-timestamp-if-done t)
-(setq org-agenda-ndays 7
+(setq org-agenda-todo-ignore-with-date t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-timestamp-if-done t
+      org-agenda-span 'week             ;org-agenda-ndays is obsolete
       org-deadline-warning-days 3
-      ;;       org-remember-store-without-prompt nil
       org-agenda-show-all-dates nil
+      ;;       org-remember-store-without-prompt nil
       ;;       remember-annotation-functions (quote (org-remember-annotation))
       ;;       remember-handler-functions (quote (org-remember-handler))
       org-agenda-include-diary t        ;include Emacs diary
       org-use-property-inheritance t
       org-reverse-note-order t
+      org-agenda-dim-blocked-tasks t    ;dim blocked tasks
+      org-agenda-compact-blocks t       ;compact the block agenda view
       )
-
-;; Dim blocked tasks
-(setq org-agenda-dim-blocked-tasks t)
-
-;; Compact the block agenda view
-(setq org-agenda-compact-blocks t)
-
-;; Custom agenda command definitions
 
 ;; -----------------------------------
 ;; Copied from http://doc.norang.ca/org-mode.html#sec-4-4
@@ -461,152 +455,6 @@
 ;;         (org-agenda-add-entry-text-maxlines 5)
 ;;         (htmlize-output-type 'css)))
 
-;; (require 'org-latex)
-
-(setq org-clock-persist t)
-(org-clock-persistence-insinuate)
-(setq org-clock-history-length 35)
-(setq org-clock-in-resume t)
-(setq org-clock-in-switch-to-state "STARTED")
-(setq org-clock-into-drawer t)
-(setq org-clock-out-remove-zero-time-clocks t)
-(setq org-clock-out-when-done t)
-(setq org-export-html-inline-images t)
-
-;; Include agenda archive file when searching for things
-(setq org-agenda-text-search-extra-files (quote (agenda-archives)))
-
-;; activate highlight-line-mode for aganda view
-(add-hook 'org-agenda-mode-hook
-          '(lambda ()
-             (hl-line-mode 1)))
-
-;; show all future entries for repeating tasks
-(setq org-agenda-repeating-timestamp-show-all t)
-(setq org-agenda-show-all-dates t)
-
-;; sorting order for tasks on the agenda
-(setq org-agenda-sorting-strategy
-      (quote ((agenda time-up priority-down effort-up category-up)
-              (todo priority-down)
-              (tags priority-down))))
-
-;; start the weekly agenda today
-(setq org-agenda-start-on-weekday nil)
-
-;; customize display of the time grid
-(setq org-agenda-time-grid
-      (quote (nil "-------------------------------------"
-                  (800 1000 1200 1400 1600 1800 2000))))
-
-;; w3m
-;;(require 'org-w3m)
-;;(require 'org-wl)
-
-;; invoice support
-(autoload 'org-invoice-report "org-invoice")
-(autoload 'org-dblock-write:invoice "org-invoice")
-
-(require 'org-habit)
-
-;; encryption
-(require 'org-crypt)
-(org-crypt-use-before-save-magic) ; Encrypt all entries before saving
-(setq org-tags-exclude-from-inheritance (quote ("crypt"))) ; Which tag is used to mark headings to be encrypted
-(setq org-crypt-key "0C6F5345") ;; yenliangl@gmail.com
-
-;; unique id for every task
-(require 'org-id)
-(setq org-id-method (quote uuidgen))
-;; (add-hook 'org-insert-heading-hook
-;;           (lambda () (org-id-get-create))) ;; always add ID for a header section
-
-;; attachments
-(setq org-attach-directory (expand-file-name (concat DROPBOX "/Data")))
-;;
-;; Attachment
-
-(cond ((eq system-type 'cygwin) (setq org-attach-open "cygstart %s"))
-      ((eq system-type 'darwin) (setq org-attach-open "open %s"))
-      (t (setq org-attach-open "gnome-open")))
-(setq org-file-apps
-      `((auto-mode . emacs) ("\\.*\\'" . ,org-attach-open)))
-
-;; fontify source block
-(setq org-src-fontify-natively t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;_+ Babel
-;;
-
-(defconst my-org-ditaa-jar-path (concat ORG_LISP_HOME "/contrib/scripts/ditaa.jar"))
-(if (eq system-type 'cygwin)
-    (setq org-ditaa-jar-path (replace-regexp-in-string "\n" "" (shell-command-to-string (concat "cygpath -w " my-org-ditaa-jar-path))))
-  (setq org-ditaa-jar-path my-org-ditaa-jar-path))
-;;(setq org-plantuml-jar-path "~/java/plantuml.jar")
-;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-(setq org-startup-with-inline-images nil)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t)
-   (ditaa . t)
-   (dot . t)
-   (emacs-lisp . t)
-   (gnuplot . t)
-   (haskell . nil)
-   (latex . t)
-   (ledger . t)         ;this is the important one for this tutorial
-   (ocaml . nil)
-   (octave . t)
-   (python . t)
-   (ruby . t)
-   (screen . nil)
-   (sh . t)
-   (sql . nil)
-   (sqlite . t)))
-
-(defun my-org-agenda-to-appt ()
-  (interactive)
-  (setq appt-time-msg-list nil)
-  (org-agenda-to-appt))
-(add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
-(run-at-time "24:01" nil 'my-org-agenda-to-appt)
-
-(my-org-agenda-to-appt)
-(run-at-time "00:59" 3600 'org-save-all-org-buffers) ; save all org-buffers at 1 minute before the hour
-
-(defun org-journal-insert-today-heading ()
-  "Create a new diary entry for today or append to an existing one."
-  (interactive)
-  (widen)
-  (let ((today (format-time-string "%Y/%m/%d %a")))
-    ;; (beginning-of-buffer)
-    (unless (org-goto-local-search-headings today nil t)
-      ((lambda ()
-         (org-insert-subheading 2)
-         ;; (org-insert-heading 2)
-         (insert today)
-         ;; insert a item '-' for user to get started journaling
-         (insert "\n   - "))))))
-
-(defun org-journal-insert-month-heading ()
-  "Create a new diary entry for today or append to an existing one."
-  (interactive)
-  (widen)
-  (let ((month (format-time-string "%Y/%m ")))
-    ;; (beginning-of-buffer)
-    (unless (org-goto-local-search-headings month nil t)
-      ((lambda ()
-         (org-insert-heading)
-         (insert month)
-         (insert (concat ":@" (format-time-string "%B") ":"))
-         (insert "\n")
-         (org-align-all-tags)
-         ;; insert first day journal heading
-         (org-journal-insert-today-heading)
-         )))))
-
 (setq org-agenda-diary-file (concat org-directory "/diary.org")) ;; change this
 
 (defadvice org-agenda-add-entry-to-org-agenda-diary-file
@@ -646,9 +494,157 @@ org-mode."
         (message "Plain text written to %s" offline)))))
 (ad-activate 'org-agenda-add-entry-to-org-agenda-diary-file)
 
+;; (require 'org-latex)
+
+(setq org-clock-persist t)
+(org-clock-persistence-insinuate)
+(setq org-clock-history-length 35)
+(setq org-clock-in-resume t)
+(setq org-clock-in-switch-to-state "STARTED")
+(setq org-clock-into-drawer t)
+(setq org-clock-out-remove-zero-time-clocks t)
+(setq org-clock-out-when-done t)
+(setq org-export-html-inline-images t)
+
+;; Include agenda archive file when searching for things
+(setq org-agenda-text-search-extra-files (quote (agenda-archives)))
+
+;; activate highlight-line-mode for aganda view
+(add-hook 'org-agenda-mode-hook
+          '(lambda ()
+             (hl-line-mode 1)))
+
+;; show all future entries for repeating tasks
+(setq org-agenda-repeating-timestamp-show-all t)
+(setq org-agenda-show-all-dates t)
+
+;; sorting order for tasks on the agenda
+(setq org-agenda-sorting-strategy
+      (quote ((agenda time-up priority-down effort-up category-up)
+              (todo priority-down)
+              (tags priority-down))))
+
+;; start the weekly agenda today
+(setq org-agenda-start-on-weekday nil)
+
+;; customize display of the time grid
+;; (setq org-agenda-time-grid
+;;       (quote (nil "-------------------------------------"
+;;                   (800 1000 1200 1400 1600 1800 2000))))
+
+(defun my-org-agenda-to-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+(add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
+(run-at-time "24:01" nil 'my-org-agenda-to-appt)
+
+(my-org-agenda-to-appt)
+(run-at-time "00:59" 3600 'org-save-all-org-buffers) ; save all org-buffers at 1 minute before the hour
+
+;; --------------------------------------------------
+;; w3m
+;; --------------------------------------------------
+;;(require 'org-w3m)
+;;(require 'org-wl)
+
+;; invoice support
+(autoload 'org-invoice-report "org-invoice")
+(autoload 'org-dblock-write:invoice "org-invoice")
+
+(require 'org-habit)
+
+;; encryption
+(require 'org-crypt)
+(org-crypt-use-before-save-magic) ; Encrypt all entries before saving
+(setq org-tags-exclude-from-inheritance (quote ("crypt"))) ; Which tag is used to mark headings to be encrypted
+(setq org-crypt-key "0C6F5345") ;; yenliangl@gmail.com
+
+;; unique id for every task
+(require 'org-id)
+(setq org-id-method (quote uuidgen))
+;; (add-hook 'org-insert-heading-hook
+;;           (lambda () (org-id-get-create))) ;; always add ID for a header section
+
+;; --------------------------------------------------
+;; Attachments
+;; --------------------------------------------------
+(setq org-attach-directory (expand-file-name (concat DROPBOX "/Data")))
+(cond ((eq system-type 'cygwin) (setq org-attach-open "cygstart %s"))
+      ((eq system-type 'darwin) (setq org-attach-open "open %s"))
+      (t (setq org-attach-open "gnome-open")))
+(setq org-file-apps
+      `((auto-mode . emacs) ("\\.*\\'" . ,org-attach-open)))
+
+;; --------------------------------------------------
+;; babel
+;; --------------------------------------------------
+(defconst my-org-ditaa-jar-path (concat ORG_LISP_HOME "/contrib/scripts/ditaa.jar"))
+(if (eq system-type 'cygwin)
+    (setq org-ditaa-jar-path (replace-regexp-in-string "\n" "" (shell-command-to-string (concat "cygpath -w " my-org-ditaa-jar-path))))
+  (setq org-ditaa-jar-path my-org-ditaa-jar-path))
+;;(setq org-plantuml-jar-path "~/java/plantuml.jar")
+;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+(setq org-startup-with-inline-images nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (ditaa . t)
+   (dot . t)
+   (emacs-lisp . t)
+   (gnuplot . t)
+   (haskell . nil)
+   (latex . t)
+   (ledger . t)         ;this is the important one for this tutorial
+   (ocaml . nil)
+   (octave . t)
+   (python . t)
+   (ruby . t)
+   (screen . nil)
+   (sh . t)
+   (sql . nil)
+   (sqlite . t)))
+
+
+(defun org-journal-insert-today-heading ()
+  "Create a new diary entry for today or append to an existing one."
+  (interactive)
+  (widen)
+  (let ((today (format-time-string "%Y/%m/%d %a")))
+    ;; (beginning-of-buffer)
+    (unless (org-goto-local-search-headings today nil t)
+      ((lambda ()
+         (org-insert-subheading 2)
+         ;; (org-insert-heading 2)
+         (insert today)
+         ;; insert a item '-' for user to get started journaling
+         (insert "\n   - "))))))
+
+(defun org-journal-insert-month-heading ()
+  "Create a new diary entry for today or append to an existing one."
+  (interactive)
+  (widen)
+  (let ((month (format-time-string "%Y/%m ")))
+    ;; (beginning-of-buffer)
+    (unless (org-goto-local-search-headings month nil t)
+      ((lambda ()
+         (org-insert-heading)
+         (insert month)
+         (insert (concat ":@" (format-time-string "%B") ":"))
+         (insert "\n")
+         (org-align-all-tags)
+         ;; insert first day journal heading
+         (org-journal-insert-today-heading)
+         )))))
+
 ;; (setq org-startup-indented nil)
 
+;; fontify source block
+(setq org-src-fontify-natively t)
+
 ;; Use htmlize. Be sure to check if it uses the latest version
+
 (require 'htmlize)
 (setq htmlize-output-type 'css
       htmlize-html-charset "utf-8"
@@ -668,7 +664,6 @@ org-mode."
         (up . :link-up)
         (home . :link-home)))
 
-
 ;; link abbreviations
 (setq org-link-abbrev-alist
       '(("bugzilla"    . "http://10.1.2.9/bugzilla/show_bug.cgi?id=")
@@ -677,8 +672,10 @@ org-mode."
         ("omap"        . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")
         ("ads"         . "http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?author=%s&db_key=AST")))
 
+;; --------------------------------------------------
 ;; mobile-org
-(setq org-mobile-directory (concat org-directory "/MobileOrg"))
-(setq org-mobile-directory org-directory)
-(setq org-mobile-inbox-for-pull (concat org-directory "/TASK.org"))
+;; --------------------------------------------------
+;; (setq org-mobile-directory (concat org-directory "/MobileOrg"))
+;; (setq org-mobile-directory org-directory)
+;; (setq org-mobile-inbox-for-pull (concat org-directory "/TASK.org"))
 ;; (setq org-mobile-files
