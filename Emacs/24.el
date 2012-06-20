@@ -20,13 +20,13 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "/themes/24"))
 (add-hook 'after-make-window-system-frame-hooks
           (lambda ()
-            ;; (load-theme 'tango-dark)
+            ;; (load-theme 'twilight)
             (load-theme 'monokai)
             ))
 
 ;; --------------------------------------------------
 ;; Org-mode
 ;; --------------------------------------------------
-(setq ORG_LISP_HOME (concat LISP_HOME "/org/org-7.8.09"))
+(setq ORG_LISP_HOME (concat LISP_HOME "/org/org-7.8.11"))
 (add-to-list 'load-path (concat ORG_LISP_HOME "/lisp"))
 (add-to-list 'load-path (concat ORG_LISP_HOME "/contrib/lisp"))
