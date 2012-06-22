@@ -488,7 +488,13 @@
 ;; ----------------------------------------------------------------------
 (add-to-list 'load-path (concat LISP_HOME "/emacs-w3m/lisp"))
 (require 'w3m-load)
-(setq browse-url-browser-function 'w3m-browse-url
+;; (setq w3m-command (concat "w3m -bookmark " user-emacs-directory "/.w3m/bookmark.html"))
+(defun w3m-browse-url-other-window (url &optional newwin)
+  (let ((w3m-pop-up-windows t))
+    (if (one-window-p) (split-window))
+    (other-window 1)
+    (w3m-browse-url url newwin)))
+(setq browse-url-browser-function 'w3m-browse-url-other-window
       browse-url-new-window-flag t
       )
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
