@@ -43,12 +43,32 @@
 (setq org-support-shift-select t)
 ;; STARTED = ACTION
 ;; DONE = FINISHED
+
+;; The "|" separates the TODO keywords (states that need action) from the DONE
+;; states (which need no further action).
+;; @: log a note with timestamp
+;; !: log a timestamp
 (setq org-todo-keywords
-      '((sequence "NEXT(n) TODO(t)" "STARTED(s)" "WAITING(w@)" "SOMEDAY(o!)" "MAYBE(m@/!)" "|" "CANCELLED(c@/!)" "DONE(d@/!)")
-        (sequence "BUG(b!)" "ASSIGNED(a!)" "|" "REJECTED(j@/!)" "CLOSED(C@/!)" "FIXED(x@)")
+      '((sequence "TODO(t)" "STARTED(s!)" "NEXT(n!)" "WAITING(w@)" "SOMEDAY(o!)" "MAYBE(m@/!)" "|" "CANCELLED(c@/!)" "DONE(d@/!)")
+        (sequence "BUG(b)" "ASSIGNED(a!)" "|" "REJECTED(j@/!)" "CLOSED(C@/!)" "FIXED(x@)")
         ))
+;; Another use model of TODO work flow.
+;; (setq org-todo-keywords '((type "Fred" "Sara" "Lucy" "|" "DONE")))
+
 (setq org-use-fast-todo-selection t)
 (setq org-enforce-todo-dependencies t)  ;
+
+;; ----------------------------------------------------------------------
+;; capture/refile/archive flow
+;; ----------------------------------------------------------------------
+;; ------------------------------ capture ---------------------------------------
+(setq org-default-notes-file (concat org-directory "/REFILE.org"))
+(define-key global-map "\C-cc" 'org-capture)
+(setq org-capture-templates
+      `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %? %^g %u\n %i\n %a" :prepend t)
+        ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Title}  %^g %? %u %i %a" :prepend t)
+        ;;("j" "Journal" item (file+function (concat org-directory "/journal/my_2012.org") org-journal-find-entry-location-p) "* %?\nEntered on %U\n  %i\n   %a" :prepend t)
+        ("q" "Quick next task for the day" entry (file+headline (concat org-directory "/TASK.org") "Task") "* NEXT %^{Task} SCHEDULED: %^t" :immediate-finish t)))
 
 ;; refile
 (setq org-completion-use-ido t)
@@ -177,13 +197,6 @@
         ("Seminar" . nil)
         ("Training" . nil)
         ))
-
-(setq org-default-notes-file (concat org-directory "/REFILE.org"))
-(setq org-capture-templates `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %? %^g %u %i %a" :prepend t)
-                              ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Title}  %^g %? %u %i %a" :prepend t)
-                              ("q" "Quick task" entry (file+headline (concat org-directory "/TASK.org") "Task") "* NEXT %^{Task} SCHEDULED: %^t" :immediate-finish t)))
-
-(define-key global-map "\C-cc" 'org-capture)
 
 (setq org-log-into-drawer "LOGBOOK")
 (setq org-log-state-notes-into-drawer "LOGBOOK")
@@ -416,44 +429,45 @@
 ;;                 (org-tags-match-list-sublevels nil))))))
 
 (setq org-agenda-custom-commands
-      '(("A" "Agenda"
-         ((agenda "")
-          (tags "REFILE"
-                ((org-agenda-overriding-header "Tasks to Refile")
-                 (org-tags-match-list-sublevels nil)))
-          ))
-
-        ("W" "Weekly Habits"
-         ((agenda "")
-          (tags "Habit"))
-
-         ((org-agenda-show-log t)
-          (org-agenda-ndays 7)
+      '(("G" "2012 Goal"
+         ((tags-todo "+@2012+GOAL-DONE"))
+         ((org-agenda-overriding-header "2012 Goals: ")
+          (org-agenda-show-log t)
           (org-agenda-log-mode-items '(state))
-          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Weekly:"))))
+          (org-agenda-compact-blocks t)
+          (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp "[/]")))
+         )
 
         ("D" "Daily Habits"
-         ((agenda "")
-          (tags "Habit"))
-         ((org-agenda-show-log t)
-          (org-agenda-ndays 7)
+         ((agenda "" ((org-agenda-span 3)))
+          (tags-todo "+STYLE=\"habit\"")
+          ;(tags "Daily")
+          )
+         ((org-agenda-overriding-header "Daily habit: ")
+          (org-agenda-show-log t)
           (org-agenda-log-mode-items '(state))
-          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Daily:"))))
+          (org-agenda-compact-blocks t))
+         ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Daily:"))))
+         )
 
-        ("M" "Monthly Habits"
-         ((agenda "")
-          (tags "Habit"))
-         ((org-agenda-show-log t)
-          (org-agenda-ndays 7)
-          (org-agenda-log-mode-items '(state))
-          (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Monthly:"))))
+        ;; ("W" "Weekly Habits"
+        ;;  ((agenda "")
+        ;;   (tags "Habit"))
+
+        ;;  ((org-agenda-show-log t)
+        ;;   (org-agenda-span 7)
+        ;;   (org-agenda-log-mode-items '(state))
+        ;;   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Weekly:"))))
+
+        ;; ("M" "Monthly Habits"
+        ;;  ((agenda "")
+        ;;   (tags "Habit"))
+        ;;  ((org-agenda-show-log t)
+        ;;   (org-agenda-span 7)
+        ;;   (org-agenda-log-mode-items '(state))
+        ;;   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Monthly:")))
+        ;;  )
         ))
-
-;; (setq org-agenda-exporter-settings
-;;       '((ps-number-of-columns 2)
-;;         (ps-landscape-mode t)
-;;         (org-agenda-add-entry-text-maxlines 5)
-;;         (htmlize-output-type 'css)))
 
 (setq org-agenda-diary-file (concat org-directory "/diary.org")) ;; change this
 
@@ -606,6 +620,13 @@ org-mode."
    (sql . nil)
    (sqlite . t)))
 
+(defun org-journal-find-entry-location-p ()
+  "Create a new diary entry for today or append to an existing one."
+  (interactive)
+  (widen)
+  (let ((today (format-time-string "%Y/%m/%d %a")))
+    (org-goto-local-search-headings today nil t)
+    ))
 
 (defun org-journal-insert-today-heading ()
   "Create a new diary entry for today or append to an existing one."
