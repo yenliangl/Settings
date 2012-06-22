@@ -65,10 +65,10 @@
 (setq org-default-notes-file (concat org-directory "/REFILE.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-capture-templates
-      `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %? %^g %u\n %i\n %a" :prepend t)
-        ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Title}  %^g %? %u %i %a" :prepend t)
+      `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %^{Task title} %^g\n  %?\n  %i\n  %U\n  %a\n" :prepend t)
+        ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Note title} %^g\n  %?\n  %i\n  %u\n  %a\n" :prepend t)
         ;;("j" "Journal" item (file+function (concat org-directory "/journal/my_2012.org") org-journal-find-entry-location-p) "* %?\nEntered on %U\n  %i\n   %a" :prepend t)
-        ("q" "Quick next task for the day" entry (file+headline (concat org-directory "/TASK.org") "Task") "* NEXT %^{Task} SCHEDULED: %^t" :immediate-finish t)))
+        ("q" "Next task for today" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* NEXT %^{Task title}\n  SCHEDULED: %T" :immediate-finish t)))
 
 ;; refile
 (setq org-completion-use-ido t)
