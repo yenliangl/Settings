@@ -67,6 +67,8 @@
 (setq org-capture-templates
       `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %^{Task title} %^g\n  %?\n  %i\n  %U\n  %a\n" :prepend t)
         ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Note title} %^g\n  %?\n  %i\n  %u\n  %a\n" :prepend t)
+        ("v" "Vocabulary" entry (file+headline (concat org-directory "/english/english.org") "Vocabulary") "* %^{Word}\n  %?\n  %i\n  %u\n" :prepend t)
+        ("p" "Phrase" entry (file+headline (concat org-directory "/english/english.org") "Phrase") "* %^{Phrase}\n  %?\n  %i\n  %u\n" :prepend t)
         ;;("j" "Journal" item (file+function (concat org-directory "/journal/my_2012.org") org-journal-find-entry-location-p) "* %?\nEntered on %U\n  %i\n   %a" :prepend t)
         ("q" "Next task for today" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* NEXT %^{Task title}\n  SCHEDULED: %T" :immediate-finish t)))
 
