@@ -484,6 +484,14 @@
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 ;; ----------------------------------------------------------------------
+;; bookmark
+;; ----------------------------------------------------------------------
+(setq bookmark-default-file (concat user-emacs-directory "/bookmarks")
+      bookmark-save-flag 1)
+(global-set-key (kbd "<C-f2>") '(lambda () (interactive) (bookmark-set "SAVED")))
+(global-set-key (kbd "<C-S-f2>") '(lambda () (interactive) (bookmark-jump "SAVED")))
+
+;; ----------------------------------------------------------------------
 ;; Emacs/w3m
 ;; ----------------------------------------------------------------------
 (add-to-list 'load-path (concat LISP_HOME "/emacs-w3m/lisp"))
