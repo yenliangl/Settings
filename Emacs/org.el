@@ -58,6 +58,20 @@
 (setq org-use-fast-todo-selection t)
 (setq org-enforce-todo-dependencies t)  ;
 
+;; --------------------------------------------------
+;; Automatically change list bullets
+;; --------------------------------------------------
+;; | Curent list bullet | next indented list bullet |
+;; | +                  | -                         |
+;; | *                  | -                         |
+;; | 1.                 | -                         |
+;; | 1)                 | -                        |
+(setq org-list-demote-modify-bullet
+      (quote (("+" . "-")
+              ("*" . "-")
+              ("1." . "-")
+              ("1)" . "-"))))
+
 ;; ----------------------------------------------------------------------
 ;; capture/refile/archive flow
 ;; ----------------------------------------------------------------------
