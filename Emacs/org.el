@@ -716,3 +716,18 @@ org-mode."
 ;; (setq org-mobile-directory org-directory)
 ;; (setq org-mobile-inbox-for-pull (concat org-directory "/TASK.org"))
 ;; (setq org-mobile-files
+
+;; --------------------------------------------------
+;; my feed to track
+;; --------------------------------------------------
+(require 'org-feed)
+(setq org-feed-alist
+      '(("Android Developer Blog"
+         "http://android-developers.blogspot.com/atom.xml"
+         "~/Dropbox/Org/android/android.org"
+         "Android Developer Blog Entries")
+        ("ESL Podcast"
+         "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
+         "~/Dropbox/Org/english/english.org"
+         "ESL Podcast")
+        ))
