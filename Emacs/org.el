@@ -722,15 +722,7 @@ org-mode."
 ;; --------------------------------------------------
 (require 'org-feed)
 (setq org-feed-alist
-      '(
-        ;; ("TV Series - Falling Skies Season 2"
-        ;;  "http://www.ezrss.it/search/index.php?simple&show_name=falling+skies&mode=rss"
-        ;;  "~/Dropbox/Org/todo.org"
-        ;;  "Falling Skies Season 2"
-        ;;  :template "* TODO %title\n  %a\n "
-        ;;  )
-
-        ("Android Developer Blog"
+      '(("Android Developer Blog"
          "http://android-developers.blogspot.com/atom.xml"
          "~/Dropbox/Org/android/android.org"
          "Android Developer Blog"
