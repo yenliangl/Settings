@@ -750,7 +750,45 @@ org-mode."
          "CNN Talk Asia"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
+
+        ;; TV Shows I am watching
+        ("Fringe"
+         "http://showrss.karmorra.info/feeds/28.rss"
+         "~/Dropbox/Org/todo.org"
+         "Fringe"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         :filter my-only-720p-feed-filter
+         )
+
+        ("Continuum"
+         "http://showrss.karmorra.info/feeds/446.rss"
+         "~/Dropbox/Org/todo.org"
+         "Continuum"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         :filter my-only-720p-feed-filter
+         )
+
+        ("The Big Bang Theory"
+         "http://showrss.karmorra.info/feeds/5.rss"
+         "~/Dropbox/Org/todo.org"
+         "The Big Bang Theory"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         :filter my-only-720p-feed-filter
+         )
+
+        ("Falling Skies"
+         "http://showrss.karmorra.info/feeds/351.rss"
+         "~/Dropbox/Org/todo.org"
+         "Falling Skies"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         :filter my-only-720p-feed-filter
+         )
         ))
+
+(defun my-only-720p-feed-filter (e)
+  (if (string-match "HD 720p" (plist-get e :title))
+    e
+    nil))
 
 ;;* rtm feed timer
 (run-at-time 3600 3600 'org-feed-update-all)
