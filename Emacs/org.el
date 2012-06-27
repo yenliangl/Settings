@@ -773,7 +773,7 @@ org-mode."
          "~/Dropbox/Org/todo.org"
          "The Big Bang Theory"
          :template "* TODO %h\n  SCHEDULED: %T\n"
-         :filter my-only-720p-feed-filter
+         ;; :filter my-only-720p-feed-filter
          )
 
         ("Falling Skies"
