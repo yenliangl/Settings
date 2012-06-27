@@ -648,7 +648,7 @@ org-mode."
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((today (format-time-string "%Y/%m/%d %a")))
+  (let ((today (format-time-string "%Y-%m-%d %a")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings today nil t)
       ((lambda ()
@@ -662,7 +662,7 @@ org-mode."
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((month (format-time-string "%Y/%m ")))
+  (let ((month (format-time-string "%Y-%m ")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings month nil t)
       ((lambda ()
@@ -722,12 +722,35 @@ org-mode."
 ;; --------------------------------------------------
 (require 'org-feed)
 (setq org-feed-alist
-      '(("Android Developer Blog"
+      '(
+        ;; ("TV Series - Falling Skies Season 2"
+        ;;  "http://www.ezrss.it/search/index.php?simple&show_name=falling+skies&mode=rss"
+        ;;  "~/Dropbox/Org/todo.org"
+        ;;  "Falling Skies Season 2"
+        ;;  :template "* TODO %title\n  %a\n "
+        ;;  )
+
+        ("Android Developer Blog"
          "http://android-developers.blogspot.com/atom.xml"
          "~/Dropbox/Org/android/android.org"
-         "Android Developer Blog Entries")
+         "Android Developer Blog"
+         :template "* TODO %h\n  %T\n"
+         )
+
         ("ESL Podcast"
          "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
          "~/Dropbox/Org/english/english.org"
-         "ESL Podcast")
+         "ESL Podcast"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         )
+
+        ("CNN Talk Asia"
+         "http://rss.cnn.com/services/podcasting/talkasia/rss"
+         "~/Dropbox/Org/english/english.org"
+         "CNN Talk Asia"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         )
         ))
+
+;;* rtm feed timer
+(run-at-time 3600 3600 'org-feed-update-all)
