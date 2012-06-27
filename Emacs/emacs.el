@@ -351,7 +351,7 @@
     (holiday-solar-term "清明" "清明節")
     (holiday-lunar 5 5 "端午節" 0)
     (holiday-lunar 8 15 "中秋節" 0)
-    (holiday-lunar 6 13 "老爸農曆生日")
+    (holiday-lunar 5 13 "老爸農曆生日")
     ))
 (setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
 (setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))
