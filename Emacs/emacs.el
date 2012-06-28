@@ -344,17 +344,12 @@
 ;; ----------------------------------------------------------------------
 (require 'cal-china-x)
 (setq mark-holidays-in-calendar t)
-(defconst cal-china-x-my-lunar-holidays
-  '((holiday-lunar 12 30 "除夕" 0)
-    (holiday-lunar 1 1 "春節" 0)
-    (holiday-lunar 1 2 "春節" 0)
-    (holiday-solar-term "清明" "清明節")
-    (holiday-lunar 5 5 "端午節" 0)
-    (holiday-lunar 8 15 "中秋節" 0)
-    (holiday-lunar 5 13 "老爸農曆生日")
-    ))
-(setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
-(setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))
+(if (file-exists-p (concat user-emacs-directory "/calendar"))
+    (load-file (concat user-emacs-directory "/calendar")))
+(if (boundp 'cal-china-x-my-lunar-holidays)
+    (progn
+      (setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
+      (setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; _+ Org-mode
