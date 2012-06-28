@@ -1,0 +1,57 @@
+#!/bin/csh
+
+# --------------------------------------------------
+# Common aliases independent to platforms.
+# --------------------------------------------------
+alias ls         'ls --color=always'
+alias cls        'clear'
+alias ll         'ls -ls | more'
+alias lt         'ls -lt | more'
+alias la         'ls -al | more'
+alias num        'ls | wc -l'
+# alias cwdcmd     'echo -n "]2;${HOST}:$cwd]1;${HOST}" '
+alias used       'du -sh'
+alias myps       'ps -aux | grep ${USER}'
+alias rm         'rm -i'
+alias gr         'grep -n'
+alias cgrep      "find . -type f -iregex '.*\.\(c\|C\|cc\|h\|ht\|hh\|cpp\)' -print0 | xargs -0 grep --color -n"
+alias hgrep      "find . -type f -iregex '.*\.\(h\|ht\|hh\)' -print0 | xargs -0 grep --color -n"
+alias mgrep      "find . -regextype posix-egrep -iregex '(.*\/Makefile|.*\/Makefile\..*|.*\.make|.*\.hier|.*\.mak|.*\.mk)' -type f -print0 | xargs -0 grep --color -n"
+alias sgrep      "find . -type f -iregex '.*\.\(c\|C\|h\|cpp\|S\|java\|xml\|sh\|hier\|make\)' -print0 | xargs -0 grep --color -n"
+
+alias et         "$EDITOR"
+
+# --------------------------------------------------
+# Workspace/GNU screen aliases
+# --------------------------------------------------
+# $WINDOW is created by GNU screen to indicate current window number.
+if ( $?WINDOW == 0 ) then
+    set CURRENT_WORKSPACE=$WORKSPACE
+    # Create aliases to start workspaces for StarRC release branch.
+    if ( $?RELEASE_BRANCHES ) then
+        foreach p ( $RELEASE_BRANCH_LIST )
+            alias ws_$p "setenv WORKSPACE $p; screen -mS $p -DR; setenv WORKSPACE $CURRENT_WORKSPACE"
+        end
+    endif
+
+    # workspace variants for head branch
+    if ( $?HEAD_PROJECTS ) then
+        foreach p ( $HEAD_PROJECT_LIST )
+            alias ws_$p "setenv WORKSPACE head.$p; screen -mS $p -DR; setenv WORKSPACE $CURRENT_WORKSPACE"
+        end
+    endif
+endif
+
+# "emacsclient -s $WORKSPACE -t -a ''"
+alias kill-emacs "emacsclient -s $WORKSPACE -t --eval '(kill-emacs)'"
+
+# Create 5 aliases to create 5 dvtm sessions
+if ( $?WINDOW ) then
+    # Create aliases for every screen window to make dedicate dvtm session.
+    alias dvtm "dtach -A /tmp/dvtm-session-${WORKSPACE}-${WINDOW} dvtm"
+else
+    foreach s ( 1 2 3 4 5 6 7 8 9 )
+        alias dvtm$s "dtach -A /tmp/dvtm-session-${WORKSPACE}-$s dvtm"
+    end
+    alias dvtm     "dtach -A /tmp/dvtm-session dvtm"
+endif

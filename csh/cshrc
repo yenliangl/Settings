@@ -1,0 +1,92 @@
+#!/bin/tcsh
+
+# ############################################################
+# Basic shell settings
+# ############################################################
+setenv PATH "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/ccs/bin:/usr/ucb"
+setenv LD_LIBRARY_PATH "/usr/local/lib:/usr/lib64:/usr/lib:/lib"
+setenv MANPATH "/usr/local/man:/usr/man:/usr/share/man"
+
+# Don't overwrite existing files with the redirection character ">"
+set noclobber
+
+# Check to see if this is an interactive shell. If not, skip the rest of this
+# file. Good for running shell commands in Emacs or scp.
+if ($?USER == 0 || $?prompt == 0) exit
+
+setenv EXINIT   `set ai|set shiftwidth=3|set ic`
+setenv EDITOR   "vim"
+setenv LS_COLORS di="1;36":ln="1;35":ex="1;33":"*.ev=1;34":"*.cxx=1;34":"*.cpp=1;32":"*.c=1;32":"*.h=1;32":"*.vc=1;33":"*.txt=1;32":"*.tar=1;31":"*.gz=1;31":"*.bz2=1;31":"*.pdf=1;32"
+setenv SHELL tcsh
+
+set autolist = ambiguous
+
+# Notify me when the status of background jobs change
+set notify
+
+# Save the most recent 40 events when I log out
+set savehist = 2000
+
+# Remember my 40 most recent events
+set history = 2000
+
+# Substitute the filename to be completed when I type an <ESC> at
+# the command line
+set filec
+
+# Tells the shell to ignore .o files when trying to complete filenames
+# when filec is set.  (This doesn't hold if the .o file is the only
+# on that could be completed.
+set fignore=.o
+
+# Tells "filec" not to cry if it can't complete a file.
+set nobeep
+
+# Don't let me log out by pressing <ctrl-d>
+# set ignoreeof
+
+# Set TTY shell variable equal to the current terminal name
+set TTY=`who am i | awk '{print $2}'`
+
+set symlinks=ignore
+set rmstar
+set cdpath = ( $HOME )
+
+if ( $?EMACS ) then
+    set prompt = "%S%m%s: %~ > "
+    unsetenv LS_COLORS
+else
+    set prompt = "%{[0;32m%}%S%m%s%{[0m%}: %~ > "
+endif
+
+limit coredumpsize unlimited
+unlimit core
+
+# ----------------------------------------------------------------------
+# Initialize default WORKSPACE
+# ----------------------------------------------------------------------
+setenv DEFAULT_WORKSPACE default
+if ( $?WORKSPACE == 0 ) then
+  setenv WORKSPACE $DEFAULT_WORKSPACE
+endif
+setenv EDITOR "emacsclient -s $WORKSPACE -t -a ''"
+
+# ##################################################
+# Use libSegFault.so to catch uncatched signals.
+# ##################################################
+# Usage: catchsegv -h
+#
+#  /usr/bin/catchsegv program args
+#
+setenv LIB /lib64
+setenv SEGFAULT_SIGNALS all
+
+# ----------------------------------------------------------------------
+# Sensitive settings at work
+# ----------------------------------------------------------------------
+source ~/.cshrc.work
+
+# ----------------------------------------------------------------------
+# Load aliases
+# ----------------------------------------------------------------------
+source ~/.alias
