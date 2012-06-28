@@ -342,14 +342,16 @@
 ;; ----------------------------------------------------------------------
 ;; Chinese holidays
 ;; ----------------------------------------------------------------------
-(require 'cal-china-x)
-(setq mark-holidays-in-calendar t)
-(if (file-exists-p (concat user-emacs-directory "/calendar"))
-    (load-file (concat user-emacs-directory "/calendar")))
-(if (boundp 'cal-china-x-my-lunar-holidays)
-    (progn
-      (setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
-      (setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))))
+(when (file-exists-p (concat user-emacs-directory "/calendar"))
+  (progn
+    (require 'cal-china-x)
+    (setq mark-holidays-in-calendar t)
+    (load-file (concat user-emacs-directory "/calendar"))
+    (when (boundp 'cal-china-x-my-lunar-holidays)
+      (progn
+        (setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
+        (setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))))
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; _+ Org-mode
