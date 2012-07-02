@@ -712,10 +712,12 @@ org-mode."
 ;; --------------------------------------------------
 ;; mobile-org
 ;; --------------------------------------------------
-;; (setq org-mobile-directory (concat org-directory "/MobileOrg"))
-;; (setq org-mobile-directory org-directory)
-;; (setq org-mobile-inbox-for-pull (concat org-directory "/TASK.org"))
-;; (setq org-mobile-files
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+;; (setq org-mobile-inbox-for-pull (concat org-directory "/REFILE.org"))
+;; Run org-mobile-push every hour starting from 10:00am
+(run-at-time "10:00" 3600 'org-mobile-push)
+;; Still don't want to use org-mobile-pull. Keep mobile viewer as a "Viewer"
+;; only.
 
 ;; --------------------------------------------------
 ;; my feed to track
@@ -723,7 +725,7 @@ org-mode."
 (require 'org-feed)
 (setq org-feed-alist
       '(("Android Developer Blog"
-         "http://android-developers.blogspot.com/atom.xml"
+         "http://feeds.feedburner.com/blogspot/hsDu"
          "~/Dropbox/Org/android/android.org"
          "Android Developer Blog"
          :template "* TODO %h\n  %T\n"
