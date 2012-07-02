@@ -714,8 +714,10 @@ org-mode."
 ;; --------------------------------------------------
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 ;; (setq org-mobile-inbox-for-pull (concat org-directory "/REFILE.org"))
-;; Run org-mobile-push every hour starting from 10:00am
-(run-at-time "10:00" 3600 'org-mobile-push)
+;; Explicitly set this in order not to publish internal files on the cloud.
+(setq org-mobile-files (find-lisp-find-files org-directory  "\.org$"))
+;; Run org-mobile-push every 2 hours starting from 10:00am
+(run-at-time "10:00" 7200 'org-mobile-push)
 ;; Still don't want to use org-mobile-pull. Keep mobile viewer as a "Viewer"
 ;; only.
 
