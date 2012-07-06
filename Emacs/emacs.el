@@ -73,7 +73,7 @@
       ;; Version control
       ;; --------------------------------------------------
       version-control t
-      ;; vc-handled-backends nil           ;speed-up saving buffers
+      vc-handled-backends nil           ;speed-up saving buffers
       vc-make-backup-files nil
       vc-cvs-stay-local nil             ; automatic version backup.
 
@@ -515,6 +515,14 @@
       w3m-input-coding-system 'utf-8
       w3m-output-coding-system 'utf-8
       w3m-terminal-coding-system 'utf-8)
+
+;; ----------------------------------------------------------------------
+;; Twittering mode
+;; ----------------------------------------------------------------------
+(when window-system
+  (add-to-list 'load-path (concat LISP_HOME "/twittering-mode/head"))
+  (require 'twittering-mode)
+  )
 
 ;; ----------------------------------------------------------------------
 ;; GUI config

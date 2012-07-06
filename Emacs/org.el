@@ -640,15 +640,35 @@ org-mode."
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((today (format-time-string "%Y/%m/%d %a")))
+  (let* ((system-time-locale "C")
+         (today (format-time-string "%Y-%m-%d %a")))
     (org-goto-local-search-headings today nil t)
     ))
+
+(defun org-journal-insert-today-work-heading ()
+  "Create a new diary entry for today or append to an existing one."
+  (interactive)
+  (widen)
+  (let* ((system-time-locale "C")
+         (today (format-time-string "%Y-%m-%d %a")))
+    ;; (beginning-of-buffer)
+    (unless (org-goto-local-search-headings today nil t)
+      ((lambda ()
+         (org-insert-subheading 2)
+         ;; (org-insert-heading 2)
+         (insert today)
+         ;; insert a item '-' for user to get started journaling
+         (insert "\n   - STAR")
+         (insert "\n   - Project")
+         (insert "\n   - Meeting"))
+       ))))
 
 (defun org-journal-insert-today-heading ()
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((today (format-time-string "%Y-%m-%d %a")))
+  (let* ((system-time-locale "C")
+         (today (format-time-string "%Y-%m-%d %a")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings today nil t)
       ((lambda ()
@@ -662,7 +682,8 @@ org-mode."
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((month (format-time-string "%Y-%m ")))
+  (let* ((system-time-locale "C")
+         (month (format-time-string "%Y-%m ")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings month nil t)
       ((lambda ()
@@ -717,7 +738,7 @@ org-mode."
 ;; Explicitly set this in order not to publish internal files on the cloud.
 (setq org-mobile-files (find-lisp-find-files org-directory  "\.org$"))
 ;; Run org-mobile-push every 2 hours starting from 10:00am
-(run-at-time "10:00" 7200 'org-mobile-push)
+;; (run-at-time "10:00" 7200 'org-mobile-push)
 ;; Still don't want to use org-mobile-pull. Keep mobile viewer as a "Viewer"
 ;; only.
 
@@ -728,21 +749,21 @@ org-mode."
 (setq org-feed-alist
       '(("Android Developer Blog"
          "http://feeds.feedburner.com/blogspot/hsDu"
-         "~/Dropbox/Org/android/android.org"
+         "~/Org/android/android.org"
          "Android Developer Blog"
          :template "* TODO %h\n  %T\n"
          )
 
         ("ESL Podcast"
          "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
-         "~/Dropbox/Org/english/english.org"
+         "~/Org/english/english.org"
          "ESL Podcast"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
 
         ("CNN Talk Asia"
          "http://rss.cnn.com/services/podcasting/talkasia/rss"
-         "~/Dropbox/Org/english/english.org"
+         "~/Org/english/english.org"
          "CNN Talk Asia"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
@@ -750,7 +771,7 @@ org-mode."
         ;; TV Shows I am watching
         ("Fringe"
          "http://showrss.karmorra.info/feeds/28.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Fringe"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -758,7 +779,7 @@ org-mode."
 
         ("Continuum"
          "http://showrss.karmorra.info/feeds/446.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Continuum"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -766,7 +787,7 @@ org-mode."
 
         ("The Big Bang Theory"
          "http://showrss.karmorra.info/feeds/5.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "The Big Bang Theory"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          ;; :filter my-only-720p-feed-filter
@@ -774,10 +795,17 @@ org-mode."
 
         ("Falling Skies"
          "http://showrss.karmorra.info/feeds/351.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Falling Skies"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
+         )
+
+        ("Hells Kitchen"
+         "http://showrss.karmorra.info/feeds/120.rss"
+         "~/Org/todo.org"
+         "Hells Kitchen"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
          )
         ))
 
