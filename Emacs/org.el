@@ -445,44 +445,62 @@
 ;;                 (org-tags-match-list-sublevels nil))))))
 
 (setq org-agenda-custom-commands
-      '(("G" "2012 Goal"
-         ((tags-todo "+@2012+GOAL-DONE"))
-         ((org-agenda-overriding-header "2012 Goals: ")
-          (org-agenda-show-log t)
-          (org-agenda-log-mode-items '(state))
-          (org-agenda-compact-blocks t)
-          (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp "[/]")))
-         )
+      '(("w" "Work Agenda"
+         ((tags-todo "+Meeting+SCHEDULED<=\"<+3d>\""
+                     ((org-agenda-overriding-header "[Incoming meeting in 3 days]")
+                      ;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;(org-agenda-todo-ignore-scheduled t)
+                      ;(org-agenda-todo-ignore-deadlines t)))
+                     ))
 
-        ("D" "Daily Habits"
-         ((agenda "" ((org-agenda-span 3)))
-          (tags-todo "+STYLE=\"habit\"")
-          ;(tags "Daily")
-          )
-         ((org-agenda-overriding-header "Daily habit: ")
-          (org-agenda-show-log t)
-          (org-agenda-log-mode-items '(state))
-          (org-agenda-compact-blocks t))
-         ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Daily:"))))
-         )
+          (tags-todo "+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "[NEXT Actions]")
+                      ;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;(org-agenda-todo-ignore-scheduled t)
+                      ;(org-agenda-todo-ignore-deadlines t)))
+                     ))
 
-        ;; ("W" "Weekly Habits"
-        ;;  ((agenda "")
-        ;;   (tags "Habit"))
+          (tags-todo "REFILE/!+TODO|+NEXT" ;either TODO or NEXT
+                     ((org-agenda-overriding-header "[Tasks to Refile]")
+                      (org-tags-match-list-sublevels nil)))
 
-        ;;  ((org-agenda-show-log t)
-        ;;   (org-agenda-span 7)
-        ;;   (org-agenda-log-mode-items '(state))
-        ;;   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Weekly:"))))
+          ;; deadlines before today
+          (tags-todo "+DEADLINE<=\"<today>\"-TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "[Late Deadlines]")
+                      ;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;(org-agenda-todo-ignore-scheduled t)
+                      ;(org-agenda-todo-ignore-deadlines nil)))
+                      ))
 
-        ;; ("M" "Monthly Habits"
-        ;;  ((agenda "")
-        ;;   (tags "Habit"))
-        ;;  ((org-agenda-show-log t)
-        ;;   (org-agenda-span 7)
-        ;;   (org-agenda-log-mode-items '(state))
-        ;;   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Monthly:")))
-        ;;  )
+          ;; scheduled before today
+          (tags-todo "+SCHEDULED<=\"<today>\"-TODO=\"NEXT\"-GOAL"
+                     ((org-agenda-overriding-header "[Late Schedule]")
+                      ;;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;;(org-agenda-todo-ignore-scheduled nil)
+                      ;;(org-agenda-todo-ignore-deadlines t)))
+                      ))
+
+          ;; waiting someone/something
+          (tags-todo "+TODO=\"WAITING\""
+                     ((org-agenda-overriding-header "[Waiting]")
+                      ; (org-agenda-tags-todo-honor-ignore-options t)
+                      ; (org-agenda-todo-ignore-scheduled t)
+                      ; (org-agenda-todo-ignore-deadlines t)))
+                      ))
+
+          ;; 2012 Goals
+          (tags-todo "+@2012+GOAL|+GOAL+DEADLINE<=\"<2013-01-01>\""
+                     ((org-agenda-overriding-header "[Goal of the Year]")
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp "[/]"))))
+
+          ;; today's agenda with good habit style.
+          (agenda ""
+                  ((org-agenda-overriding-header "3 Days Agenda:")
+                   (org-agenda-span 3)
+                   (org-agenda-show-log t)
+                   (org-agenda-log-mode-items '(state))
+                   (org-agenda-compact-blocks t)))
+         ))
         ))
 
 (setq org-agenda-diary-file (concat org-directory "/diary.org")) ;; change this
@@ -806,6 +824,13 @@ org-mode."
          "~/Org/todo.org"
          "Hells Kitchen"
          :template "* TODO %h\n  SCHEDULED: %T\n"
+         )
+
+        ("Wired Top Stories"
+         "http://feeds.wired.com/wired/index"
+         "~/Org/todo.org"
+         "Wired Top Stories"
+         :template "*TODO %h\n  SCHEDULED: %T\n"
          )
         ))
 
