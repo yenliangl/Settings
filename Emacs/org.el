@@ -473,7 +473,7 @@
                       ))
 
           ;; scheduled before today
-          (tags-todo "+SCHEDULED<=\"<today>\"-TODO=\"NEXT\"-GOAL"
+          (tags-todo "+SCHEDULED<=\"<today>\"-TODO=\"NEXT\"-GOAL-STYLE=\"habit\""
                      ((org-agenda-overriding-header "[Late Schedule]")
                       ;;(org-agenda-tags-todo-honor-ignore-options t)
                       ;;(org-agenda-todo-ignore-scheduled nil)
