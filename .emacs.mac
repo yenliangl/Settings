@@ -2,7 +2,7 @@
 
 ;; (setenv "PATH" (concat (getenv "PATH")))
 ;; (setq exec-path (append exec-path '("/usr/local/bin" )))
-(setq ORG_HOME "~/Dropbox/Org")
+(setq ORG_HOME "~/Org")
 (setq use-org-mode t
       use-git-mode nil
       use-jdee t

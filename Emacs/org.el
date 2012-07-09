@@ -445,44 +445,62 @@
 ;;                 (org-tags-match-list-sublevels nil))))))
 
 (setq org-agenda-custom-commands
-      '(("G" "2012 Goal"
-         ((tags-todo "+@2012+GOAL-DONE"))
-         ((org-agenda-overriding-header "2012 Goals: ")
-          (org-agenda-show-log t)
-          (org-agenda-log-mode-items '(state))
-          (org-agenda-compact-blocks t)
-          (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp "[/]")))
-         )
+      '(("w" "Work Agenda"
+         ((tags-todo "+Meeting+SCHEDULED<=\"<+3d>\""
+                     ((org-agenda-overriding-header "[Incoming meeting in 3 days]")
+                      ;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;(org-agenda-todo-ignore-scheduled t)
+                      ;(org-agenda-todo-ignore-deadlines t)))
+                     ))
 
-        ("D" "Daily Habits"
-         ((agenda "" ((org-agenda-span 3)))
-          (tags-todo "+STYLE=\"habit\"")
-          ;(tags "Daily")
-          )
-         ((org-agenda-overriding-header "Daily habit: ")
-          (org-agenda-show-log t)
-          (org-agenda-log-mode-items '(state))
-          (org-agenda-compact-blocks t))
-         ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Daily:"))))
-         )
+          (tags-todo "+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "[NEXT Actions]")
+                      ;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;(org-agenda-todo-ignore-scheduled t)
+                      ;(org-agenda-todo-ignore-deadlines t)))
+                     ))
 
-        ;; ("W" "Weekly Habits"
-        ;;  ((agenda "")
-        ;;   (tags "Habit"))
+          (tags-todo "REFILE/!+TODO|+NEXT" ;either TODO or NEXT
+                     ((org-agenda-overriding-header "[Tasks to Refile]")
+                      (org-tags-match-list-sublevels nil)))
 
-        ;;  ((org-agenda-show-log t)
-        ;;   (org-agenda-span 7)
-        ;;   (org-agenda-log-mode-items '(state))
-        ;;   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Weekly:"))))
+          ;; deadlines before today
+          (tags-todo "+DEADLINE<=\"<today>\"-TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "[Late Deadlines]")
+                      ;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;(org-agenda-todo-ignore-scheduled t)
+                      ;(org-agenda-todo-ignore-deadlines nil)))
+                      ))
 
-        ;; ("M" "Monthly Habits"
-        ;;  ((agenda "")
-        ;;   (tags "Habit"))
-        ;;  ((org-agenda-show-log t)
-        ;;   (org-agenda-span 7)
-        ;;   (org-agenda-log-mode-items '(state))
-        ;;   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":Monthly:")))
-        ;;  )
+          ;; scheduled before today
+          (tags-todo "+SCHEDULED<=\"<today>\"-TODO=\"NEXT\"-GOAL-STYLE=\"habit\""
+                     ((org-agenda-overriding-header "[Late Schedule]")
+                      ;;(org-agenda-tags-todo-honor-ignore-options t)
+                      ;;(org-agenda-todo-ignore-scheduled nil)
+                      ;;(org-agenda-todo-ignore-deadlines t)))
+                      ))
+
+          ;; waiting someone/something
+          (tags-todo "+TODO=\"WAITING\""
+                     ((org-agenda-overriding-header "[Waiting]")
+                      ; (org-agenda-tags-todo-honor-ignore-options t)
+                      ; (org-agenda-todo-ignore-scheduled t)
+                      ; (org-agenda-todo-ignore-deadlines t)))
+                      ))
+
+          ;; 2012 Goals
+          (tags-todo "+@2012+GOAL|+GOAL+DEADLINE<=\"<2013-01-01>\""
+                     ((org-agenda-overriding-header "[Goal of the Year]")
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp "[/]"))))
+
+          ;; today's agenda with good habit style.
+          (agenda ""
+                  ((org-agenda-overriding-header "3 Days Agenda:")
+                   (org-agenda-span 3)
+                   (org-agenda-show-log t)
+                   (org-agenda-log-mode-items '(state))
+                   (org-agenda-compact-blocks t)))
+         ))
         ))
 
 (setq org-agenda-diary-file (concat org-directory "/diary.org")) ;; change this
@@ -640,15 +658,35 @@ org-mode."
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((today (format-time-string "%Y/%m/%d %a")))
+  (let* ((system-time-locale "C")
+         (today (format-time-string "%Y-%m-%d %a")))
     (org-goto-local-search-headings today nil t)
     ))
+
+(defun org-journal-insert-today-work-heading ()
+  "Create a new diary entry for today or append to an existing one."
+  (interactive)
+  (widen)
+  (let* ((system-time-locale "C")
+         (today (format-time-string "%Y-%m-%d %a")))
+    ;; (beginning-of-buffer)
+    (unless (org-goto-local-search-headings today nil t)
+      ((lambda ()
+         (org-insert-subheading 2)
+         ;; (org-insert-heading 2)
+         (insert today)
+         ;; insert a item '-' for user to get started journaling
+         (insert "\n   - STAR")
+         (insert "\n   - Project")
+         (insert "\n   - Meeting"))
+       ))))
 
 (defun org-journal-insert-today-heading ()
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((today (format-time-string "%Y-%m-%d %a")))
+  (let* ((system-time-locale "C")
+         (today (format-time-string "%Y-%m-%d %a")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings today nil t)
       ((lambda ()
@@ -662,7 +700,8 @@ org-mode."
   "Create a new diary entry for today or append to an existing one."
   (interactive)
   (widen)
-  (let ((month (format-time-string "%Y-%m ")))
+  (let* ((system-time-locale "C")
+         (month (format-time-string "%Y-%m ")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings month nil t)
       ((lambda ()
@@ -717,7 +756,7 @@ org-mode."
 ;; Explicitly set this in order not to publish internal files on the cloud.
 (setq org-mobile-files (find-lisp-find-files org-directory  "\.org$"))
 ;; Run org-mobile-push every 2 hours starting from 10:00am
-;;(run-at-time "10:00" 7200 'org-mobile-push)
+;; (run-at-time "10:00" 7200 'org-mobile-push)
 ;; Still don't want to use org-mobile-pull. Keep mobile viewer as a "Viewer"
 ;; only.
 
@@ -728,21 +767,21 @@ org-mode."
 (setq org-feed-alist
       '(("Android Developer Blog"
          "http://feeds.feedburner.com/blogspot/hsDu"
-         "~/Dropbox/Org/android/android.org"
+         "~/Org/android/android.org"
          "Android Developer Blog"
          :template "* TODO %h\n  %T\n"
          )
 
         ("ESL Podcast"
          "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
-         "~/Dropbox/Org/english/english.org"
+         "~/Org/english/english.org"
          "ESL Podcast"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
 
         ("CNN Talk Asia"
          "http://rss.cnn.com/services/podcasting/talkasia/rss"
-         "~/Dropbox/Org/english/english.org"
+         "~/Org/english/english.org"
          "CNN Talk Asia"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
@@ -750,7 +789,7 @@ org-mode."
         ;; TV Shows I am watching
         ("Fringe"
          "http://showrss.karmorra.info/feeds/28.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Fringe"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -758,7 +797,7 @@ org-mode."
 
         ("Continuum"
          "http://showrss.karmorra.info/feeds/446.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Continuum"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -766,7 +805,7 @@ org-mode."
 
         ("The Big Bang Theory"
          "http://showrss.karmorra.info/feeds/5.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "The Big Bang Theory"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          ;; :filter my-only-720p-feed-filter
@@ -774,7 +813,7 @@ org-mode."
 
         ("Falling Skies"
          "http://showrss.karmorra.info/feeds/351.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Falling Skies"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -782,13 +821,17 @@ org-mode."
 
         ("Hells Kitchen"
          "http://showrss.karmorra.info/feeds/120.rss"
-         "~/Dropbox/Org/todo.org"
+         "~/Org/todo.org"
          "Hells Kitchen"
          :template "* TODO %h\n  SCHEDULED: %T\n"
-         ;; :filter my-only-720p-feed-filter
          )
 
-
+        ("Wired Top Stories"
+         "http://feeds.wired.com/wired/index"
+         "~/Org/todo.org"
+         "Wired Top Stories"
+         :template "*TODO %h\n  SCHEDULED: %T\n"
+         )
         ))
 
 (defun my-only-720p-feed-filter (e)
