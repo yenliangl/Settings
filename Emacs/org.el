@@ -717,7 +717,7 @@ org-mode."
 ;; Explicitly set this in order not to publish internal files on the cloud.
 (setq org-mobile-files (find-lisp-find-files org-directory  "\.org$"))
 ;; Run org-mobile-push every 2 hours starting from 10:00am
-(run-at-time "10:00" 7200 'org-mobile-push)
+;;(run-at-time "10:00" 7200 'org-mobile-push)
 ;; Still don't want to use org-mobile-pull. Keep mobile viewer as a "Viewer"
 ;; only.
 
@@ -779,6 +779,16 @@ org-mode."
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
          )
+
+        ("Hells Kitchen"
+         "http://showrss.karmorra.info/feeds/120.rss"
+         "~/Dropbox/Org/todo.org"
+         "Hells Kitchen"
+         :template "* TODO %h\n  SCHEDULED: %T\n"
+         ;; :filter my-only-720p-feed-filter
+         )
+
+
         ))
 
 (defun my-only-720p-feed-filter (e)
@@ -787,4 +797,4 @@ org-mode."
     nil))
 
 ;;* rtm feed timer
-(run-at-time 3600 3600 'org-feed-update-all)
+(run-at-time 3600 7200 'org-feed-update-all)
