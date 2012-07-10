@@ -765,23 +765,23 @@ org-mode."
 ;; --------------------------------------------------
 (require 'org-feed)
 (setq org-feed-alist
-      '(("Android Developer Blog"
+      `(("Android Developer Blog"
          "http://feeds.feedburner.com/blogspot/hsDu"
-         "~/Org/android/android.org"
+         ,(concat org-directory "/android/android.org")
          "Android Developer Blog"
          :template "* TODO %h\n  %T\n"
          )
 
         ("ESL Podcast"
          "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
-         "~/Org/english/english.org"
+         ,(concat org-directory "/english/english.org")
          "ESL Podcast"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
 
         ("CNN Talk Asia"
          "http://rss.cnn.com/services/podcasting/talkasia/rss"
-         "~/Org/english/english.org"
+         ,(concat org-directory "/english/english.org")
          "CNN Talk Asia"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
@@ -789,7 +789,7 @@ org-mode."
         ;; TV Shows I am watching
         ("Fringe"
          "http://showrss.karmorra.info/feeds/28.rss"
-         "~/Org/todo.org"
+         ,(concat org-directory "/todo.org")
          "Fringe"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -797,7 +797,7 @@ org-mode."
 
         ("Continuum"
          "http://showrss.karmorra.info/feeds/446.rss"
-         "~/Org/todo.org"
+         ,(concat org-directory "/todo.org")
          "Continuum"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -805,7 +805,7 @@ org-mode."
 
         ("The Big Bang Theory"
          "http://showrss.karmorra.info/feeds/5.rss"
-         "~/Org/todo.org"
+         ,(concat org-directory "/todo.org")
          "The Big Bang Theory"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          ;; :filter my-only-720p-feed-filter
@@ -821,6 +821,7 @@ org-mode."
 
         ("Hells Kitchen"
          "http://showrss.karmorra.info/feeds/120.rss"
+         ,(concat org-directory "/todo.org")
          "~/Org/todo.org"
          "Hells Kitchen"
          :template "* TODO %h\n  SCHEDULED: %T\n"
@@ -828,7 +829,7 @@ org-mode."
 
         ("Wired Top Stories"
          "http://feeds.wired.com/wired/index"
-         "~/Org/todo.org"
+         ,(concat org-directory "/todo.org")
          "Wired Top Stories"
          :template "*TODO %h\n  SCHEDULED: %T\n"
          )
