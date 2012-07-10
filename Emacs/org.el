@@ -633,7 +633,8 @@ org-mode."
   (setq org-ditaa-jar-path my-org-ditaa-jar-path))
 ;;(setq org-plantuml-jar-path "~/java/plantuml.jar")
 ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-(setq org-startup-with-inline-images nil)
+(setq org-startup-with-inline-images t)
+(setq org-display-inline-images t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -813,7 +814,7 @@ org-mode."
 
         ("Falling Skies"
          "http://showrss.karmorra.info/feeds/351.rss"
-         "~/Org/todo.org"
+         ,(concat org-directory "/todo.org")
          "Falling Skies"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          :filter my-only-720p-feed-filter
@@ -822,17 +823,16 @@ org-mode."
         ("Hells Kitchen"
          "http://showrss.karmorra.info/feeds/120.rss"
          ,(concat org-directory "/todo.org")
-         "~/Org/todo.org"
          "Hells Kitchen"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
 
-        ("Wired Top Stories"
-         "http://feeds.wired.com/wired/index"
-         ,(concat org-directory "/todo.org")
-         "Wired Top Stories"
-         :template "*TODO %h\n  SCHEDULED: %T\n"
-         )
+        ;; ("Wired Top Stories"
+        ;;  "http://feeds.wired.com/wired/index"
+        ;;  ,(concat org-directory "/todo.org")
+        ;;  "Wired Top Stories"
+        ;;  :template "*TODO %h\n  SCHEDULED: %T\n"
+        ;;  )
         ))
 
 (defun my-only-720p-feed-filter (e)
@@ -842,3 +842,6 @@ org-mode."
 
 ;;* rtm feed timer
 (run-at-time 3600 7200 'org-feed-update-all)
+
+(require 'org-drill)
+;(setq org-drill-question-tag "drill")
