@@ -195,6 +195,11 @@ alac2flac () {
     for f in *.m4a; do ffmpeg -i "$f" -acodec flac "${f%.m4a}.flac"; done
 }
 
+# Convert flac to mp3
+flac2mp3 () {
+    for f in *.flac; do ffmpeg -i "$f" -ab 320k -ac 2 -ar 48000 "${f%.flac}.mp3"; done
+}
+
 # Mount development image
 mount_dev_image () {
     # Execute platform-specific mount function. It can be just a change dir
