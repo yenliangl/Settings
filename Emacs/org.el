@@ -453,7 +453,7 @@
                       ;(org-agenda-todo-ignore-deadlines t)))
                      ))
 
-          (tags-todo "+TODO=\"NEXT\"-REFILE"
+          (tags-todo "-REFILE/+TODO=\"NEXT\""
                      ((org-agenda-overriding-header "[NEXT Actions]")
                       ;(org-agenda-tags-todo-honor-ignore-options t)
                       ;(org-agenda-todo-ignore-scheduled t)
