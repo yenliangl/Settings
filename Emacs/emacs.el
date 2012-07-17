@@ -338,6 +338,11 @@
 ;; diary
 ;; ----------------------------------------------------------------------
 (setq diary-file (concat user-emacs-directory "/diary"))
+(setq view-diary-entries-initially t
+       mark-diary-entries-in-calendar t
+       number-of-diary-entries 7)
+ (add-hook 'diary-display-hook 'fancy-diary-display)
+ (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
 
 ;; ----------------------------------------------------------------------
 ;; Chinese holidays
@@ -483,6 +488,7 @@
 ;; ----------------------------------------------------------------------
 ;; bookmark
 ;; ----------------------------------------------------------------------
+(require 'bookmark)
 (setq bookmark-default-file (concat user-emacs-directory "/bookmarks")
       bookmark-save-flag 1)
 (global-set-key (kbd "<C-f2>") '(lambda () (interactive) (bookmark-set "SAVED")))
@@ -519,10 +525,16 @@
 ;; ----------------------------------------------------------------------
 ;; Twittering mode
 ;; ----------------------------------------------------------------------
-(when window-system
-  (add-to-list 'load-path (concat LISP_HOME "/twittering-mode/head"))
-  (require 'twittering-mode)
-  )
+;; (when window-system
+;;   (add-to-list 'load-path (concat LISP_HOME "/twittering-mode/head"))
+;;   (require 'twittering-mode)
+;;   )
+
+;;
+;; compare and diff two directories
+;;
+;; (require 'dircmp-mode)
+;; (load (concat ELPA_HOME "/dircmp-1/dircmp.el"))
 
 ;; ----------------------------------------------------------------------
 ;; GUI config
