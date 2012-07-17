@@ -753,7 +753,7 @@ org-mode."
 ;; mobile-org
 ;; --------------------------------------------------
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
-;; (setq org-mobile-inbox-for-pull (concat org-directory "/REFILE.org"))
+(setq org-mobile-inbox-for-pull (concat org-mobile-directory "/from_mobile.org"))
 ;; Explicitly set this in order not to publish internal files on the cloud.
 (setq org-mobile-files (find-lisp-find-files org-directory  "\.org$"))
 ;; Run org-mobile-push every 2 hours starting from 10:00am
