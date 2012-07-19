@@ -17,11 +17,14 @@
 ;; --------------------------------------------------
 ;; Color theme
 ;; --------------------------------------------------
-(add-to-list 'custom-theme-load-path (concat user-emacs-directory "/themes/24"))
+(add-to-list 'custom-theme-load-path (concat ELPA_HOME "/github-theme-0.0.3"))
+(add-to-list 'custom-theme-load-path (concat ELPA_HOME "/django-theme-1.0.2"))
+(add-to-list 'custom-theme-load-path (concat ELPA_HOME "/ujelly-theme-1.0.6"))
 (add-hook 'after-make-window-system-frame-hooks
           (lambda ()
             ;; (load-theme 'twilight)
             (load-theme 'monokai)
+            ;; (load-theme 'zen-and-art)
             ))
 
 ;; --------------------------------------------------

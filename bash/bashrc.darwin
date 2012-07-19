@@ -39,6 +39,13 @@ mount_dev_image_darwin () {
 alias myjdb='jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 -sourcepath "/Volumes/Leo21/eclair_21/packages/apps/Clock/src:/Volumes/Leo21/eclair_21/frameworks/altek/java:/Volumes/Leo21/eclair_21/frameworks/base/core/java:/Volumes/Leo21/eclair_21/frameworks/base/graphics/java:/Volumes/Leo21/eclair_21/packages/apps/Email/src"'
 alias cd2src="cd $MY_ANDROID_PROJECT_DIR/$WORKSPACE-android"
 
+export JAVA_VERSION=1.6.0_33-b03-424
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents/Home"
+
+# set file descriptor limit
+ulimit -S -n 1024
+export USE_CCACHE=1
+
 # ######################################################################
 # Populate PATH into MacOS app
 # ######################################################################
