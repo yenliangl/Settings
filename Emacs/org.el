@@ -499,7 +499,9 @@
                    (org-agenda-span 3)
                    (org-agenda-show-log t)
                    (org-agenda-log-mode-items '(state))
-                   (org-agenda-compact-blocks t)))
+                   (org-agenda-compact-blocks t)
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp ":REFILE:"))
+                   ))
          ))
         ))
 
@@ -617,12 +619,12 @@ org-mode."
 ;; --------------------------------------------------
 ;; Attachments
 ;; --------------------------------------------------
-(setq org-attach-directory (expand-file-name (concat DROPBOX "/Data")))
-(cond ((eq system-type 'cygwin) (setq org-attach-open "cygstart %s"))
-      ((eq system-type 'darwin) (setq org-attach-open "open %s"))
-      (t (setq org-attach-open "gnome-open")))
-(setq org-file-apps
-      `((auto-mode . emacs) ("\\.*\\'" . ,org-attach-open)))
+(setq org-attach-directory (expand-file-name (concat org-directory "/data")))
+;; (cond ((eq system-type 'cygwin) (setq org-attach-open "cygstart %s"))
+;;       ((eq system-type 'darwin) (setq org-attach-open "open %s"))
+;;       (t (setq org-attach-open "gnome-open")))
+;; (setq org-file-apps
+;;       `((auto-mode . emacs) ("\\.*\\'" . ,org-attach-open)))
 
 ;; --------------------------------------------------
 ;; babel
@@ -660,7 +662,7 @@ org-mode."
   (interactive)
   (widen)
   (let* ((system-time-locale "C")
-         (today (format-time-string "%Y-%m-%d %a")))
+         (today (format-time-string "%Y/%m/%d %a")))
     (org-goto-local-search-headings today nil t)
     ))
 
@@ -669,7 +671,7 @@ org-mode."
   (interactive)
   (widen)
   (let* ((system-time-locale "C")
-         (today (format-time-string "%Y-%m-%d %a")))
+         (today (format-time-string "%Y/%m/%d %a")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings today nil t)
       ((lambda ()
@@ -687,7 +689,7 @@ org-mode."
   (interactive)
   (widen)
   (let* ((system-time-locale "C")
-         (today (format-time-string "%Y-%m-%d %a")))
+         (today (format-time-string "%Y/%m/%d %a")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings today nil t)
       ((lambda ()
@@ -702,7 +704,7 @@ org-mode."
   (interactive)
   (widen)
   (let* ((system-time-locale "C")
-         (month (format-time-string "%Y-%m ")))
+         (month (format-time-string "%Y/%m ")))
     ;; (beginning-of-buffer)
     (unless (org-goto-local-search-headings month nil t)
       ((lambda ()
