@@ -849,3 +849,5 @@ org-mode."
 
 (require 'org-drill)
 ;(setq org-drill-question-tag "drill")
+
+(require 'org-checklist)
