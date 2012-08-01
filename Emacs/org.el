@@ -81,10 +81,10 @@
 (setq org-capture-templates
       `(("t" "Task" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* TODO %^{Task title} %^g\n  %?\n  %i\n  %U\n  %a\n" :prepend t)
         ("n" "Note" entry (file+headline (concat org-directory "/REFILE.org") "Note") "* %^{Note title} %^g\n  %?\n  %i\n  %u\n  %a\n" :prepend t)
-        ("e" "English Vocabulary" entry (file+headline (concat org-directory "/language/english.org") "Vocabulary") "* %^{Word}\n  %?\n  %i\n  %u\n" :prepend t)
-        ("E" "English Phrase" entry (file+headline (concat org-directory "/language/english.org") "Phrase") "* %^{Phrase}\n  %?\n  %i\n  %u\n" :prepend t)
-        ("f" "French Vocabulary" entry (file+headline (concat org-directory "/language/french.org") "Vocabulary") "* %^{Word}\n  %?\n  %i\n  %u\n" :prepend t)
-        ("F" "French Phrase" entry (file+headline (concat org-directory "/language/french.org") "Phrase") "* %^{Phrase}\n  %?\n  %i\n  %u\n" :prepend t)
+        ("e" "English vocabulary" entry (file+headline (concat org-directory "/language/language.org") "Vocabulary") "* %^{Word}   :English:drill:%^g\n  %?\n  %i\n  %u\n" :prepend t)
+        ("E" "English phrase" entry (file+headline (concat org-directory "/language/language.org") "Phrase") "* %^{Phrase}  :English:drill:%^g\n  %?\n  %i\n  %u\n" :prepend t)
+        ("f" "French vocabulary" entry (file+headline (concat org-directory "/language/language.org") "Vocabulary") "* %^{Word}\n  :French:drill:%^g\n  %?\n  %i\n  %u\n" :prepend t)
+        ("F" "French phrase" entry (file+headline (concat org-directory "/language/language.org") "Phrase") "* %^{Phrase}\n   :French:drill:%^g\n  %?\n  %i\n  %u\n" :prepend t)
         ;;("j" "Journal" item (file+function (concat org-directory "/journal/my_2012.org") org-journal-find-entry-location-p) "* %?\nEntered on %U\n  %i\n   %a" :prepend t)
         ("q" "Next task for today" entry (file+headline (concat org-directory "/REFILE.org") "Task") "* NEXT %^{Task title}\n  SCHEDULED: %T" :immediate-finish t)))
 
@@ -622,11 +622,11 @@ org-mode."
 ;; Attachments
 ;; --------------------------------------------------
 (setq org-attach-directory (expand-file-name (concat org-directory "/data")))
-;; (cond ((eq system-type 'cygwin) (setq org-attach-open "cygstart %s"))
-;;       ((eq system-type 'darwin) (setq org-attach-open "open %s"))
-;;       (t (setq org-attach-open "gnome-open")))
-;; (setq org-file-apps
-;;       `((auto-mode . emacs) ("\\.*\\'" . ,org-attach-open)))
+(cond ((or (eq system-type 'cygwin) (eq system-type 'windows-nt)) (setq org-attach-open "cygstart '%s'"))
+      ((eq system-type 'darwin) (setq org-attach-open "open '%s'"))
+      (t (setq org-attach-open "gnome-open '%s'")))
+(setq org-file-apps
+      `((auto-mode . emacs) ("\\.*\\'" . ,org-attach-open)))
 
 ;; --------------------------------------------------
 ;; babel
@@ -779,14 +779,14 @@ org-mode."
 
         ("ESL Podcast"
          "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
-         ,(concat org-directory "/language/english.org")
+         ,(concat org-directory "/language/language.org")
          "ESL Podcast"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
 
         ("CNN Talk Asia"
          "http://rss.cnn.com/services/podcasting/talkasia/rss"
-         ,(concat org-directory "/language/english.org")
+         ,(concat org-directory "/language/language.org")
          "CNN Talk Asia"
          :template "* TODO %h\n  SCHEDULED: %T\n"
          )
@@ -824,12 +824,12 @@ org-mode."
          :filter my-only-720p-feed-filter
          )
 
-        ("Hells Kitchen"
-         "http://showrss.karmorra.info/feeds/120.rss"
-         ,(concat org-directory "/todo.org")
-         "Hells Kitchen"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         )
+        ;; ("Hells Kitchen"
+        ;;  "http://showrss.karmorra.info/feeds/120.rss"
+        ;;  ,(concat org-directory "/todo.org")
+        ;;  "Hells Kitchen"
+        ;;  :template "* TODO %h\n  SCHEDULED: %T\n"
+        ;;  )
 
         ;; ("Wired Top Stories"
         ;;  "http://feeds.wired.com/wired/index"
