@@ -31,16 +31,19 @@ export PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$ANDROID_NDK/bin:~/to
 
 mount_dev_image_darwin () {
     if [ ! -f /Volumes/$1 ]; then
-        echo "mounting dev mage $1"
+        echo "Mounting workspace image ~/Work/Android/$1.sparseimage -> /Volumes/$1"
         hdiutil attach ~/Work/Android/$1.sparseimage -mountpoint /Volumes/$1;
     fi
 }
 
 alias myjdb='jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 -sourcepath "/Volumes/Leo21/eclair_21/packages/apps/Clock/src:/Volumes/Leo21/eclair_21/frameworks/altek/java:/Volumes/Leo21/eclair_21/frameworks/base/core/java:/Volumes/Leo21/eclair_21/frameworks/base/graphics/java:/Volumes/Leo21/eclair_21/packages/apps/Email/src"'
 alias cd2src="cd $MY_ANDROID_PROJECT_DIR/$WORKSPACE-android"
+alias mount_cyanogenmod="mount_dev_image_darwin Cyanogenmod"
+alias monut_aosp="mount_dev_image_darwin android"
 
 export JAVA_VERSION=1.6.0_33-b03-424
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents/Home"
+
 
 # set file descriptor limit
 ulimit -S -n 1024

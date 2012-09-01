@@ -621,7 +621,7 @@ org-mode."
 ;; --------------------------------------------------
 ;; Attachments
 ;; --------------------------------------------------
-(setq org-attach-directory (expand-file-name (concat org-directory "/data")))
+(setq org-attach-directory (expand-file-name (concat org-directory "/Data")))
 (cond ((or (eq system-type 'cygwin) (eq system-type 'windows-nt)) (setq org-attach-open "cygstart '%s'"))
       ((eq system-type 'darwin) (setq org-attach-open "open '%s'"))
       (t (setq org-attach-open "gnome-open '%s'")))
