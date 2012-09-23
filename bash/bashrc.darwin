@@ -29,10 +29,21 @@ ANDROID_NDK="~/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/preb
 export ANDROID_SRC=/Volumes/android
 export PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 
+#
+# Will work on Cyanogenmod and AOSP at MacOSX.
+#
+if [ -n "$PROJECT_LIST" ]; then
+    echo "Adding Cyanogenmod and AOSP into my project list"
+    PROJECT_LIST="$PROJECT_LIST cyanogenmod android"
+fi
+
 mount_dev_image_darwin () {
-    if [ ! -f /Volumes/$1 ]; then
-        echo "Mounting workspace image ~/Work/Android/$1.sparseimage -> /Volumes/$1"
-        hdiutil attach ~/Work/Android/$1.sparseimage -mountpoint /Volumes/$1;
+    local image=`capitalize_word $1`
+    if [ ! -f /Volumes/$image ]; then
+        if [ $image = "Cyanogenmod" ] || [ $image = "Android" ]; then
+            echo "Mounting image /Volumes/$image"
+            hdiutil attach ~/Work/Android/$image.sparseimage -mountpoint /Volumes/$image;
+        fi
     fi
 }
 

@@ -101,6 +101,12 @@ export SCREENRC=$HOME/Settings/screen/screenrc
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 
 # ##################################################
+# Project list. Every project will be given a
+# workspace command.
+# ##################################################
+PROJECT_LIST="bozaalarm tallycounter"
+
+# ##################################################
 # platform-dependent settings
 # ##################################################
 MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
@@ -118,7 +124,7 @@ linux*)
     ;;
 esac
 if [ -f $MBASHRC ]; then
-    echo "load platform-dependent $MBASHRC"
+    echo "Load platform-dependent $MBASHRC"
     . $MBASHRC
 fi
 
@@ -136,6 +142,9 @@ alias gr='grep -n'
 alias cls='clear'
 alias scp='scp -Cr'
 
+# ##################################################
+# Workspace
+# ##################################################
 DEFAULT_WORKSPACE=default
 if [ -z $WORKSPACE ]; then
     export WORKSPACE=$DEFAULT_WORKSPACE
@@ -143,7 +152,7 @@ fi
 
 # Don't create ws aliases if already in some WORKSPACE
 if [ -z $WINDOW ]; then
-    for w in apollo bozaalarm tallycounter Cyanogenmod Android $DEFAULT_WORKSPACE
+    for w in $PROJECT_LIST $DEFAULT_WORKSPACE
     do
         alias ws_$w="create_workspace $w"
     done
@@ -159,12 +168,12 @@ DTACH=`which dtach`
 DVTM=`which dvtm`
 CREATE_DVTM_SESSIONS=1
 if [ -z $DTACH ] || [ -z $DVTM ]; then
-    echo "either dtach or dvtm is not installed. no dvtm sessions will be created for you."
+    echo "Either dtach or dvtm is not installed. no dvtm sessions will be created for you."
     CREATE_DVTM_SESSIONS=0
 fi
 
 if [ $CREATE_DVTM_SESSIONS -eq 1 ]; then
-    echo "created aliases for dvtm sessions... use dvtm[1-5] to create"
+    echo "Created aliases for dvtm sessions... use dvtm[1-5] to create"
     if [ -z $WINDOW ]; then
         for s in {1..5}
         do
@@ -200,6 +209,12 @@ flac2mp3 () {
     for f in *.flac; do ffmpeg -i "$f" -ab 320k -ac 2 -ar 48000 "${f%.flac}.mp3"; done
 }
 
+capitalize_word () {
+    local C=`echo -n "${1:0:1}" | tr '[:lower:]' '[:upper:]'`
+    local result="${C}${1:1}"
+    echo $result
+}
+
 # Mount development image
 mount_dev_image () {
     # Execute platform-specific mount function. It can be just a change dir
@@ -210,9 +225,7 @@ mount_dev_image () {
 # Create a screen workspace with $1 as its name
 create_workspace () {
     export WORKSPACE=$1
-    if [ $1 = "Cyanogenmod" ] || [ $1 = "Android" ]; then
-        mount_dev_image $1
-    fi
-    echo "create workspace ${WORKSPACE}..."
-    screen -mS $1 -DR
+    mount_dev_image $1
+    echo "Create workspace for ${WORKSPACE} development..."
+    # screen -mS $1 -DR
 }
