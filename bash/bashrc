@@ -109,7 +109,7 @@ PROJECT_LIST="bozaalarm tallycounter"
 # ##################################################
 # platform-dependent settings
 # ##################################################
-MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
+MNAME=`uname -o | tr '[:upper:]' '[:lower:]'`
 case "$MNAME" in
 cygwin*)
     MBASHRC=$HOME/Settings/bash/bashrc.cygwin
@@ -227,5 +227,5 @@ create_workspace () {
     export WORKSPACE=$1
     mount_dev_image $1
     echo "Create workspace for ${WORKSPACE} development..."
-    # screen -mS $1 -DR
+    screen -mS $1 -DR
 }
