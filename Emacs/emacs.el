@@ -245,6 +245,23 @@
 (setq compilation-scroll-output t)
 
 ;; ----------------------------------------------------------------------
+;; emacs-eclim
+;; ----------------------------------------------------------------------
+(add-to-list 'load-path (expand-file-name (concat LISP_HOME "/emacs-eclim")))
+;; only add the vendor path when you want to use the libraries provided with emacs-eclim
+(add-to-list 'load-path (expand-file-name (concat LISP_HOME "/emacs-eclim/vendor")))
+(require 'eclim)
+(require 'eclimd)
+(global-eclim-mode)
+(setq eclim-auto-save t)
+
+(add-to-list 'load-path (expand-file-name (concat LISP_HOME "/company-0.5")))
+(require 'company)
+(require 'company-emacs-eclim)
+(company-emacs-eclim-setup)
+(global-company-mode t)
+
+;; ----------------------------------------------------------------------
 ;; ECB
 ;; ----------------------------------------------------------------------
 (and (boundp 'use-ecb) use-ecb
