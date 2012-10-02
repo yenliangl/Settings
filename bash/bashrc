@@ -175,7 +175,7 @@ alias start-emacs-server="emacs --daemon=$WORKSPACE"
 if [ $CREATE_DVTM_SESSIONS -eq 1 ]; then
     DTACH=`which dtach`
     DVTM=`which dvtm`
-    if [ -nz $DTACH ] && [ -nz $DVTM ]; then
+    if [ -n "$DTACH" ] && [ -n "$DVTM" ]; then
         echo "Created aliases for dvtm sessions... use dvtm[1-5] to create"
         if [ -z $WINDOW ]; then
             for s in {1..5}
