@@ -40,9 +40,9 @@
   (progn
     (setq ns-antialias-text t)
     ;; (set-default-font "-apple-Lucida_Sans_Typewriter-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    (set-default-font "-apple-Ubuntu_Mono-medium-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-    ;; (set-default-font "-apple-Menlo-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    ;; (set-default-font "-apple-Monaco-medium-r-normal--13-*-*-*-*-*-*-*")
+    ;; (set-default-font "-apple-Ubuntu_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+    ;; (set-default-font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+    (set-default-font "-apple-Monaco-medium-r-normal--12-*-*-*-*-*-*-*")
     ;; (set-default-font "-apple-Andale_Mono-medium-r-normal--13-*-*-*-*-*-*-*")
     ;; (set-default-font "-apple-Consolas-medium-normal-normal-*-15-*-*-*-m-0-iso10646-1")
 
@@ -102,3 +102,11 @@
   (progn
     (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
     (setq exec-path (cons "/usr/local/bin" exec-path))))
+
+;; Customize ant build for Android development
+(add-hook 'java-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 "ant -emacs -s build.xml debug"
+                 )
+            ))
