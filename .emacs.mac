@@ -103,10 +103,17 @@
     (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
     (setq exec-path (cons "/usr/local/bin" exec-path))))
 
+;; Customize gud
+(setq gdb-many-windows t
+      compilation-scroll-output t
+      gud-gdb-command-name "gdb --annotate=3")
+
 ;; Customize ant build for Android development
-(add-hook 'java-mode-hook
-          (lambda ()
-            (set (make-local-variable 'compile-command)
-                 "ant -emacs -s build.xml debug"
-                 )
-            ))
+;; (define-key java-mode-map [(f8)] 'my-ant-build-command)
+(define-key java-mode-map [(f9)] 'my-ant-build-command-g)
+(defun my-ant-build-command-g ()
+  (interactive)
+    (set (make-local-variable 'compile-command)
+         "ant -emacs -s build.xml debug"
+         )
+    )
