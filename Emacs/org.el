@@ -768,84 +768,84 @@ org-mode."
 ;; --------------------------------------------------
 ;; my feed to track
 ;; --------------------------------------------------
-(require 'org-feed)
-(setq org-feed-alist
-      `(("Android Developer Blog"
-         "http://feeds.feedburner.com/blogspot/hsDu"
-         ,(concat org-directory "/android/android.org")
-         "Android Developer Blog"
-         :template "* TODO %h\n  %T\n"
-         )
+;; (require 'org-feed)
+;; (setq org-feed-alist
+;;       `(("Android Developer Blog"
+;;          "http://feeds.feedburner.com/blogspot/hsDu"
+;;          ,(concat org-directory "/android/android.org")
+;;          "Android Developer Blog"
+;;          :template "* TODO %h\n  %T\n"
+;;          )
 
-        ("ESL Podcast"
-         "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
-         ,(concat org-directory "/language/language.org")
-         "ESL Podcast"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         )
+;;         ("ESL Podcast"
+;;          "http://feeds.feedburner.com/EnglishAsASecondLanguagePodcast"
+;;          ,(concat org-directory "/language/language.org")
+;;          "ESL Podcast"
+;;          :template "* TODO %h\n  SCHEDULED: %T\n"
+;;          )
 
-        ("CNN Talk Asia"
-         "http://rss.cnn.com/services/podcasting/talkasia/rss"
-         ,(concat org-directory "/language/language.org")
-         "CNN Talk Asia"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         )
+;;         ("CNN Talk Asia"
+;;          "http://rss.cnn.com/services/podcasting/talkasia/rss"
+;;          ,(concat org-directory "/language/language.org")
+;;          "CNN Talk Asia"
+;;          :template "* TODO %h\n  SCHEDULED: %T\n"
+;;          )
 
-        ;; TV Shows I am watching
-        ("Fringe"
-         "http://showrss.karmorra.info/feeds/28.rss"
-         ,(concat org-directory "/todo.org")
-         "Fringe"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         :filter my-only-720p-feed-filter
-         )
+;;         ;; TV Shows I am watching
+;;         ("Fringe"
+;;          "http://showrss.karmorra.info/feeds/28.rss"
+;;          ,(concat org-directory "/todo.org")
+;;          "Fringe"
+;;          :template "* TODO %h\n  SCHEDULED: %T\n"
+;;          :filter my-only-720p-feed-filter
+;;          )
 
-        ("Continuum"
-         "http://showrss.karmorra.info/feeds/446.rss"
-         ,(concat org-directory "/todo.org")
-         "Continuum"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         :filter my-only-720p-feed-filter
-         )
+;;         ("Continuum"
+;;          "http://showrss.karmorra.info/feeds/446.rss"
+;;          ,(concat org-directory "/todo.org")
+;;          "Continuum"
+;;          :template "* TODO %h\n  SCHEDULED: %T\n"
+;;          :filter my-only-720p-feed-filter
+;;          )
 
-        ("The Big Bang Theory"
-         "http://showrss.karmorra.info/feeds/5.rss"
-         ,(concat org-directory "/todo.org")
-         "The Big Bang Theory"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         ;; :filter my-only-720p-feed-filter
-         )
+;;         ("The Big Bang Theory"
+;;          "http://showrss.karmorra.info/feeds/5.rss"
+;;          ,(concat org-directory "/todo.org")
+;;          "The Big Bang Theory"
+;;          :template "* TODO %h\n  SCHEDULED: %T\n"
+;;          ;; :filter my-only-720p-feed-filter
+;;          )
 
-        ("Falling Skies"
-         "http://showrss.karmorra.info/feeds/351.rss"
-         ,(concat org-directory "/todo.org")
-         "Falling Skies"
-         :template "* TODO %h\n  SCHEDULED: %T\n"
-         :filter my-only-720p-feed-filter
-         )
+;;         ("Falling Skies"
+;;          "http://showrss.karmorra.info/feeds/351.rss"
+;;          ,(concat org-directory "/todo.org")
+;;          "Falling Skies"
+;;          :template "* TODO %h\n  SCHEDULED: %T\n"
+;;          :filter my-only-720p-feed-filter
+;;          )
 
-        ;; ("Hells Kitchen"
-        ;;  "http://showrss.karmorra.info/feeds/120.rss"
-        ;;  ,(concat org-directory "/todo.org")
-        ;;  "Hells Kitchen"
-        ;;  :template "* TODO %h\n  SCHEDULED: %T\n"
-        ;;  )
+;;         ;; ("Hells Kitchen"
+;;         ;;  "http://showrss.karmorra.info/feeds/120.rss"
+;;         ;;  ,(concat org-directory "/todo.org")
+;;         ;;  "Hells Kitchen"
+;;         ;;  :template "* TODO %h\n  SCHEDULED: %T\n"
+;;         ;;  )
 
-        ;; ("Wired Top Stories"
-        ;;  "http://feeds.wired.com/wired/index"
-        ;;  ,(concat org-directory "/todo.org")
-        ;;  "Wired Top Stories"
-        ;;  :template "*TODO %h\n  SCHEDULED: %T\n"
-        ;;  )
-        ))
+;;         ;; ("Wired Top Stories"
+;;         ;;  "http://feeds.wired.com/wired/index"
+;;         ;;  ,(concat org-directory "/todo.org")
+;;         ;;  "Wired Top Stories"
+;;         ;;  :template "*TODO %h\n  SCHEDULED: %T\n"
+;;         ;;  )
+;;         ))
 
-(defun my-only-720p-feed-filter (e)
-  (if (string-match "HD 720p" (plist-get e :title))
-    e
-    nil))
+;; (defun my-only-720p-feed-filter (e)
+;;   (if (string-match "HD 720p" (plist-get e :title))
+;;     e
+;;     nil))
 
-;;* rtm feed timer
-(run-at-time 3600 7200 'org-feed-update-all)
+;; ;;* rtm feed timer
+;; (run-at-time 3600 7200 'org-feed-update-all)
 
 (require 'org-drill)
 ;(setq org-drill-question-tag "drill")

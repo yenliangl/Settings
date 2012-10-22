@@ -30,6 +30,6 @@
 ;; --------------------------------------------------
 ;; Org-mode
 ;; --------------------------------------------------
-(setq ORG_LISP_HOME (concat LISP_HOME "/org/org-7.8.11"))
+(setq ORG_LISP_HOME (concat LISP_HOME "/org/org-7.9.2"))
 (add-to-list 'load-path (concat ORG_LISP_HOME "/lisp"))
 (add-to-list 'load-path (concat ORG_LISP_HOME "/contrib/lisp"))
