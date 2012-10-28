@@ -33,28 +33,31 @@ export ANDROID_HOME=$ANDROID_SDK
 #
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
-if [ -n "$PROJECT_LIST" ]; then
+if [ -z $WINDOW ] && [ -n "$PROJECT_LIST" ]; then
     echo "Adding Cyanogenmod and AOSP into my project list"
     PROJECT_LIST="$PROJECT_LIST cyanogenmod android"
 fi
 
 mount_dev_image_darwin () {
-    local image=`capitalize_word $1`
-    if [ ! -f /Volumes/$image ]; then
-        if [ $image = "Cyanogenmod" ] || [ $image = "Android" ]; then
-            echo "Mounting image /Volumes/$image"
-            hdiutil attach ~/Work/Android/$image.sparseimage -mountpoint /Volumes/$image;
-        fi
+    local image="/Volumes/`capitalize_word $1`"
+    local file=~/Work/Android/$1.sparseimage
+    if [ -f $file ] && [ ! -f $image ]; then
+        echo "Mount sparse image for $WORKSPACE ... $image"
+        hdiutil attach $file -mountpoint $image
     fi
 }
 
 # alias myjdb='jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 -sourcepath "/Volumes/Leo21/eclair_21/packages/apps/Clock/src:/Volumes/Leo21/eclair_21/frameworks/altek/java:/Volumes/Leo21/eclair_21/frameworks/base/core/java:/Volumes/Leo21/eclair_21/frameworks/base/graphics/java:/Volumes/Leo21/eclair_21/packages/apps/Email/src"'
-alias mount_cyanogenmod="mount_dev_image_darwin Cyanogenmod"
-alias monut_aosp="mount_dev_image_darwin android"
 
-export JAVA_VERSION=1.6.0_33-b03-424
+# Switch JDK accordingly
+## Use Oracle JDK 7 by default
+export JAVA_VERSION=jdk1.7.0_07
+if [ "$WORKSPACE" == "cyanogenmod" ] || [ "$WORKSPACE" == "android" ]; then
+    # Use JDK 1.6 for CyanogenMod and AOSP.
+    export JAVA_VERSION=1.6.0_37-b06-434
+fi
+echo "JDK used for development ... ${JAVA_VERSION}"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents/Home"
-
 
 # set file descriptor limit
 ulimit -S -n 1024
