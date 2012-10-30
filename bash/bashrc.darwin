@@ -47,7 +47,8 @@ mount_dev_image_darwin () {
     fi
 }
 
-# alias myjdb='jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 -sourcepath "/Volumes/Leo21/eclair_21/packages/apps/Clock/src:/Volumes/Leo21/eclair_21/frameworks/altek/java:/Volumes/Leo21/eclair_21/frameworks/base/core/java:/Volumes/Leo21/eclair_21/frameworks/base/graphics/java:/Volumes/Leo21/eclair_21/packages/apps/Email/src"'
+ANDROID_SRC="$ANDROID_SDK/sources/android-16"
+alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 -sourcepath '$ANDROID_SRC:$ANDROID_SRC/java:$ANDROID_SRC/com'"
 
 # Switch JDK accordingly
 ## Use Oracle JDK 7 by default
