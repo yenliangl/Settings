@@ -95,7 +95,7 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 export SHELL=/bin/bash
-export TERM=xterm-256color
+export TERM=xterm
 # export LC_CTYPE="zh_TW.utf8"
 export SCREENRC=$HOME/Settings/screen/screenrc
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
