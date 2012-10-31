@@ -16,8 +16,11 @@ fi
 # ##################################################
 # Android development
 # ##################################################
+# This variable is used by cd2src for switching to the proper workspace.
+MY_ANDROID_PROJECT_DIR=~/Work/Android
+
 export ANDROID_SDK=~/tools/android-sdk-windows
-export JAVA_HOME=/cygdrive/c/Java/jdk1.6.0_32
+export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_09
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
@@ -28,7 +31,7 @@ export PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$JAVA_HOME/bin:$APACH
 export ANDROID_HOME=$ANDROID_SDK
 
 # source code of android
-export ANDROID_SRC=$HOME/projects/android/master
+export ANDROID_SRC=${ANDROID_SDK}/android-16/sources
 
 mount_dev_image_cygwin ()
 {
