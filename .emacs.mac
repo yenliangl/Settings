@@ -117,3 +117,7 @@
          )
     (compile compile-command t)
     ))
+
+;; Load android development library from SDK
+(add-to-list 'load-path (concat (getenv "ANDROID_HOME") "/tools/lib"))
+(require 'android)
