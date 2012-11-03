@@ -104,15 +104,16 @@
 
 ;; Customize gud
 (setq gdb-many-windows t
-      compilation-scroll-output t
+      compilation-scroll-output t       ;scroll output automatically
       gud-gdb-command-name "gdb --annotate=3")
 
 ;; Customize ant build for Android development
-;; (define-key java-mode-map [(f8)] 'my-ant-build-command)
 (define-key java-mode-map [(f8)] 'my-ant-build-command-g)
 (defun my-ant-build-command-g ()
   (interactive)
+  (progn
     (set (make-local-variable 'compile-command)
          "ant -emacs -s build.xml debug"
          )
-    )
+    (compile compile-command t)
+    ))
