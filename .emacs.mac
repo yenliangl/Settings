@@ -115,7 +115,8 @@
     (set (make-local-variable 'compile-command)
          "ant -emacs -s build.xml debug"
          )
-    (compile compile-command t)
+    (call-interactively 'compile)       ;give me a chance to make modification to compile-commmand
+    ;; (compile compile-command t)
     ))
 
 ;; Load android development library from SDK
