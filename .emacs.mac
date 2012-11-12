@@ -120,5 +120,5 @@
     ))
 
 ;; Load android development library from SDK
-(add-to-list 'load-path (concat (getenv "ANDROID_HOME") "/tools/lib"))
+(add-to-list 'load-path (concat "~/tools/android-sdk-mac_x86/tools/lib"))
 (require 'android)
