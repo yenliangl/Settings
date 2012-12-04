@@ -351,35 +351,38 @@
 (require 'windmove)
 (windmove-default-keybindings 'control)
 
-;; ----------------------------------------------------------------------
-;; diary
-;; ----------------------------------------------------------------------
-(setq diary-file (concat user-emacs-directory "/diary"))
-(setq view-diary-entries-initially t
-       mark-diary-entries-in-calendar t
-       number-of-diary-entries 7)
- (add-hook 'diary-display-hook 'fancy-diary-display)
- (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
-
-;; ----------------------------------------------------------------------
-;; Chinese holidays
-;; ----------------------------------------------------------------------
-(when (file-exists-p (concat user-emacs-directory "/calendar"))
-  (progn
-    (require 'cal-china-x)
-    (setq mark-holidays-in-calendar t)
-    (load-file (concat user-emacs-directory "/calendar"))
-    (when (boundp 'cal-china-x-my-lunar-holidays)
-      (progn
-        (setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
-        (setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))))
-    ))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; _+ Org-mode
 ;;
 (and (boundp 'use-org-mode) use-org-mode
-     (load-file (concat EMACS_HOME "/org.el")))
+     (progn
+       ;; ----------------------------------------------------------------------
+       ;; diary
+       ;; ----------------------------------------------------------------------
+       (setq diary-file (concat user-emacs-directory "/diary"))
+       (setq view-diary-entries-initially t
+             mark-diary-entries-in-calendar t
+             number-of-diary-entries 7)
+       (add-hook 'diary-display-hook 'fancy-diary-display)
+       (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+
+       ;; ----------------------------------------------------------------------
+       ;; Chinese holidays
+       ;; ----------------------------------------------------------------------
+       (when (file-exists-p (concat user-emacs-directory "/calendar"))
+         (progn
+           (require 'cal-china-x)
+           (setq mark-holidays-in-calendar t)
+           (load-file (concat user-emacs-directory "/calendar"))
+           (when (boundp 'cal-china-x-my-lunar-holidays)
+             (progn
+               (setq cal-china-x-important-holidays cal-china-x-my-lunar-holidays)
+               (setq calendar-holidays (append cal-china-x-important-holidays calendar-holidays))))
+           ))
+
+       ;; Load org-mode
+       (load-file (concat EMACS_HOME "/org.el")))
+     )
 
 ;; ----------------------------------------------------------------------
 ;; EasyPG
@@ -586,4 +589,7 @@
     (load-file (concat EMACS_HOME "/elscreen.el"))
 
     ))
-(appt-activate t)
+
+
+(and (boundp 'use-org-mode) use-org-mode
+     (appt-activate t))
