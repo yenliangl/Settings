@@ -20,7 +20,7 @@ fi
 MY_ANDROID_PROJECT_DIR=~/Work/Android
 
 export ANDROID_SDK=~/tools/android-sdk-windows
-export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_09
+export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_13
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
@@ -32,6 +32,10 @@ export ANDROID_HOME=$ANDROID_SDK
 
 # source code of android
 export ANDROID_SRC=${ANDROID_SDK}/android-16/sources
+
+if [ -z $WINDOW ] && [ -n "$PROJECT_LIST" ]; then
+    PROJECT_LIST="$PROJECT_LIST cyanogenmod"
+fi
 
 mount_dev_image_cygwin ()
 {
