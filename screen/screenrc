@@ -40,63 +40,65 @@ vbell_msg "   Wuff  ----  Wuff!!  "
 # IC    insert multiple chars
 # nx    terminal uses xon/xoff
 
-termcap  facit|vt100|xterm LP:G0
-terminfo facit|vt100|xterm LP:G0
+#termcap  facit|vt100|xterm LP:G0
+#terminfo facit|vt100|xterm LP:G0
 
 #the vt100 description does not mention "dl". *sigh*
-termcap  vt100 dl=5\E[M
-terminfo vt100 dl=5\E[M
+#termcap  vt100 dl=5\E[M
+#terminfo vt100 dl=5\E[M
 
 #facit's "al" / "dl"  are buggy if the current / last line
 #contain attributes...
-termcap  facit al=\E[L\E[K:AL@:dl@:DL@:cs=\E[%i%d;%dr:ic@
-terminfo facit al=\E[L\E[K:AL@:dl@:DL@:cs=\E[%i%p1%d;%p2%dr:ic@
+#termcap  facit al=\E[L\E[K:AL@:dl@:DL@:cs=\E[%i%d;%dr:ic@
+#terminfo facit al=\E[L\E[K:AL@:dl@:DL@:cs=\E[%i%p1%d;%p2%dr:ic@
 
 #make sun termcap/info better
-termcap  sun 'up=^K:AL=\E[%dL:DL=\E[%dM:UP=\E[%dA:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC:IC=\E[%d@:WS=1000\E[8;%d;%dt'
-terminfo sun 'up=^K:AL=\E[%p1%dL:DL=\E[%p1%dM:UP=\E[%p1%dA:DO=\E[%p1%dB:LE=\E[%p1%dD:RI=\E[%p1%dC:IC=\E[%p1%d@:WS=\E[8;%p1%d;%p2%dt$<1000>'
+#termcap  sun 'up=^K:AL=\E[%dL:DL=\E[%dM:UP=\E[%dA:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC:IC=\E[%d@:WS=1000\E[8;%d;%dt'
+#terminfo sun 'up=^K:AL=\E[%p1%dL:DL=\E[%p1%dM:UP=\E[%p1%dA:DO=\E[%p1%dB:LE=\E[%p1%dD:RI=\E[%p1%dC:IC=\E[%p1%d@:WS=\E[8;%p1%d;%p2%dt$<1000>'
 
 #xterm understands both im/ic and doesn't have a status line.
 #Note: Do not specify im and ic in the real termcap/info file as
 #some programs (e.g. vi) will (no,no, may (jw)) not work anymore.
-termcap  xterm|fptwist hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
-terminfo xterm|fptwist hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+#termcap  xterm|fptwist hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+#terminfo xterm|fptwist hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
 
 # Long time I had this in my private screenrc file. But many people
 # seem to want it (jw):
 # we do not want the width to change to 80 characters on startup:
 # on suns, /etc/termcap has :is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;3;4;6l:
-termcap xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
-terminfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+#termcap xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+#terminfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 
+# ----------------------------------------------------------------------
+# Hardstatus line configuration
 #
-# Do not use xterms alternate window buffer.
-# This one would not add lines to the scrollback buffer.
-#termcap xterm|xterms|xs ti=\E7\E[?47l
-#terminfo xterm|xterms|xs ti=\E7\E[?47l
+#  hardstatus line: a region that is separate from the main block of text but
+#                   that programs can use to show status messages.
+#   hs: indicates that a terminal has a hardstatus line.
+#   ts: escape entry sequence for entering it.
+#   fs: escape entry for leaving it.
+#   ds: escape sequence for clearing it.
+# ----------------------------------------------------------------------
+#termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+#termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
+#termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
 
-#make hp700 termcap/info better
-termcap  hp700 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
-terminfo hp700 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
+# Tell screen that these terminals do has a hardstatus line
+termcapinfo xterm*|rxvt*|kterm*|Eterm|mlterm "hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007"
+#defhstatus "screen ^E (^Et) | $USER@^EH"
 
-#wyse-75-42 must have defflow control (xo = "terminal uses xon/xoff")
-#(nowadays: nx = padding doesn't work, have to use xon/off)
-#essential to have it here, as this is a slow terminal.
-termcap wy75-42 nx:xo:Z0=\E[?3h\E[31h:Z1=\E[?3l\E[31h
-terminfo wy75-42 nx:xo:Z0=\E[?3h\E[31h:Z1=\E[?3l\E[31h
+# Title bars aren't good places for actual status messages, so we'll tell screen
+# not to use the hardstatus line for status messages
+hardstatus off
+#hardstatus alwayslastline "%w"
+hardstatus string '%{= kG}[ %{G}%H: %S %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %{W}%c %M/%d %{g}]'
+#hardstatus string '%{= mK}%-Lw%{= KW}%50>%n%f* %t%{= mK}%+Lw%< %{= kG}%-=%D %d %M %Y %c:%s%{-}'
+#hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
 
-#
-# Special xterm hardstatus: use the window title.
-#
-termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
-termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
-termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
+# good caption.
+# caption always "%?%F%{-b 4w}%:%{-b bb}%? %H | %l | %m-%d %c |%?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
+# caption always "%?%F%{-b 4w}%:%{-b bb}%? %?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# DO NOT USE THIS.
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# use mouse scroll at scrollback buffer
-#termcapinfo xterm*|screen* ti@:te@
 
 #remove some stupid / dangerous key bindings
 bind ^k
@@ -109,21 +111,7 @@ bind K kill
 #bind O login off
 bind } history
 
-defhstatus "screen ^E (^Et) | $USER@^EH"
-hardstatus off
 # bind '^\'
-# hardstatus alwayslastline "%w"
-
-# ==================================================
-# Caption bar at the bottom
-# ==================================================
-# caption always "%?%F%{-b 4w}%:%{-b bb}%? %?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
-# hardstatus alwayslastline
-hardstatus string '%{= kG}[ %{G}%H: %S %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m%{W}%c %{g}]'
-#hardstatus string '%{= mK}%-Lw%{= KW}%50>%n%f* %t%{= mK}%+Lw%< %{= kG}%-=%D %d %M %Y %c:%s%{-}'
-#hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
-
-#shelltitle "> |tcsh"
 
 defscrollback 5000
 
@@ -131,17 +119,17 @@ defscrollback 5000
 # allow bold colors - necessary for some reason
 attrcolor b ".I"
 # tell screen how to set colors. AB = background, AF=foreground
-
-# comment out 2
-termcapinfo xterm*      "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
-#termcapinfo xterm-color "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+#termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# erase background with current bg color
 #defbce "on"
 #defmousetrack off
-
-term xterm-256color
+#term xterm-256color
 
 # ------------------------------------------------------------
-# Create 5 default windows
+# Create default windows
+#
+#  Create 5 windows and switch to first window after intitialization.
+#  Can only create 9 windows at maximum.
 # ------------------------------------------------------------
 screen -fn 0
 screen -fn 1
@@ -150,6 +138,4 @@ screen -fn 3
 screen -fn 4
 screen -fn 5
 select 0
-
-# 10 windows at most (0-9)
 maxwin 10
