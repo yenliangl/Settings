@@ -89,8 +89,8 @@ termcapinfo xterm*|rxvt*|kterm*|Eterm|mlterm "hs:ts=\E]0;:fs=\007:ds=\E]0;screen
 
 # Title bars aren't good places for actual status messages, so we'll tell screen
 # not to use the hardstatus line for status messages
-#hardstatus off
-hardstatus string '%{= kG}[ %{G}%H: %S %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %{W}%c %M/%d %{g}]'
+hardstatus off
+hardstatus string '[%H: %S]%=[%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?]%=[%Y-%m-%d@%0C%a]'
 
 # good caption.
 # caption always "%?%F%{-b 4w}%:%{-b bb}%? %H | %l | %m-%d %c |%?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
