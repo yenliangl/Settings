@@ -6,7 +6,7 @@
 # Flaws of termcap and standard settings are done here.
 #
 
-# remap C-a
+# remap C-a to C-l
 escape ^L^L
 escape g
 
@@ -89,16 +89,12 @@ termcapinfo xterm*|rxvt*|kterm*|Eterm|mlterm "hs:ts=\E]0;:fs=\007:ds=\E]0;screen
 
 # Title bars aren't good places for actual status messages, so we'll tell screen
 # not to use the hardstatus line for status messages
-hardstatus off
-#hardstatus alwayslastline "%w"
+#hardstatus off
 hardstatus string '%{= kG}[ %{G}%H: %S %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %{W}%c %M/%d %{g}]'
-#hardstatus string '%{= mK}%-Lw%{= KW}%50>%n%f* %t%{= mK}%+Lw%< %{= kG}%-=%D %d %M %Y %c:%s%{-}'
-#hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
 
 # good caption.
 # caption always "%?%F%{-b 4w}%:%{-b bb}%? %H | %l | %m-%d %c |%?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
 # caption always "%?%F%{-b 4w}%:%{-b bb}%? %?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
-
 
 #remove some stupid / dangerous key bindings
 bind ^k

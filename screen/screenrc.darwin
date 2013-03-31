@@ -3,4 +3,5 @@ source ~/Settings/screen/screenrc
 # ==================================================
 # Caption bar at the bottom
 # ==================================================
-caption splitonly "%?%F%{-b 4w}%:%{-b bb}%? %?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
+#caption splitonly "%?%F%{-b 4w}%:%{-b bb}%? %?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0<"
+#caption always "%?%F%{-b bc}%:%{-b bb}%?%C|%D|%M %d|%H%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f*%t%{-}%+Lw%-0<"
