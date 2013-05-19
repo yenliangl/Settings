@@ -35,9 +35,11 @@ export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_NDK/bin:~/
 #
 if [ -z $WINDOW ] && [ -n "$PROJECT_LIST" ]; then
     echo "Adding Cyanogenmod and AOSP into my project list"
-    PROJECT_LIST="$PROJECT_LIST cyanogenmod android"
+    PROJECT_LIST="$PROJECT_LIST cyanogenmod aosp-master aosp-jb"
 fi
 
+# This is not used now because of the case-sensitive partition dedicated to
+# Android/CyanogenMod.
 mount_dev_image_darwin () {
     local image="/Volumes/`capitalize_word $1`"
     local file=~/Work/Android/$1.sparseimage
@@ -62,7 +64,10 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents
 
 # set file descriptor limit
 ulimit -S -n 1024
+
+# Use ccache compilation tool to speed up rebuilds of android/cyanogenmod.
 export USE_CCACHE=1
+export CCACHE_DIR=/Volumes/WORK/aosp-build-ccache
 
 # ######################################################################
 # Populate PATH into MacOS app
