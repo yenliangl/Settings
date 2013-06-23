@@ -103,7 +103,7 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 ###################################################################
 # Project list. Every project will be given a workspace command.  #
 ###################################################################
-PROJECT_LIST="bozaalarm tallycounter glowstick"
+PROJECT_LIST="scratch bozaalarm tallycounter glowstick"
 
 # ##################################################
 # platform-dependent settings
