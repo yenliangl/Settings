@@ -23,7 +23,7 @@ function find-all
 # ##############################################################################
 # Android
 # ##############################################################################
-MY_ANDROID_PROJECT_DIR=~/Work/Android
+MY_ANDROID_PROJECT_DIR=~/Project/Android
 export ANDROID_HOME="$HOME/tools/android-sdk-mac_x86"
 ANDROID_SRC=$ANDROID_HOME/sources/android-16
 ANDROID_NDK="$HOME/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
