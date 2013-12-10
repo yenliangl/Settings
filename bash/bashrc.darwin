@@ -23,7 +23,7 @@ function find-all
 # ##############################################################################
 # Android
 # ##############################################################################
-MY_ANDROID_PROJECT_DIR=~/Project/Android
+MY_ANDROID_PROJECT_DIR=~/Work/Android
 export ANDROID_HOME="$HOME/tools/android-sdk-mac_x86"
 ANDROID_SRC=$ANDROID_HOME/sources/android-16
 ANDROID_NDK="$HOME/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
@@ -99,7 +99,5 @@ export LESS_TERMCAP_so=$'\E[38;5;167m'
 export LESS_TERMCAP_ue=$'\E[38;5;231m'
 export LESS_TERMCAP_us=$'\E[38;5;167m'
 
-
-
-
-alias pidcat="~/tools/pidcat.py"
+# Ignore .DS_Store in bash's auto-completion
+export FIGNORE=DS_Store
