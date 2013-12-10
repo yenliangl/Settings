@@ -20,6 +20,12 @@ function find-all
     find . -type f -print0 | xargs -0 -grep --color -n -i "$@"
 }
 
+# function to remove .DS_Store files under a directory.
+function rm-ds-store
+{
+    find . -name ".DS_Store" -exec rm {} \;
+}
+
 # ##############################################################################
 # Android
 # ##############################################################################
