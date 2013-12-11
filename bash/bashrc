@@ -103,15 +103,11 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 ###################################################################
 # Project list. Every project will be given a workspace command.  #
 ###################################################################
-<<<<<<< HEAD
 echo "Loading platform-independent projects"
 . $HOME/Settings/bash/bashrc.projects
 if [ x"$PROJECT_LIST" == x ]; then
     echo "No PROJECT_LIST defined!"
 fi
-=======
-PROJECT_LIST="scratch bozaalarm tallycounter glowstick"
->>>>>>> a5783a099ffebce7bc14dde9edd4a177935a7881
 
 # ##################################################
 # platform-dependent settings

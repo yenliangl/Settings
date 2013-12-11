@@ -414,14 +414,14 @@
            (mode . mail-mode)
            ;; etc.; all your mail related modes
            ))
-         ("Leo21"
-          (or (filename . "/Volumes/Leo21/")
-              (filename . "~/projects/altek/Leo21")))
-         ("Froyo"
-          (or (filename . "/Volumes/Froyo/")
-              (filename . "~/projects/android/AndroidSource/Froyo")))
-         ("quicklearn-android"
-          (filename . "~/projects/quicklearn-android/"))
+         ;; ("Leo21"
+         ;;  (or (filename . "/Volumes/Leo21/")
+         ;;      (filename . "~/projects/altek/Leo21")))
+         ;; ("Froyo"
+         ;;  (or (filename . "/Volumes/Froyo/")
+         ;;      (filename . "~/projects/android/AndroidSource/Froyo")))
+         ;; ("quicklearn-android"
+         ;;  (filename . "~/projects/quicklearn-android/"))
          ("Programming" ;; prog stuff not already in MyProjectX
           (or
            (mode . c-mode)
@@ -436,6 +436,25 @@
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*")))
          ("ERC" (mode . erc-mode)))))
+
+;; Use human readable Size column instead of original one
+(define-ibuffer-column size-h
+  (:name "Size" :inline t)
+  (cond
+   ((> (buffer-size) 1000000) (format "%7.3fM" (/ (buffer-size) 1000000.0)))
+   ((> (buffer-size) 1000) (format "%7.3fk" (/ (buffer-size) 1000.0)))
+   (t (format "%8d" (buffer-size)))))
+
+;; Modify the default ibuffer-formats
+  (setq ibuffer-formats
+	'((mark modified read-only " "
+		(name 18 18 :left :elide)
+		" "
+		(size-h 9 -1 :right)
+		" "
+		(mode 16 16 :left :elide)
+		" "
+		filename-and-process)))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
