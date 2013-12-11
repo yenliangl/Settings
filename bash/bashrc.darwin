@@ -20,6 +20,12 @@ function find-all
     find . -type f -print0 | xargs -0 -grep --color -n -i "$@"
 }
 
+# function to remove .DS_Store files under a directory.
+function rm-ds-store
+{
+    find . -name ".DS_Store" -exec rm {} \;
+}
+
 # ##############################################################################
 # Android
 # ##############################################################################
@@ -98,3 +104,6 @@ export LESS_TERMCAP_se=$'\E[38;5;231m'
 export LESS_TERMCAP_so=$'\E[38;5;167m'
 export LESS_TERMCAP_ue=$'\E[38;5;231m'
 export LESS_TERMCAP_us=$'\E[38;5;167m'
+
+# Ignore .DS_Store in bash's auto-completion
+export FIGNORE=DS_Store

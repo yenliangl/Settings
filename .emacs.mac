@@ -40,8 +40,8 @@
   (progn
     (setq ns-antialias-text t)
     ;; (set-default-font "-apple-Ubuntu_Mono-medium-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-    ;; (set-default-font "-apple-Monaco-medium-r-normal--13-*-*-*-*-*-*-*")
-    (set-default-font "-apple-Source_Code_Pro-medium-r-normal--14-*-*-*-*-*-*-*")
+    (set-default-font "-apple-Monaco-medium-r-normal--13-*-*-*-*-*-*-*")
+    ;; (set-default-font "-apple-Source_Code_Pro-medium-r-normal--14-*-*-*-*-*-*-*")
     ;; (set-default-font "-apple-Consolas-medium-normal-normal-*-15-*-*-*-m-0-iso10646-1")
 
     ;; Set chinese font.
