@@ -151,8 +151,9 @@ fi
 alias ll='ls --color=always -l'
 alias la='ls -A'
 alias l='ls -CF'
-alias gr='grep -n'
 alias cls='clear'
+alias du1='du -h -d 1'
+alias gr='grep -n'
 alias scp='scp -Cr'
 
 # ##################################################
