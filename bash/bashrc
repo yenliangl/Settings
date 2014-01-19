@@ -103,7 +103,11 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 ###################################################################
 # Project list. Every project will be given a workspace command.  #
 ###################################################################
-PROJECT_LIST="scratch bozaalarm tallycounter glowstick"
+echo "Loading platform-independent projects"
+. $HOME/Settings/bash/bashrc.projects
+if [ x"$PROJECT_LIST" == x ]; then
+    echo "No PROJECT_LIST defined!"
+fi
 
 # ##################################################
 # platform-dependent settings
@@ -147,8 +151,9 @@ fi
 alias ll='ls --color=always -l'
 alias la='ls -A'
 alias l='ls -CF'
-alias gr='grep -n'
 alias cls='clear'
+alias du1='du -h -d 1'
+alias gr='grep -n'
 alias scp='scp -Cr'
 
 # ##################################################

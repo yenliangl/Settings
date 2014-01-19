@@ -20,7 +20,7 @@ fi
 MY_ANDROID_PROJECT_DIR=~/Work/Android
 
 export ANDROID_SDK=~/tools/android-sdk-windows
-export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_13
+export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_21
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
@@ -64,5 +64,5 @@ alias cls='clearw'
 alias open='cygstart'
 
 # custom build for screen that supports vertical split
-export PATH="~/tools/screen/bin:~/tools/ffmpeg/current/bin:$PATH:."
+#export PATH="~/tools/screen/bin:~/tools/ffmpeg/current/bin:$PATH:."
 export TERM=xterm
