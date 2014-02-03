@@ -19,22 +19,18 @@ fi
 # This variable is used by cd2src for switching to the proper workspace.
 MY_ANDROID_PROJECT_DIR=~/Work/Android
 
-export ANDROID_SDK=~/tools/android-sdk-windows
-export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_21
+export ANDROID_HOME=~/tools/android-sdk-windows
+export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_51
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
-APACHE_MAVEN_HOME=~/tools/apache-maven/current
-export PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$JAVA_HOME/bin:$APACHE_ANT_HOME/bin:$APACHE_MAVEN_HOME/bin:$PATH
-
-# Defined for github-android
-export ANDROID_HOME=$ANDROID_SDK
+export PATH=$JAVA_HOME/bin:$APACHE_ANT_HOME/bin:$PATH
 
 # source code of android
-export ANDROID_SRC=${ANDROID_SDK}/android-16/sources
+ANDROID_SRC=${ANDROID_HOME}/sources/android-19/sources
 
-if [ -z $WINDOW ] && [ -n "$PROJECT_LIST" ]; then
-    PROJECT_LIST="$PROJECT_LIST cyanogenmod"
+if [ -z "${WINDOW+x}" ] && [ -n "$PROJECT_WORKSPACES" ]; then
+    PROJECT_WORKSPACES="$PROJECT_WORKSPACES cyanogenmod"
 fi
 
 mount_dev_image_cygwin ()

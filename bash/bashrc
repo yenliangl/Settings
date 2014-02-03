@@ -100,18 +100,13 @@ export TERM=xterm
 export SCREENRC=$HOME/Settings/screen/screenrc
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 
-###################################################################
-# Project list. Every project will be given a workspace command.  #
-###################################################################
-echo "Loading platform-independent projects"
-. $HOME/Settings/bash/bashrc.projects
-if [ x"$PROJECT_LIST" == x ]; then
-    echo "No PROJECT_LIST defined!"
-fi
-
 # ##################################################
 # platform-dependent settings
 # ##################################################
+
+# Define generic PROJECT_WORKSPACES
+PROJECT_WORKSPACES="bozaalarm tallycounter"
+
 CREATE_DVTM_SESSIONS=1
 MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
 case "$MNAME" in
@@ -131,11 +126,16 @@ linux*)
 *)
     ;;
 esac
+
+# Set executable path of Android
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+
 if [ -f $MBASHRC ]; then
-    echo "Load platform-dependent $MBASHRC"
+    echo "Load $MBASHRC"
     . $MBASHRC
     export SCREENRC=$HOME/Settings/screen/screenrc.darwin
 fi
+echo "Define project workspaces: $PROJECT_WORKSPACES"
 
 #######################################################
 # Check settings that should be set for all platforms #
@@ -166,7 +166,7 @@ fi
 
 # Don't create ws aliases if already in some WORKSPACE
 if [ -z $WINDOW ]; then
-    for w in $PROJECT_LIST $DEFAULT_WORKSPACE
+    for w in $PROJECT_WORKSPACES $DEFAULT_WORKSPACE
     do
         alias ws_$w="create_workspace $w"
     done

@@ -34,14 +34,13 @@ export ANDROID_HOME="$HOME/tools/android-sdk-mac_x86"
 ANDROID_SRC=$ANDROID_HOME/sources/android-16
 ANDROID_NDK="$HOME/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
 # export ANDROID_SRC=/Volumes/android
-export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
+export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 
 #
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
-if [ -z $WINDOW ] && [ -n "$PROJECT_LIST" ]; then
-    echo "Adding Cyanogenmod and AOSP into my project list"
-    PROJECT_LIST="$PROJECT_LIST cyanogenmod aosp-master aosp-jb"
+if [ -z ${WINDOW+x} ] && [ -n "$PROJECT_WORKSPACES" ]; then
+    PROJECT_WORKSPACES="$PROJECT_WORKSPACES cyanogenmod aosp-master aosp-jb"
 fi
 
 # This is not used now because of the case-sensitive partition dedicated to

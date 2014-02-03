@@ -1,3 +1,0 @@
-# define android projects
-PROJECT_LIST="aosp bozaalarm tallycounter glowstick"
-echo "  android projects: $PROJECT_LIST"
