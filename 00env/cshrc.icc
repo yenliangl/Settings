@@ -1,9 +1,0 @@
-#!/bin/csh
-
-source /space/eda/00env/cshrc.icc
-
-foreach d ($CSCOPE_HOME/doc/*)
-   if ( -de $d/man ) then
-       setenv MANPATH $d/man:$MANPATH
-   endif
-end
