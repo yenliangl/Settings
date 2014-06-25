@@ -20,7 +20,7 @@ fi
 MY_ANDROID_PROJECT_DIR=~/Work/Android
 
 export ANDROID_HOME=/cygdrive/d/Android/android-sdk-windows
-export JAVA_HOME=/cygdrive/d/Java/jdk1.7.0_51
+export JAVA_HOME=/cygdrive/d/Java/jdk1.7.0_55
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
@@ -62,3 +62,8 @@ alias open='cygstart'
 # custom build for screen that supports vertical split
 #export PATH="~/tools/screen/bin:~/tools/ffmpeg/current/bin:$PATH:."
 export TERM=xterm
+
+# Groovy
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "/cygdrive/d/yenliang/.gvm/bin/gvm-init.sh" ]] && source "/cygdrive/d/yenliang/.gvm/bin/gvm-init.sh"
+export PATH="$GVM_DIR/groovy/2.3.3/bin:$PATH"
