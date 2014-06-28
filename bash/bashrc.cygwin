@@ -66,4 +66,5 @@ export TERM=xterm
 # Groovy
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
-export PATH="$GVM_DIR/groovy/2.3.3/bin:$HOME/tools/gradle/bin:$PATH"
+export GRADLE_HOME=$HOME/tools/gradle
+export PATH="$GVM_DIR/groovy/2.3.3/bin:$GRADLE_HOME/bin:$PATH"
