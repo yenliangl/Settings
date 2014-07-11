@@ -127,6 +127,20 @@
 ;; Feature control
 (setq use-org-mode nil
       use-git-mode nil
-      use-jdee t
+      use-cedet t
+      use-jdee nil
       use-tabbar nil
       use-ecb nil)
+
+;; ----------------------------------------------------------------------
+;; CEDET
+;; ----------------------------------------------------------------------
+(and (boundp 'use-cedet) use-cedet
+     (progn
+       ;; ----------------------------------------------------------------------
+       ;; CEDET
+       ;; ----------------------------------------------------------------------
+       (load-file (concat EMACS_HOME "/cedet.el"))
+       ))
+
+(setq compilation-scroll-output t)
