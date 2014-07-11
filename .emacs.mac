@@ -1,14 +1,7 @@
 ;; -*- mode: Lisp;-*-
 
-;; (setenv "PATH" (concat (getenv "PATH")))
-;; (setq exec-path (append exec-path '("/usr/local/bin" )))
 (setq ORG_HOME "~/Dropbox/Org")
-(setq use-org-mode nil
-      use-git-mode nil
-      use-jdee t
-      use-tabbar nil
-      use-ecb nil
-      ispell-program-name "/usr/local/bin/aspell")
+(setq ispell-program-name "/usr/local/bin/aspell")
 
 ;; When running Aquamacs, initialize color-theme
 (when (featurep 'aquamacs)

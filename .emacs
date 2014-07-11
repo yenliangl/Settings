@@ -1,8 +1,4 @@
-(setq use-org-mode t)
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
-
-(setq user-full-name "Liu Yen-Liang (Josh)")
-(setq user-mail-address "yenliangl@gmail.com")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom variable and faces

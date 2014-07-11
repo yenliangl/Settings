@@ -6,7 +6,8 @@
 ;; arguments, but requires 1".
 (setq byte-compile-warning nil)
 
-(load-file (concat LISP_HOME "/cedet/1.0/common/cedet.el"))
+;; (load-file (concat LISP_HOME "/cedet/1.0/common/cedet.el"))
+(load-file (concat LISP_HOME "/cedet/trunk/cedet-devel-load.el"))
 ;; Enable EDE (Project Management) features
 (global-ede-mode t)
 
