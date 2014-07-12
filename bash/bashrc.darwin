@@ -40,7 +40,7 @@ export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
 if [ -z ${WINDOW+x} ] && [ -n "$PROJECT_WORKSPACES" ]; then
-    PROJECT_WORKSPACES="$PROJECT_WORKSPACES cyanogenmod aosp-master aosp-jb"
+    PROJECT_WORKSPACES="$PROJECT_WORKSPACES cyanogenmod aosp-master"
 fi
 
 # This is not used now because of the case-sensitive partition dedicated to
@@ -58,9 +58,9 @@ alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 
 # Switch JDK accordingly
 ## Use Oracle JDK 7 by default
-export JAVA_VERSION=1.6.0_37-b06-434
-#export JAVA_VERSION=jdk1.7.0_07
-if [ "$WORKSPACE" == "cyanogenmod" ] || [ "$WORKSPACE" == "android" ]; then
+#export JAVA_VERSION=1.6.0_37-b06-434
+export JAVA_VERSION=jdk1.7.0_70
+if [ "$WORKSPACE" == "cyanogenmod" ] || [ "$WORKSPACE" == "aosp-master" ]; then
     # Use JDK 1.6 for CyanogenMod and AOSP.
     export JAVA_VERSION=1.6.0_37-b06-434
 fi

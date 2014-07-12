@@ -135,7 +135,12 @@ if [ -f $MBASHRC ]; then
     . $MBASHRC
     export SCREENRC=$HOME/Settings/screen/screenrc.darwin
 fi
-echo "Define project workspaces: $PROJECT_WORKSPACES"
+if [ -z $WINDOW ]; then
+    echo "Available workspaces: $PROJECT_WORKSPACES"
+else
+    echo "Create window in *${WORKSPACE}* ... $WINDOW"
+fi
+MBASHRC=
 
 #######################################################
 # Check settings that should be set for all platforms #
