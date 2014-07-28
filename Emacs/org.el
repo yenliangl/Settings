@@ -26,6 +26,7 @@
             ;; flyspell mode
             (flyspell-mode 1)))
 
+(setq ORG_HOME (concat DROPBOX "/Org"))
 (if (boundp 'ORG_HOME)
     (setq org-directory ORG_HOME)
   (setq org-directory (expand-file-name "~/Work/Org")))
