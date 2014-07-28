@@ -16,9 +16,6 @@ fi
 # ##################################################
 # Android development
 # ##################################################
-# This variable is used by cd2src for switching to the proper workspace.
-MY_ANDROID_PROJECT_DIR=~/Work/Android
-
 export ANDROID_HOME=/cygdrive/d/Android/android-sdk-windows
 export JAVA_HOME=/cygdrive/d/Java/jdk1.7.0_55
 

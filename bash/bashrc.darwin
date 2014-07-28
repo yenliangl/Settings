@@ -29,7 +29,6 @@ function rm-ds-store
 # ##############################################################################
 # Android
 # ##############################################################################
-MY_ANDROID_PROJECT_DIR=~/Work/Android
 export ANDROID_HOME="$HOME/tools/android-sdk-mac_x86"
 ANDROID_SRC=$ANDROID_HOME/sources/android-16
 ANDROID_NDK="$HOME/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
@@ -40,7 +39,7 @@ export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
 if [ -z ${WINDOW+x} ] && [ -n "$PROJECT_WORKSPACES" ]; then
-    PROJECT_WORKSPACES="$PROJECT_WORKSPACES cyanogenmod aosp-master"
+    PROJECT_WORKSPACES="$PROJECT_WORKSPACES paranoid aosp"
 fi
 
 # This is not used now because of the case-sensitive partition dedicated to
@@ -59,20 +58,19 @@ alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 # Switch JDK accordingly
 ## Use Oracle JDK 7 by default
 #export JAVA_VERSION=1.6.0_37-b06-434
-export JAVA_VERSION=jdk1.7.0_70
-if [ "$WORKSPACE" == "cyanogenmod" ] || [ "$WORKSPACE" == "aosp-master" ]; then
-    # Use JDK 1.6 for CyanogenMod and AOSP.
-    export JAVA_VERSION=1.6.0_37-b06-434
-fi
+export JAVA_VERSION=jdk1.7.0_60
+# if [ "$WORKSPACE" == "paranoid" ] || [ "$WORKSPACE" == "aosp-master" ]; then
+#     # Use JDK 1.6 for CyanogenMod and AOSP.
+#     export JAVA_VERSION=1.6.0_37-b06-434
+# fi
 echo "JDK used for development ... ${JAVA_VERSION}"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents/Home"
 
 # set file descriptor limit
 ulimit -S -n 1024
-
-# Use ccache compilation tool to speed up rebuilds of android/cyanogenmod.
 export USE_CCACHE=1
-export CCACHE_DIR=/Volumes/WORK/aosp-build-ccache
+export CCACHE_DIR=/Volumes/WORK/aosp-android/ccache
+# export OUT_DIR_COMMON_BASE=<path-to-your-out-directory>
 
 # ######################################################################
 # Populate PATH into MacOS app
