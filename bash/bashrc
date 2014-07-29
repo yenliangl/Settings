@@ -97,7 +97,7 @@ fi
 export SHELL=/bin/bash
 export TERM=xterm
 # export LC_CTYPE="zh_TW.utf8"
-export SCREENRC=$HOME/Settings/screen/screenrc
+# export SCREENRC=$HOME/Settings/screen/screenrc
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 
 # ##################################################
@@ -108,12 +108,10 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 PROJECT_WORKSPACES="bozaalarm tallycounter"
 ANDROID_PROJECT_DIR=~/Work/Android
 
-CREATE_DVTM_SESSIONS=1
 MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
 case "$MNAME" in
 cygwin*)
     MBASHRC=$HOME/Settings/bash/bashrc.cygwin
-    CREATE_DVTM_SESSIONS=0
     MNAME=cygwin
     ;;
 darwin*)
@@ -134,12 +132,12 @@ export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 if [ -f $MBASHRC ]; then
     echo "Load $MBASHRC"
     . $MBASHRC
-    export SCREENRC=$HOME/Settings/screen/screenrc.darwin
 fi
-if [ -z $WINDOW ]; then
+#export WINDOWID=
+if [ -z $TMUX ]; then
     echo "Available workspaces: $PROJECT_WORKSPACES"
 else
-    echo "Create window in *${WORKSPACE}* ... $WINDOW"
+    echo "Create window in *${WORKSPACE}* ... "
 fi
 MBASHRC=
 
@@ -171,7 +169,7 @@ if [ -z $WORKSPACE ]; then
 fi
 
 # Don't create ws aliases if already in some WORKSPACE
-if [ -z $WINDOW ]; then
+if [ -z $TMUX ]; then
     for w in $PROJECT_WORKSPACES $DEFAULT_WORKSPACE
     do
         alias ws_$w="create_workspace $w"
@@ -190,26 +188,6 @@ alias force-kill-emacs='kill -9 `pgrep -f "emacs \-\-daemon=$WORKSPACE"`'
 alias list-emacs='ps -fp `pgrep -f "emacs --daemon=$WORKSPACE"`'
 alias list-all-emacs='ps -fp `pgrep -f "emacs --daemon="`'
 #alias ls-by-size       `/bin/ls -lhS | awk '{printf "%5s  %s\n", $5, $9}'`
-
-# create dvtm sessions
-if [ $CREATE_DVTM_SESSIONS -eq 1 ]; then
-    DTACH=`which dtach`
-    DVTM=`which dvtm`
-    if [ -n "$DTACH" ] && [ -n "$DVTM" ]; then
-        echo "Created aliases for dvtm sessions... use dvtm[1-5] to create"
-        if [ -z $WINDOW ]; then
-            for s in {1..5}
-            do
-                alias dvtm$s="dtach -A /tmp/dvtm-session-${WORKSPACE}-$s dvtm"
-            done
-        else
-            alias dvtm="dtach -A /tmp/dvtm-session-${WORKSPACE}-${WINDOW} dvtm"
-        fi
-    else
-        echo "Either dtach or dvtm is not installed. no dvtm sessions will be created for you."
-    fi
-fi
-CREATE_DVTM_SESSIONS=
 
 alias cgrep="find . -type f -iregex '.*\.\(c\|C\|h\|ht\|cpp\)' -print0 | xargs -0 grep --color -n"
 alias hgrep="find . -type f -iregex '.*\.\(h\|ht\)' -print0 | xargs -0 grep --color -n"
@@ -242,7 +220,7 @@ capitalize_word () {
     echo $result
 }
 
-if [ -z $WINDOW ]; then
+if [ -z $TMUX ]; then
     # Mount development image
     mount_dev_image () {
     # Execute platform-specific mount function. It can be just a change dir
@@ -258,6 +236,7 @@ if [ -z $WINDOW ]; then
         # troubles.
         ## mount_dev_image $1
         echo "Create workspace for ${WORKSPACE} development..."
-        screen -mS $1 -DR
+        # screen -mS $1 -DR
+        tmux new -AD -s $1
     }
 fi
