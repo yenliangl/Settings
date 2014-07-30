@@ -125,7 +125,7 @@
 (setq user-mail-address "yenliangl@gmail.com")
 
 ;; Feature control
-(setq use-org-mode t
+(setq use-org-mode nil
       use-git-mode nil
       use-cedet nil
       use-jdee nil
