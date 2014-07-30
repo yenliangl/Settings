@@ -38,8 +38,8 @@ export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 #
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
-if [ -z ${TMUX+x} ] && [ -n "$PROJECT_WORKSPACES" ]; then
-    PROJECT_WORKSPACES="$PROJECT_WORKSPACES paranoid aosp"
+if [ -z ${TMUX+x} ] && [ -n "$PROJECTS" ]; then
+    PROJECTS="$PROJECTS paranoid aosp"
 fi
 
 # This is not used now because of the case-sensitive partition dedicated to
@@ -48,7 +48,7 @@ mount_dev_image_darwin () {
     local image="/Volumes/`capitalize_word $1`"
     local file=~/Work/Android/$1.sparseimage
     if [ -f $file ] && [ ! -f $image ]; then
-        echo "Mount sparse image for $WORKSPACE ... $image"
+        echo "Mount sparse image for $PROJECT ... $image"
         hdiutil attach $file -mountpoint $image
     fi
 }
@@ -59,10 +59,6 @@ alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 ## Use Oracle JDK 7 by default
 #export JAVA_VERSION=1.6.0_37-b06-434
 export JAVA_VERSION=jdk1.7.0_60
-# if [ "$WORKSPACE" == "paranoid" ] || [ "$WORKSPACE" == "aosp-master" ]; then
-#     # Use JDK 1.6 for CyanogenMod and AOSP.
-#     export JAVA_VERSION=1.6.0_37-b06-434
-# fi
 echo "JDK used for development ... ${JAVA_VERSION}"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents/Home"
 

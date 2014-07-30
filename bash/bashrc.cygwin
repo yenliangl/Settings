@@ -26,8 +26,8 @@ export PATH=$JAVA_HOME/bin:$APACHE_ANT_HOME/bin:$PATH
 # source code of android
 ANDROID_SRC=${ANDROID_HOME}/sources/android-19/sources
 
-if [ -z "${TMUX+x}" ] && [ -n "$PROJECT_WORKSPACES" ]; then
-    PROJECT_WORKSPACES="$PROJECT_WORKSPACES cyanogenmod"
+if [ -z "${TMUX+x}" ] && [ -n "$PROJECTS" ]; then
+    PROJECTS="$PROJECTS cyanogenmod"
 fi
 
 mount_dev_image_cygwin ()

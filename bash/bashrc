@@ -104,8 +104,8 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 # platform-dependent settings
 # ##################################################
 
-# Define generic PROJECT_WORKSPACES
-PROJECT_WORKSPACES="bozaalarm tallycounter"
+# Define generic PROJECTS
+PROJECTS="bozaalarm tallycounter"
 ANDROID_PROJECT_DIR=~/Work/Android
 
 MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
@@ -135,9 +135,9 @@ if [ -f $MBASHRC ]; then
 fi
 #export WINDOWID=
 if [ -z $TMUX ]; then
-    echo "Available workspaces: $PROJECT_WORKSPACES"
+    echo "Available workspaces: $PROJECTS"
 else
-    echo "Create window in *${WORKSPACE}* ... "
+    echo "Create window in *${PROJECT}* ... "
 fi
 MBASHRC=
 
@@ -163,30 +163,31 @@ alias scp='scp -Cr'
 # ##################################################
 # Workspace
 # ##################################################
-DEFAULT_WORKSPACE=default
-if [ -z $WORKSPACE ]; then
-    export WORKSPACE=$DEFAULT_WORKSPACE
+DEFAULT_PROJECT=default
+if [ -z $PROJECT ]; then
+    export PROJECT=$DEFAULT_PROJECT
 fi
 
-# Don't create ws aliases if already in some WORKSPACE
+# Don't create ws aliases if already in some PROJECT
 if [ -z $TMUX ]; then
-    for w in $PROJECT_WORKSPACES $DEFAULT_WORKSPACE
+    for w in $PROJECTS $DEFAULT_PROJECT
     do
         alias ws_$w="create_workspace $w"
     done
 else
-    alias cd2src="cd -P $ANDROID_PROJECT_DIR/$WORKSPACE-android"
+    alias cd2src="cd -P $ANDROID_PROJECT_DIR/$PROJECT-android"
 fi
 ANDROID_PROJECT_DIR=
 
-export EDITOR="emacsclient -s $WORKSPACE -t -a ''"
+export EDITOR="emacsclient -s $PROJECT -t -a ''"
 alias et="$EDITOR"
-alias kill-emacs="emacsclient -s $WORKSPACE -t --eval '(kill-emacs)'"
-alias start-emacs-server="emacs --daemon=$WORKSPACE"
+alias kill-emacs="emacsclient -s $PROJECT -t --eval '(kill-emacs)'"
+alias start-emacs-server="emacs --daemon=$PROJECT"
 alias kill-emacs-p="emacsclient --eval '(kill-emacs)' -t -s \!*"
-alias force-kill-emacs='kill -9 `pgrep -f "emacs \-\-daemon=$WORKSPACE"`'
-alias list-emacs='ps -fp `pgrep -f "emacs --daemon=$WORKSPACE"`'
+alias force-kill-emacs='kill -9 `pgrep -f "emacs \-\-daemon=$PROJECT"`'
+alias list-emacs='ps -fp `pgrep -f "emacs --daemon=$PROJECT"`'
 alias list-all-emacs='ps -fp `pgrep -f "emacs --daemon="`'
+alias list-projects='tmux list-sessions'
 #alias ls-by-size       `/bin/ls -lhS | awk '{printf "%5s  %s\n", $5, $9}'`
 
 alias cgrep="find . -type f -iregex '.*\.\(c\|C\|h\|ht\|cpp\)' -print0 | xargs -0 grep --color -n"
@@ -230,13 +231,13 @@ if [ -z $TMUX ]; then
 
 # Create a screen workspace with $1 as its name
     create_workspace () {
-        export WORKSPACE=$1
+        export PROJECT=$1
         # Does't need to mount case-insesitive sparse image anymore.  Bought new
         # disk and a dedicated partition for Android development. Save a lot
         # troubles.
         ## mount_dev_image $1
-        echo "Create workspace for ${WORKSPACE} development..."
+        echo "Create workspace for ${PROJECT} development..."
         # screen -mS $1 -DR
-        tmux new -AD -s $1
+        tmux new -AD -s `echo $1 | sed -e "s/\./-/g"`
     }
 fi
