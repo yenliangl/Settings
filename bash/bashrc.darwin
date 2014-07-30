@@ -38,7 +38,7 @@ export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 #
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
-if [ -z ${WINDOW+x} ] && [ -n "$PROJECT_WORKSPACES" ]; then
+if [ -z ${TMUX+x} ] && [ -n "$PROJECT_WORKSPACES" ]; then
     PROJECT_WORKSPACES="$PROJECT_WORKSPACES paranoid aosp"
 fi
 
