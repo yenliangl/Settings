@@ -33,7 +33,7 @@
 
 (menu-bar-mode -1)
 
-;; (remove-hook 'before-save-hook 'delete-trailing-whitespace)
+(remove-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq gdb-many-windows t
       compilation-scroll-output t)
