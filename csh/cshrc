@@ -93,17 +93,14 @@ alias sgrep      "find . -type f -iregex '.*\.\(c\|C\|h\|cpp\|S\|java\|xml\|sh\|
 alias du1        "du -h -d 1"
 alias rmcore     'find . -name "core.*" -print0 | xargs -0 \rm -rf'
 
-#
-# PROJECT can be from ~/bin/workspace script.
-#
+# ##################################################
+# Default project
+# ##################################################
 setenv DEFAULT_PROJECT default
 if ( $?PROJECT == 0 ) then
   setenv PROJECT $DEFAULT_PROJECT
 endif
-#setenv EDITOR "emacsclient -s $PROJECT -t -a ''"
 setenv EDITOR 'emacsclient -s $PROJECT -t -a ""'
-# Set the default perforce client
-#setenv P4CLIENT "yenliang_starrc_$PROJECT"
 
 # ##################################################
 # Use libSegFault.so to catch uncatched signals.
@@ -118,12 +115,14 @@ setenv SEGFAULT_SIGNALS all
 # ############################################################
 # source internal settings
 # ############################################################
-if ( -e ~/env_setup/internal.cshrc ) then
-  source ~/env_setup/internal.cshrc
+if ( -e ~/.cshrc.internal ) then
+  source ~/.cshrc.internal
 endif
 
 # ######################################################################
 # Create project workspaces
+#  PROJECT_LIST_0
+#  PROJECT_LIST_1
 # ######################################################################
 set WM=tmux
 source ~/Settings/csh/${WM}.cshrc
