@@ -121,8 +121,8 @@ With arg, do it arg times."
   (define-key c-mode-map [(f6)] 'kde-switch-cpp-h)
   (c-set-style kde-c-style))
 
-;; (add-hook 'c++-mode-hook 'kde-c++-mode-hook)
-;; (add-hook 'c-mode-hook 'kde-c-mode-hook)
+(add-hook 'c++-mode-hook 'kde-c++-mode-hook)
+(add-hook 'c-mode-hook 'kde-c-mode-hook)
 ; always end a file with a newline
 (setq-default require-final-newline t)
 ; 'next-line won't be adding newlines
@@ -140,4 +140,3 @@ With arg, do it arg times."
 (define-key global-map [(control delete)] 'kill-word)
 (define-key global-map [(control prior)] 'beginning-of-buffer)
 (define-key global-map [(control next)] 'end-of-buffer)
-

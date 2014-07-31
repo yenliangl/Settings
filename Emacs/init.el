@@ -86,8 +86,7 @@
 (blink-cursor-mode 0)
 (when window-system
   (tool-bar-mode -1))
-(unless window-system
-  (menu-bar-mode -1))
+(menu-bar-mode -1)
 
 ;; --------------------------------------------------
 ;; handle trailing whitespaces
@@ -146,3 +145,6 @@
        ))
 
 (setq compilation-scroll-output t)
+
+;; remove
+;; (remove-hook 'before-save-hook 'delete-trailing-whitespace)

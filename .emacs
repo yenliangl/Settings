@@ -1,11 +1,5 @@
-(setq use-org-mode nil
-      use-jdee nil)
-
 (setq DROPBOX "~")
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
-
-(setq user-full-name "Liu Yen-Liang (David)")
-(setq user-mail-address "yenliang@synopsys.com")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,9 +25,6 @@
     (set-fontset-font "fontset-default"
                       'han '("MingLan" . "unicode-bmp"))))
 
-(menu-bar-mode -1)
-
-(remove-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq gdb-many-windows t
       compilation-scroll-output t)

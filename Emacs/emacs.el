@@ -27,7 +27,7 @@
           (lambda ()
             (run-after-make-frame-hooks (selected-frame))))
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; ----------------------------------------------------------------------
 ;; Query and search EMACS_HOME
