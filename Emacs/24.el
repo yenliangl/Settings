@@ -5,7 +5,9 @@
 ;; --------------------------------------------------
 ;; package sources
 ;; --------------------------------------------------
-(require 'package)
+;(require 'package)
+(setq package-enable-at-startup nil)
+(package-initialize)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("elpa" . "http://tromey.com/elpa/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
