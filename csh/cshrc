@@ -115,9 +115,12 @@ setenv SEGFAULT_SIGNALS all
 # ############################################################
 # source internal settings
 # ############################################################
-if ( -e ~/.cshrc.internal ) then
-  source ~/.cshrc.internal
+set internal_cshrc="~/.cshrc.internal"
+if ( -e $internal_cshrc ) then
+  source $internal_cshrc
+  echo "Loaded internal settings from ${internal_cshrc}"
 endif
+unset internal_cshrc
 
 # ######################################################################
 # Create project workspaces
