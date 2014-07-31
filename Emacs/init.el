@@ -1,7 +1,9 @@
 ;; Paths
 (unless (boundp 'EMACS_HOME)
 	(defconst EMACS_HOME (expand-file-name "~/Settings/Emacs")))
-(defconst DROPBOX (expand-file-name "~/Dropbox"))
+
+(unless (boundp 'DROPBOX)
+        (defconst DROPBOX (expand-file-name "~/Dropbox")))
 (setq user-emacs-directory (concat DROPBOX "/.emacs.d"))
 (defconst LISP_HOME (expand-file-name (concat user-emacs-directory "/elisp")))
 (defconst ELPA_HOME (expand-file-name (concat user-emacs-directory "/elpa")))

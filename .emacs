@@ -1,9 +1,12 @@
 (setq use-org-mode nil
       use-jdee nil)
+
+(setq DROPBOX "~")
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
 
 (setq user-full-name "Liu Yen-Liang (David)")
 (setq user-mail-address "yenliang@synopsys.com")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom variable and faces
