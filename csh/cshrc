@@ -96,9 +96,9 @@ alias rmcore     'find . -name "core.*" -print0 | xargs -0 \rm -rf'
 # ##################################################
 # Default project
 # ##################################################
-setenv DEFAULT_PROJECT default
 if ( $?PROJECT == 0 ) then
-  setenv PROJECT $DEFAULT_PROJECT
+   setenv DEFAULT_PROJECT default
+   setenv PROJECT $DEFAULT_PROJECT
 endif
 setenv EDITOR 'emacsclient -s $PROJECT -t -a ""'
 
@@ -124,10 +124,10 @@ endif
 #  PROJECT_LIST_0
 #  PROJECT_LIST_1
 # ######################################################################
+setenv TERM xterm
 set WM=tmux
 source ~/Settings/csh/${WM}.cshrc
 unset WM
-
 # how to remove an element from PATH
 # echo $PATH | sed -e 's;\(^/home/user/bin:\|:/home/user/bin$\|:/home/user/bin\(:\)\);\2;g'
 
