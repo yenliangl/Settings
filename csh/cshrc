@@ -62,14 +62,48 @@ endif
 limit coredumpsize unlimited
 unlimit core
 
-# ----------------------------------------------------------------------
-# Initialize default WORKSPACE
-# ----------------------------------------------------------------------
-setenv DEFAULT_WORKSPACE default
-if ( $?WORKSPACE == 0 ) then
-  setenv WORKSPACE $DEFAULT_WORKSPACE
+if ($?tcsh && $?prompt) then
+   bindkey "\e[1~" beginning-of-line # Home
+   bindkey "\e[7~" beginning-of-line # Home rxvt
+   bindkey "\e[2~" overwrite-mode    # Ins
+   bindkey "\e[3~" delete-char       # Delete
+   bindkey "\e[4~" end-of-line       # End
+   bindkey "\e[8~" end-of-line       # End rxvt
 endif
-setenv EDITOR "emacsclient -s $WORKSPACE -t -a ''"
+
+# --------------------------------------------------
+# Common aliases independent to platforms.
+# --------------------------------------------------
+alias ls         'ls --color=always'
+alias cls        'clear'
+alias ll         'ls -ls | more'
+alias lt         'ls -lt | more'
+alias la         'ls -al | more'
+alias num        'ls | wc -l'
+# alias cwdcmd     'echo -n "^[]2;${HOST}:$cwd^G^[]1;${HOST}^G" '
+alias used       'du -sh'
+alias myps       'ps -aux | grep ${USER}'
+alias rm         'rm -i'
+alias gr         'grep -n'
+alias cgrep      "find . -type f -iregex '.*\.\(c\|C\|cc\|h\|ht\|hh\|cxx\|cpp\)' -print0 | xargs -0 grep --color -n"
+alias hgrep      "find . -type f -iregex '.*\.\(h\|ht\|hh\)' -print0 | xargs -0 grep --color -n"
+alias mgrep      "find . -regextype posix-egrep -iregex '(.*\/Makefile|.*\/Makefile\..*|.*\.make|.*\.hier|.*\.mak|.*\.mk)' -type f -p\
+rint0 | xargs -0 grep --color -n"
+alias sgrep      "find . -type f -iregex '.*\.\(c\|C\|h\|cpp\|S\|java\|xml\|sh\|hier\|make\)' -print0 | xargs -0 grep --color -n"
+alias du1        "du -h -d 1"
+alias rmcore     'find . -name "core.*" -print0 | xargs -0 \rm -rf'
+
+#
+# PROJECT can be from ~/bin/workspace script.
+#
+setenv DEFAULT_PROJECT default
+if ( $?PROJECT == 0 ) then
+  setenv PROJECT $DEFAULT_PROJECT
+endif
+#setenv EDITOR "emacsclient -s $PROJECT -t -a ''"
+setenv EDITOR 'emacsclient -s $PROJECT -t -a ""'
+# Set the default perforce client
+#setenv P4CLIENT "yenliang_starrc_$PROJECT"
 
 # ##################################################
 # Use libSegFault.so to catch uncatched signals.
@@ -81,12 +115,37 @@ setenv EDITOR "emacsclient -s $WORKSPACE -t -a ''"
 setenv LIB /lib64
 setenv SEGFAULT_SIGNALS all
 
-# ----------------------------------------------------------------------
-# Sensitive settings at work
-# ----------------------------------------------------------------------
-source ~/.cshrc.work
+# ############################################################
+# source internal settings
+# ############################################################
+if ( -e ~/env_setup/internal.cshrc ) then
+  source ~/env_setup/internal.cshrc
+endif
 
-# ----------------------------------------------------------------------
-# Load aliases
-# ----------------------------------------------------------------------
-source ~/.alias
+# ######################################################################
+# Create project workspaces
+# ######################################################################
+set WM=tmux
+source ~/Settings/csh/${WM}.cshrc
+unset WM
+
+# how to remove an element from PATH
+# echo $PATH | sed -e 's;\(^/home/user/bin:\|:/home/user/bin$\|:/home/user/bin\(:\)\);\2;g'
+
+# ######################################################################
+# Common Aliases
+# ######################################################################
+alias et         "$EDITOR"
+# alias kill-emacs      "emacsclient --eval '(kill-emacs)' -t -s"
+alias kill-emacs       "emacsclient --eval '(kill-emacs)' -t -s ${PROJECT}"
+alias kill-emacs-p     "emacsclient --eval '(kill-emacs)' -t -s \!*"
+alias force-kill-emacs kill -9 `pgrep -f "emacs \-\-daemon=$PROJECT"`
+alias list-emacs       ps -fp `pgrep -f "emacs \-\-daemon=$PROJECT"`
+alias list-all-emacs   ps -fp `pgrep -f "emacs \-\-daemon="`
+alias list-projects    'tmux list-sessions -F "[#S:#{session_id}]: #{session_windows} windows (created #{session_created_string}) [#{session_width}x#{session_height}) (#{?session_attached,attached,detached})"'
+alias gdb              "gdb --data-directory=$HOME/tools/gdb/share/gdb"
+#alias ls-by-size       `/bin/ls -lhS | awk '{printf "%5s  %s\n", $5, $9}'`
+alias valgrind     "valgrind --log-file=valgrind_report.log --leak-check=full --show-reachable=yes"
+
+alias my-shelve          "p4 changes -s shelved -u $USER -c ${USER}_starrc_${PROJECT}"
+alias my-shelve-for-this "p4 changes -s shelved -u $USER -c ${USER}_starrc_${PROJECT}"
