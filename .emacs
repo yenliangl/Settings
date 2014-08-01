@@ -1,4 +1,13 @@
 (setq DROPBOX "~")
+
+;; Feature control
+(setq use-org-mode nil
+      use-git-mode nil
+      use-cedet nil                       ;for android/java
+      use-jdee nil
+      use-tabbar nil
+      use-ecb nil)
+
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
 
 

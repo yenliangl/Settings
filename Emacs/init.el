@@ -125,14 +125,6 @@
 (setq user-full-name "Liu Yen-Liang (Josh)")
 (setq user-mail-address "yenliangl@gmail.com")
 
-;; Feature control
-(setq use-org-mode nil
-      use-git-mode nil
-      use-cedet nil
-      use-jdee nil
-      use-tabbar nil
-      use-ecb nil)
-
 ;; ----------------------------------------------------------------------
 ;; CEDET
 ;; ----------------------------------------------------------------------
