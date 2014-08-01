@@ -16,7 +16,7 @@ fi
 # ##################################################
 # Android development
 # ##################################################
-export ANDROID_HOME=/cygdrive/d/Android/android-sdk-windows
+export ANDROID_HOME=$HOME/tools/android-sdk-windows
 export JAVA_HOME=/cygdrive/d/Java/jdk1.7.0_55
 
 # development binaries
