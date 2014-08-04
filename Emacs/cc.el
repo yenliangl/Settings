@@ -6,6 +6,7 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
             (setq show-trailing-whitespace t)
+            (hs-minor-mode)
             (doxymacs-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,6 +14,8 @@
 ;;
 (setq auto-mode-alist
       (append '(
+                ("\\.cc$"  . c++-mode)
+                ("\\.c$"   . c-mode)
                 ("\\.C$"   . c++-mode)
                 ("\\.cc$"  . c++-mode)
                 ("\\.c$"   . c-mode)
@@ -22,7 +25,7 @@
                 ("\\.h$"   . c++-mode))
               auto-mode-alist))
 (setq kill-whole-line t
-      ;; c-hungry-delete-key t
+      c-hungry-delete-key t
       c-auto-newline 1
       comment-multi-line t)
 
@@ -32,6 +35,6 @@
 (unless use-cedet
   (progn
     ;; (setq kde-use-pc-select nil)            ;don't use pc-select
-    (setq magic-keys-mode nil)
+    (setq magic-keys-mode t)
     (load-file (concat EMACS_HOME "/kde-emacs.el"))))
 
