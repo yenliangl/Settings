@@ -1,7 +1,5 @@
 ;; -*- mode: emacs-lisp -*-
 
-(load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
-
 ;; Feature control
 (setq use-org-mode nil
       use-git-mode nil
@@ -9,6 +7,9 @@
       use-jdee nil
       use-tabbar nil
       use-ecb nil)
+
+(load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom variable and faces
