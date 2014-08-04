@@ -2,8 +2,13 @@
 
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
 
-(setq user-full-name "Liu Yen-Liang (Josh)")
-(setq user-mail-address "yenliangl@gmail.com")
+;; Feature control
+(setq use-org-mode nil
+      use-git-mode nil
+      use-cedet t                       ;for android/java
+      use-jdee nil
+      use-tabbar nil
+      use-ecb nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom variable and faces
