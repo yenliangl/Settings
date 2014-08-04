@@ -17,7 +17,7 @@ fi
 # Android development
 # ##################################################
 export ANDROID_HOME=$HOME/tools/android-sdk-windows
-export JAVA_HOME=/cygdrive/d/Java/jdk1.7.0_55
+export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_65
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
@@ -63,5 +63,5 @@ export TERM=xterm
 # Groovy
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
-export GRADLE_HOME=$HOME/tools/gradle
+export GRADLE_HOME=$HOME/tools/gradle-2.0
 export PATH="$GVM_DIR/groovy/2.3.3/bin:$GRADLE_HOME/bin:$PATH"
