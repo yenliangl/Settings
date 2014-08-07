@@ -4,23 +4,21 @@ This is the settings for my environment
 
 ## Tmux Configuration
 
-### Platform Configuration
-#### Mintty in Cygwin/Windows
+### Mouse support
 
-Mouse support can be supported with
 ```
 setw -g mode-mouse on
 set -g mouse-select-pane on
 ```
-and with this
+but to select and paste text as before, each terminal app has different configuration,
 
-![alt tag](https://raw.githubusercontent.com/yenliangl/Settings/master/image/mouse_pane_select_in_mintty.png)
+- MinTTY
+  ![alt tag](https://raw.githubusercontent.com/yenliangl/Settings/master/image/mouse_pane_select_in_mintty.png)
 
-Shift+LeftButton can select and paste as before.
+  Use Shift+LeftButton
 
-#### iTerm2 in MacOSX
-
-Use Option+LefButton
+- iTerm2 in MacOSX
+  Use Option+LefButton
 
 ### Features I need
 
