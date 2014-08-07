@@ -10,15 +10,13 @@ This is the settings for my environment
 setw -g mode-mouse on
 set -g mouse-select-pane on
 ```
-but to select and paste text as before, each terminal app has different configuration,
+but to select and paste text as before, each terminal app has different configuration.
 
-- MinTTY
-  ![alt tag](https://raw.githubusercontent.com/yenliangl/Settings/master/image/mouse_pane_select_in_mintty.png)
+For MinTTY, use Shift+LefButton to select and Shift+MiddleButton to paste.
 
-  Use Shift+LeftButton
+![alt tag](https://raw.githubusercontent.com/yenliangl/Settings/master/image/mouse_pane_select_in_mintty.png)
 
-- iTerm2 in MacOSX
-  Use Option+LefButton
+For iTerm2 in MacOSX, use Option+LeftButton to select and Option+MiddleButton to paste.
 
 ### Features I need
 
