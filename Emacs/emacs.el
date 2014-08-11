@@ -293,14 +293,6 @@
            (mode . mail-mode)
            ;; etc.; all your mail related modes
            ))
-         ;; ("Leo21"
-         ;;  (or (filename . "/Volumes/Leo21/")
-         ;;      (filename . "~/projects/altek/Leo21")))
-         ;; ("Froyo"
-         ;;  (or (filename . "/Volumes/Froyo/")
-         ;;      (filename . "~/projects/android/AndroidSource/Froyo")))
-         ;; ("quicklearn-android"
-         ;;  (filename . "~/projects/quicklearn-android/"))
          ("Programming" ;; prog stuff not already in MyProjectX
           (or
            (mode . c-mode)
@@ -309,6 +301,7 @@
            (mode . emacs-lisp-mode)
            (mode . java-mode)
            (mode . jde-mode)
+           (mode . groovy-mode)
            ;; etc
            ))
 	 ("Help" (or (name . "\*Help\*")
@@ -449,14 +442,7 @@
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
-
-(autoload 'run-groovy "inf-groovy" "Run an inferior Groovy process")
-(autoload 'inf-groovy-keys "inf-groovy" "Set local key defs for inf-groovy in groovy-mode")
-;;;
-(add-hook 'groovy-mode-hook
-          '(lambda ()
-             (inf-groovy-keys)
-             ))
+(add-to-list 'interpreter-mode-alist '("gradle" . groovy-mode))
 
 ;;; make Groovy mode electric by default.
 (add-hook 'groovy-mode-hook
