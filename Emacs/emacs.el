@@ -293,14 +293,6 @@
            (mode . mail-mode)
            ;; etc.; all your mail related modes
            ))
-         ;; ("Leo21"
-         ;;  (or (filename . "/Volumes/Leo21/")
-         ;;      (filename . "~/projects/altek/Leo21")))
-         ;; ("Froyo"
-         ;;  (or (filename . "/Volumes/Froyo/")
-         ;;      (filename . "~/projects/android/AndroidSource/Froyo")))
-         ;; ("quicklearn-android"
-         ;;  (filename . "~/projects/quicklearn-android/"))
          ("Programming" ;; prog stuff not already in MyProjectX
           (or
            (mode . c-mode)
@@ -309,6 +301,7 @@
            (mode . emacs-lisp-mode)
            (mode . java-mode)
            (mode . jde-mode)
+           (mode . groovy-mode)
            ;; etc
            ))
 	 ("Help" (or (name . "\*Help\*")
