@@ -134,7 +134,7 @@ if [ -f $MBASHRC ]; then
     . $MBASHRC
 fi
 #export WINDOWID=
-if [ -z $TMUX ]; then
+if [ -z $PROJECT ]; then
     echo "Available workspaces: $PROJECTS"
 else
     echo "Create window in *${PROJECT}* ... "
@@ -164,15 +164,12 @@ alias scp='scp -Cr'
 # Workspace
 # ##################################################
 DEFAULT_PROJECT=default
-if [ -z $PROJECT ]; then
-    export PROJECT=$DEFAULT_PROJECT
-fi
 
 # Don't create ws aliases if already in some PROJECT
-if [ -z $TMUX ]; then
+if [ -z $PROJECT ]; then
     for w in $PROJECTS $DEFAULT_PROJECT
     do
-        alias ws_$w="create_workspace $w"
+        alias ws_$w="create_workspace screen $w"
     done
 else
     alias cd2src="cd -P $ANDROID_PROJECT_DIR/$PROJECT-android"
@@ -221,7 +218,7 @@ capitalize_word () {
     echo $result
 }
 
-if [ -z $TMUX ]; then
+if [ -z $PROJECT ]; then
     # Mount development image
     mount_dev_image () {
     # Execute platform-specific mount function. It can be just a change dir
@@ -231,13 +228,20 @@ if [ -z $TMUX ]; then
 
 # Create a screen workspace with $1 as its name
     create_workspace () {
-        export PROJECT=$1
+        export PROJECT=$2
         # Does't need to mount case-insesitive sparse image anymore.  Bought new
         # disk and a dedicated partition for Android development. Save a lot
         # troubles.
         ## mount_dev_image $1
         echo "Create workspace for ${PROJECT} development..."
-        # screen -mS $1 -DR
-        tmux new -AD -s `echo $1 | sed -e "s/\./-/g"`
+        if [ "$1" = tmux ] ; then
+            tmux new -AD -s `echo $2 | sed -e "s/\./-/g"`
+        else
+            screen -mS $2 -DR
+        fi
     }
+fi
+
+if [ -z $PROJECT ]; then
+    export PROJECT=$DEFAULT_PROJECT
 fi
