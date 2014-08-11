@@ -27,4 +27,4 @@
 [log]
 	decorate = short
 [push]
-	default = simple
+	default = current
