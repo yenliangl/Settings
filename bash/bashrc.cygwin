@@ -27,7 +27,7 @@ export PATH=$JAVA_HOME/bin:$APACHE_ANT_HOME/bin:$PATH
 ANDROID_SRC=${ANDROID_HOME}/sources/android-19/sources
 
 if [ -z "${TMUX+x}" ] && [ -n "$PROJECTS" ]; then
-    PROJECTS="$PROJECTS cyanogenmod"
+    PROJECTS="$PROJECTS cyanogenmod gradle"
 fi
 
 mount_dev_image_cygwin ()
