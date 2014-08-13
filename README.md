@@ -6,17 +6,23 @@ Several projects/workspaces can be created via shell aliases. For instances, the
 
 | Workspace name | Purpose         | Alias |
 |----------------|-----------------|-----|
-| bozaalarm      | my android app  | ws_bozaalarm |
-| tallycounter   | my android app  | ws_tallycounter |
+| bozaalarm      | [BozaAlarm](https://play.google.com/store/apps/details?id=org.startsmall.bozaalarm)  | ws_bozaalarm |
+| tallycounter   | [TallyCounter](https://play.google.com/store/apps/details?id=org.startsmall.tallycounter) | ws_tallycounter |
 | iosched        | for Google I/O 2014 code study | ws_iosched |
 | default        | default workspace | ws_default |
 
 To use it, create a link at the user root directory
-```
+```bash
 ln -s ~/Settings/bash/bashrc .bashrc
 or
 ln -s ~/Settings/csh/cshrc .cshrc
 ```
+
+After the creation of a workspace, the first time at which **et (alias of
+emacsclient)** is invoked an Emacs server is created specifically for this
+workspace. The edit of a file will be in the workspace (tmux/screen
+session) only. If mutiplt workspaces are created in the same machine, multiple Emacs
+servers are created.
 
 ### bash
 
