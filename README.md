@@ -2,7 +2,25 @@
 
 ## Shell configuration
 
+Several projects/workspaces can be created via shell aliases. For instances, the following projects are registered
+
+| Workspace name | Purpose         | Alias |
+|----------------|-----------------|-----|
+| bozaalarm      | my android app  | ws_bozaalarm |
+| tallycounter   | my android app  | ws_tallycounter |
+| iosched        | for Google I/O 2014 code study | ws_iosched |
+| default        | default workspace | ws_default |
+
+To use it, create a link at the user root directory
+```
+ln -s ~/Settings/bash/bashrc .bashrc
+or
+ln -s ~/Settings/csh/cshrc .cshrc
+```
+
 ### bash
+
+Different platforms (*Cygwin* and *MacOSX*) are customized by different bash/bashrc.cygwin and bash/bashrc.darwin respectively.
 
 ### tcsh
 
