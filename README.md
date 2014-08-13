@@ -1,8 +1,16 @@
-# Settings
+# Project-based Configuration around Console and EmacsDaemon.
 
-This is the settings for my environment
+## Shell configuration
+
+### bash
+
+### tcsh
 
 ## Tmux Configuration
+
+Simple but effective setting.
+
+![alt tag](https://raw.githubusercontent.com/yenliangl/Settings/master/image/tmux_screenshot1.png)
 
 ### Mouse support
 
