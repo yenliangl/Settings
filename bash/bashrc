@@ -232,10 +232,22 @@ if [ -z $PROJECT ]; then
         # disk and a dedicated partition for Android development. Save a lot
         # troubles.
         ## mount_dev_image $1
-        echo "Create workspace for ${PROJECT} development..."
         if [ "$1" = tmux ] ; then
-            tmux new -AD -s `echo $2 | sed -e "s/\./-/g"`
+            # tmux new -AD -s `echo $2 | sed -e "s/\./-/g"`
+            session_name=`echo $2 | sed -e "s/\./-/g"`
+            tmux has-session -t "$session_name" 2> /dev/null
+            if [ "$?" -eq 1 ] ; then
+                echo "Create project workspace for ${PROJECT}..."
+                tmux new-session -d -s "$session_name"
+                for i in {1..4}; do
+                    tmux new-window -t "$session_name:$i"
+                done
+                tmux new-window -t "$session_name:5" -n "TEST"
+            fi
+            tmux select-window -t "$session_name:0"
+            tmux -2 attach -t "$session_name"
         else
+            echo "Create workspace for ${PROJECT} development..."
             screen -mS $2 -DR
         fi
     }
