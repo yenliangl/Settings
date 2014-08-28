@@ -125,13 +125,13 @@ linux*)
     ;;
 esac
 
-# Set executable path of Android
-export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
-
 if [ -f $MBASHRC ]; then
     echo "Load $MBASHRC"
     . $MBASHRC
 fi
+# Set executable path of Android
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+
 #export WINDOWID=
 if [ -z $PROJECT ]; then
     echo "Available workspaces: $PROJECTS"
