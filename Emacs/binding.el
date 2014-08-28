@@ -37,7 +37,7 @@ line."
 
 (global-set-key "\C-s" 'isearch-forward)
 
-(global-set-key "\C-i" 'agulbra-c++-tab)
+;; (global-set-key "\C-i" 'agulbra-c++-tab)
 
 (global-set-key "\C-\\" 'toggle-input-method)
 
