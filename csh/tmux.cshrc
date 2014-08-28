@@ -11,8 +11,22 @@ if ( $?TMUX == 0 ) then
     foreach p ( $PROJECT_LIST_0 )
         set ws="$p.0"
         set PRE_SCREEN_CMD="setenv PROJECT $ws; setenv XORELEASE $p; setenv XOBRANCH 0"
-        set patched_ws=`echo $ws | sed -e "s/\./-/g"`
-        alias ws_$ws "$PRE_SCREEN_CMD; tmux new -AD -s $patched_ws; setenv PROJECT $OLD_PROJECT"
+        set session_name=`echo $ws | sed -e "s/\./-/g"`
+
+        alias create_workspace \
+             "tmux has-session -t $session_name 2> /dev/null; \\
+             if ( $? == 1 ) then \\
+                echo \"Create project workspace for ${PROJECT}...\" \\
+                tmux new-session -d -s $session_name \\
+                foreach i ( `seq 1 4` ) \\
+                    tmux new-window -t \"$session_name:$i\" \\
+                end \\
+                tmux new-window -t \"$session_name:5\" -n \"TEST\" \\
+             endif \\
+             tmux select-window -t \"$session_name:0\" \\
+             ttmux -2 attach -t \"$session_name\""
+        # alias ws_$ws "$PRE_SCREEN_CMD; tmux new -AD -s $session_name; setenv PROJECT $OLD_PROJECT"
+        alias ws_$ws "$PRE_SCREEN_CMD; create_workspace; setenv PROJECT $OLD_PROJECT"
     end
     unset ws
 
