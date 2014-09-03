@@ -17,11 +17,13 @@
                 ("\\.cc$"  . c++-mode)
                 ("\\.c$"   . c-mode)
                 ("\\.C$"   . c++-mode)
+                ("\\.Ct$"   . c++-mode)
                 ("\\.cc$"  . c++-mode)
                 ("\\.c$"   . c-mode)
                 ("\\.cxx$" . c++-mode)
                 ("\\.cpp$" . c++-mode)
                 ("\\.inl$" . c++-mode)
+                ("\\.ht$" . c++-mode)
                 ("\\.h$"   . c++-mode))
               auto-mode-alist))
 (setq kill-whole-line t
