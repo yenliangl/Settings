@@ -11,4 +11,4 @@ if ( $status == 1 ) then
     tmux new-window -t "${session_name}:5" -n TEST
 endif
 tmux select-window -t "${session_name}:0"
-tmux -2 attach -t "$session_name"
+tmux -2 attach -d -t "$session_name"
