@@ -293,9 +293,10 @@
            (mode . mail-mode)
            ;; etc.; all your mail related modes
            ))
-         ("Programming" ;; prog stuff not already in MyProjectX
+         ("Code" ;; prog stuff not already in MyProjectX
           (or
            (mode . c-mode)
+           (mode . c++-mode)
            (mode . perl-mode)
            (mode . python-mode)
            (mode . emacs-lisp-mode)

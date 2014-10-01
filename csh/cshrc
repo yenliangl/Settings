@@ -93,6 +93,7 @@ rint0 | xargs -0 grep --color -n"
 alias sgrep      "find . -type f -iregex '.*\.\(c\|C\|h\|cpp\|S\|java\|xml\|sh\|hier\|make\)' -print0 | xargs -0 grep --color -n"
 alias du1        "du -h -d 1"
 alias rmcore     'find . -name "core.*" -print0 | xargs -0 \rm -rf'
+alias top        "htop"
 
 # ##################################################
 # Default project

@@ -56,9 +56,11 @@
        (concat "/depot/qsc/QSCH/bin/synmake BUILD_TYPE=pure TARGET_ARCH=" (getenv "TARGET_ARCH") " exec-g -C " default-directory))
   (call-interactively 'compile))
 
-;; (if (<= emacs-major-version 23)
-;;     (setq gud-gdb-command-name "/depot/gdb-7.5/bin/gdb --annotate=3 ")
-;;   (setq gud-gdb-command-name "/depot/gdb-7.5/bin/gdb --i=mi "))
+(if (<= emacs-major-version 23)
+    (setq gud-gdb-command-name "/depot/gdb-7.5/bin/gdb --annotate=3 ")
+  (progn
+    (setq gud-gdb-command-name "/depot/undodb/undodb-4.0.162/undodb-gdb --annotate=3 --undodb-gdb-exe /depot/gdb-7.6.2/bin/gdb")
+    (setq gud-gud-gdb-command-name "/depot/undodb/undodb-4.0.162/undodb-gdb --annotate=3 --undodb-gdb-exe /depot/gdb-7.6.2/bin/gdb")))
 
 ;; ----------------------------------------------------------------------
 ;; Perforce
