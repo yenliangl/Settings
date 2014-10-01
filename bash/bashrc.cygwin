@@ -16,8 +16,8 @@ fi
 # ##################################################
 # Android development
 # ##################################################
-#export ANDROID_HOME=$HOME/tools/android-sdk-windows
-export ANDROID_HOME=`cygpath --windows --mixed $HOME/tools/android-sdk-windows`
+export ANDROID_HOME=$HOME/tools/android-sdk-windows
+# export ANDROID_HOME=`cygpath --windows --mixed $HOME/tools/android-sdk-windows`
 export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_65
 
 # development binaries
@@ -27,9 +27,9 @@ export PATH=$JAVA_HOME/bin:$APACHE_ANT_HOME/bin:$PATH
 # source code of android
 ANDROID_SRC=`cygpath --unix ${ANDROID_HOME}`/sources/android-19/sources
 
-if [ -z "${TMUX+x}" ] && [ -n "$PROJECTS" ]; then
-    PROJECTS="$PROJECTS cyanogenmod gradle"
-fi
+# if [ -z "${TMUX+x}" ] && [ -n "$PROJECTS" ]; then
+#     PROJECTS="$PROJECTS"
+# fi
 
 mount_dev_image_cygwin ()
 {
