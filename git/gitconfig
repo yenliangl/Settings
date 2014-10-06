@@ -5,7 +5,7 @@
 	branch = auto
 	diff = auto
 [user]
-	name = Liu Yen-Liang (josh)
+	name = Liu Yen-Liang (joe)
 	email = yenliangl@gmail.com
 [alias]
 	ci = commit
