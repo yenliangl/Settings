@@ -140,6 +140,9 @@ else
 fi
 MBASHRC=
 
+export RELEASE_STORE_FILE=$HOME/yenliangl-android-release-key.keystore
+
+
 #######################################################
 # Check settings that should be set for all platforms #
 #######################################################
