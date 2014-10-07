@@ -57,16 +57,20 @@ alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 
 # Switch JDK accordingly
 ## Use Oracle JDK 7 by default
-#export JAVA_VERSION=1.6.0_37-b06-434
-export JAVA_VERSION=jdk1.7.0_60
+JAVA_VERSION=1.7
+if [ "$PROJECT" = "paranoid" ]; then
+    JAVA_VERSION=1.6
+fi
+export JAVA_HOME=`/usr/libexec/java_home -v $JAVA_VERSION`
 echo "JDK used for development ... ${JAVA_VERSION}"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/${JAVA_VERSION}.jdk/Contents/Home"
+JAVA_VERSION=
 
 # set file descriptor limit
 ulimit -S -n 1024
 export USE_CCACHE=1
-export CCACHE_DIR=/Volumes/WORK/aosp-android/ccache
+export CCACHE_DIR=/Volumes/WORK/${PROJECT}/ccache
 # export OUT_DIR_COMMON_BASE=<path-to-your-out-directory>
+export BUILD_MAC_SDK_EXPERIMENTAL=1
 
 # ######################################################################
 # Populate PATH into MacOS app
@@ -100,3 +104,6 @@ export LESS_TERMCAP_us=$'\E[38;5;167m'
 
 # Ignore .DS_Store in bash's auto-completion
 export FIGNORE=DS_Store
+
+#export LANG=C
+#export LC_CTYPE=C
