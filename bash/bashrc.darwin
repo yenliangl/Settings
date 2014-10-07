@@ -38,9 +38,9 @@ export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 #
 # Will work on Cyanogenmod and AOSP at MacOSX.
 #
-if [ -z ${TMUX+x} ] && [ -n "$PROJECTS" ]; then
-    PROJECTS="$PROJECTS paranoid aosp"
-fi
+# if [ -z ${TMUX+x} ] && [ -n "$PROJECTS" ]; then
+#     PROJECTS="$PROJECTS aosp"
+# fi
 
 # This is not used now because of the case-sensitive partition dedicated to
 # Android/CyanogenMod.
