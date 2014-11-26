@@ -104,7 +104,7 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 # ##################################################
 
 # Define generic PROJECTS
-PROJECTS="bozaalarm tallycounter iosched"
+PROJECTS="bozaalarm tallycounter iosched paranoid gradle"
 ANDROID_PROJECT_DIR=~/Work/Android
 
 MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
@@ -139,6 +139,9 @@ else
     echo "Create window in *${PROJECT}* ... "
 fi
 MBASHRC=
+
+export RELEASE_STORE_FILE=$HOME/yenliangl-android-release-key.keystore
+
 
 #######################################################
 # Check settings that should be set for all platforms #
