@@ -130,8 +130,9 @@ unset internal_cshrc
 #  PROJECT_LIST_1
 # ######################################################################
 setenv TERM xterm
-set WM=tmux
-#set WM=screen
+if ( ! $?WM ) then
+    set WM=tmux
+endif
 source ~/Settings/csh/${WM}.cshrc
 unset WM
 # how to remove an element from PATH
