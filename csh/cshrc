@@ -133,7 +133,10 @@ setenv TERM xterm
 if ( ! $?WM ) then
     set WM=tmux
 endif
-source ~/Settings/csh/${WM}.cshrc
+set wm_cshrc="~/Settings/csh/${WM}.cshrc"
+echo "Source $wm_cshrc"
+source $wm_cshrc
+unset wm_cshrc
 unset WM
 # how to remove an element from PATH
 # echo $PATH | sed -e 's;\(^/home/user/bin:\|:/home/user/bin$\|:/home/user/bin\(:\)\);\2;g'
