@@ -35,6 +35,10 @@ mount_dev_image_cygwin ()
 {
     echo ""
 }
+unmount_dev_image_cygwin ()
+{
+    echo ""
+}
 
 #
 #export CYGWIN="tty"

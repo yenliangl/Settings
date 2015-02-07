@@ -45,11 +45,19 @@ export PATH=$ANDROID_NDK/bin:~/tools/screen/bin:$PATH
 # This is not used now because of the case-sensitive partition dedicated to
 # Android/CyanogenMod.
 mount_dev_image_darwin () {
-    local image="/Volumes/`capitalize_word $1`"
+    local mount_point="/Volumes/$1-android"
     local file=~/Work/Android/$1.sparseimage
-    if [ -f $file ] && [ ! -f $image ]; then
-        echo "Mount sparse image for $PROJECT ... $image"
-        hdiutil attach $file -mountpoint $image
+    if [ -f $file ] && [ ! -d $mount_point ]; then
+        echo "Mount for $PROJECT.sparseimage at $mount_point"
+        hdiutil attach $file -mountpoint $mount_point
+    fi
+}
+
+unmount_dev_image_darwin () {
+    local mount_point="/Volumes/$1-android"
+    if [ -d $mount_point ]; then
+        echo "Detach mount point ... $mount_point"
+        hdiutil detach $mount_point
     fi
 }
 
@@ -58,9 +66,6 @@ alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 # Switch JDK accordingly
 ## Use Oracle JDK 7 by default
 JAVA_VERSION=1.7
-if [ "$PROJECT" = "paranoid" ]; then
-    JAVA_VERSION=1.6
-fi
 export JAVA_HOME=`/usr/libexec/java_home -v $JAVA_VERSION`
 echo "JDK used for development ... ${JAVA_VERSION}"
 JAVA_VERSION=

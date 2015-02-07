@@ -104,7 +104,7 @@ export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 # ##################################################
 
 # Define generic PROJECTS
-PROJECTS="bozaalarm tallycounter iosched paranoid gradle openfling"
+PROJECTS="bozaalarm tallycounter iosched aospa aosp openfling"
 ANDROID_PROJECT_DIR=~/Work/Android
 
 MNAME=`uname -s | tr '[:upper:]' '[:lower:]'`
@@ -228,7 +228,13 @@ if [ -z $PROJECT ]; then
         mount_dev_image_$MNAME $1
     }
 
-# Create a screen workspace with $1 as its name
+    unmount_dev_image() {
+        # Execute platform-specific mount function. It can be just a change dir
+        # function or empty function.
+        unmount_dev_image_$MNAME $1
+    }
+
+    # Create a screen workspace with $1 as its name
     create_workspace () {
         export PROJECT=$2
         # Does't need to mount case-insesitive sparse image anymore.  Bought new
@@ -236,6 +242,7 @@ if [ -z $PROJECT ]; then
         # troubles.
         ## mount_dev_image $1
         if [ "$1" = tmux ] ; then
+            mount_dev_image $2
             # tmux new -AD -s `echo $2 | sed -e "s/\./-/g"`
             session_name=`echo $2 | sed -e "s/\./-/g"`
             tmux has-session -t "$session_name" 2> /dev/null
@@ -249,6 +256,12 @@ if [ -z $PROJECT ]; then
             fi
             tmux select-window -t "$session_name:0"
             tmux -2 attach -t "$session_name"
+
+            # does this session closed or detached
+            tmux has-session -t "$session_name" 2> /dev/null
+            if [ "$?" -eq 1 ] ; then
+                unmount_dev_image $2
+            fi
         else
             echo "Create workspace for ${PROJECT} development..."
             screen -mS $2 -DR
