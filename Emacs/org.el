@@ -238,7 +238,7 @@
 ;;
 ;; org-publish directories
 ;;
-(require 'org-publish)
+(require 'ox-publish)
 (setq org-publishing-directory "~/Dropbox/public_html")
 (if (and (boundp 'my-org-publish-to-remote) my-org-publish-to-remote)
     (setq org-internal-publishing-directory (concat "/ssh:" user-login-name "@starrc01:~/public_html"))
