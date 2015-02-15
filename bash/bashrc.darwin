@@ -67,6 +67,7 @@ alias myjdb="jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8700 
 ## Use Oracle JDK 7 by default
 JAVA_VERSION=1.7
 export JAVA_HOME=`/usr/libexec/java_home -v $JAVA_VERSION`
+export ANDROID_JAVA_HOME=$JAVA_HOME
 echo "JDK used for development ... ${JAVA_VERSION}"
 JAVA_VERSION=
 
