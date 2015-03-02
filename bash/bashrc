@@ -94,9 +94,9 @@ if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 fi
 
-export SHELL=/bin/bash
+#export SHELL=/bin/bash
 export TERM=xterm
-export LC_CTYPE="zh_TW.utf8"
+#export LC_CTYPE="zh_TW.utf8"
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 
 # ##################################################
