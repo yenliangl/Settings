@@ -287,6 +287,8 @@
       '(("default"
          ("Org" ;; all org-related buffers
           (mode . org-mode))
+         ("Makefile" ;; all org-related buffers
+          (mode . makefile-mode))
          ("Mail"
           (or  ;; mail-related buffers
            (mode . message-mode)
@@ -495,7 +497,7 @@
     ;; --------------------------------------------------
     ;; elscreen
     ;; --------------------------------------------------
-    (load-file (concat EMACS_HOME "/elscreen.el"))
+    ;;(load-file (concat EMACS_HOME "/elscreen.el"))
 
     ))
 
