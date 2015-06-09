@@ -297,6 +297,8 @@
            ))
          ("Code" ;; prog stuff not already in MyProjectX
           (or
+           (mode . flex-mode)
+           (mode . bison-mode)
            (mode . c-mode)
            (mode . c++-mode)
            (mode . perl-mode)
