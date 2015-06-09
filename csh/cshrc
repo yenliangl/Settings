@@ -10,9 +10,18 @@ setenv MANPATH "/usr/local/man:/usr/man:/usr/share/man"
 # Don't overwrite existing files with the redirection character ">"
 set noclobber
 
+# ----------------------------------------------------------------------
 # Check to see if this is an interactive shell. If not, skip the rest of this
 # file. Good for running shell commands in Emacs or scp.
-if ($?USER == 0 || $?prompt == 0) exit
+#
+if ($?USER == 0 || $?prompt == 0) then
+    # NOTE that in gdb, it's not an interactive shell as well. but we need to use
+    # many environment variables below in order for a program to be opened properly.
+    #
+    source ~/env_setup/newton.cshrc
+    exit
+endif
+# ----------------------------------------------------------------------
 
 setenv EXINIT   `set ai|set shiftwidth=3|set ic`
 setenv EDITOR   "vim"
@@ -111,16 +120,16 @@ setenv EDITOR 'emacsclient -s $PROJECT -t -a ""'
 #
 #  /usr/bin/catchsegv program args
 #
-setenv LIB /lib64
-setenv SEGFAULT_SIGNALS all
+# setenv LIB /lib64
+# setenv SEGFAULT_SIGNALS all
 
 # ############################################################
 # source internal settings
 # ############################################################
 set internal_cshrc="~/.cshrc.internal"
+echo "Loading internal settings from ${internal_cshrc} ..."
 if ( -e $internal_cshrc ) then
   source $internal_cshrc
-  echo "Loaded internal settings from ${internal_cshrc}"
 endif
 unset internal_cshrc
 
@@ -134,7 +143,7 @@ if ( ! $?WM ) then
     set WM=tmux
 endif
 set wm_cshrc="~/Settings/csh/${WM}.cshrc"
-echo "Source $wm_cshrc"
+echo "Loading $wm_cshrc ..."
 source $wm_cshrc
 unset wm_cshrc
 unset WM

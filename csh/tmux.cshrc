@@ -19,7 +19,7 @@ if ( $?TMUX == 0 ) then
 
     # workspace variants for head branch
     foreach p ( $PROJECT_LIST_1 $DEFAULT_PROJECT )
-        set PRE_SCREEN_CMD="setenv PROJECT head.$p; setenv XORELEASE 2012.12; setenv XOBRANCH 1"
+        set PRE_SCREEN_CMD="setenv PROJECT head.$p; setenv XORELEASE 2012.12; setenv XOBRANCH 1;"
         # alias ws_$p "$PRE_SCREEN_CMD; tmux new -AD -s $p; setenv PROJECT $OLD_PROJECT"
 	set session_name=$p
         alias ws_$p "$PRE_SCREEN_CMD; ~/Settings/csh/create_workspace.csh $session_name; setenv PROJECT $OLD_PROJECT"
