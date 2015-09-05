@@ -29,7 +29,7 @@ function rm-ds-store
 # ##############################################################################
 # Android
 # ##############################################################################
-export ANDROID_HOME="$HOME/tools/android-sdk-mac_x86"
+export ANDROID_HOME="$HOME/tools/android-sdk-macosx"
 ANDROID_SRC=$ANDROID_HOME/sources/android-16
 ANDROID_NDK="$HOME/tools/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/"
 # export ANDROID_SRC=/Volumes/android
@@ -78,6 +78,11 @@ export CCACHE_DIR=/Volumes/WORK/out/${PROJECT}/ccache
 # export OUT_DIR_COMMON_BASE=<path-to-your-out-directory>
 export BUILD_MAC_SDK_EXPERIMENTAL=1
 
+# ======================================================================
+# Protobuf
+# ======================================================================
+# installed through Homebrew
+
 # ######################################################################
 # Populate PATH into MacOS app
 # ######################################################################
@@ -113,3 +118,6 @@ export FIGNORE=DS_Store
 
 #export LANG=C
 #export LC_CTYPE=C
+
+alias ls='gls'
+alias find='gfind'
