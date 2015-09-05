@@ -121,6 +121,12 @@ With arg, do it arg times."
   (define-key c-mode-map [(f6)] 'kde-switch-cpp-h)
   (c-set-style kde-c-style))
 
+(defun match-paren ()
+  "Go to the matching parenthesis if on parenthesis otherwise do nothing."
+  (interactive)
+  (cond ((looking-at "[ \t]*[\({]") (forward-sexp) (backward-char))
+	((looking-at "[\)}]") (forward-char) (backward-sexp))))
+
 (add-hook 'c++-mode-hook 'kde-c++-mode-hook)
 (add-hook 'c-mode-hook 'kde-c-mode-hook)
 ; always end a file with a newline
