@@ -169,4 +169,4 @@ set tenc=utf8
 " ---------------------------------------------------------
 set path+=~/projects/altek/clock/src/com/altek/android/clock,~/projects/altek/clock/src/com/altek/android/clock/app,~/projects/altek/clock/src/com/altek/android/clock/widget,~/projects/altek/clock/src/com/altek/android/clock/util,~/projects/altek/clock/src/com/altek/android/clock/preference
 
-source ~/scripts/kde-devel-vim.vim
+source ~/Settings/vim/kde-devel-vim.vim
