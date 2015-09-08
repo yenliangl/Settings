@@ -18,7 +18,7 @@ fi
 # ##################################################
 export ANDROID_HOME=$HOME/tools/android-sdk-windows
 # export ANDROID_HOME=`cygpath --windows --mixed $HOME/tools/android-sdk-windows`
-export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_65
+export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_71
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
