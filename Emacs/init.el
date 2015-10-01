@@ -9,6 +9,11 @@
 (defconst ELPA_HOME (expand-file-name (concat user-emacs-directory "/elpa")))
 (add-to-list 'load-path LISP_HOME)
 
+(require 'cask "/usr/local/Cellar/cask/0.7.2_1/cask.el")
+(cask-initialize)
+(require 'pallet)
+(pallet-mode t)
+
 ;; ----------------------------------------------------------------------
 ;; Basic settings
 ;; ----------------------------------------------------------------------
