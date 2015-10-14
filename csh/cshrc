@@ -18,6 +18,7 @@ if ($?USER == 0 || $?prompt == 0) then
     # NOTE that in gdb, it's not an interactive shell as well. but we need to use
     # many environment variables below in order for a program to be opened properly.
     #
+    set MY_LSF_SELECT_REQ="select[ncpus==16 && ram128g && linux2618_274 && maxmem >= 125000 && maxswp >= 200000]"
     source ~/env_setup/newton.cshrc
     exit
 endif
