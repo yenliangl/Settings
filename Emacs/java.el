@@ -31,7 +31,6 @@
   ;;        (define-key java-mode-map "\," 'insert-comma)
   ;; ;;        (define-key java-mode-map "\{" 'insert-curly-brace)
   ;;        ))
-  (define-key java-mode-map "." 'semantic-complete-self-insert)
 
   ;; --------------------------------------------------
   ;; My customization
