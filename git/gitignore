@@ -18,3 +18,8 @@ local.properties
 .project
 .gitignore
 .gradle
+
+# GNU global
+GTAGS
+GPATH
+GRTAGS
