@@ -113,7 +113,7 @@ for p in bozaalarm tallycounter iosched cm aosp omni pa; do
     ANDROID_PROJECTS[$p]=1
 done
 # non-android projects
-for p in $DEFAULT_PROJECT picard libbitcoin bitcoin bitcoinxt bitcoinj rocksdb guava protobuf; do
+for p in $DEFAULT_PROJECT libbitcoin bitcoin bitcoinxt bitcoinJ rocksdb guava; do
     PROJECTS[$p]=1
 done
 
@@ -174,6 +174,7 @@ alias scp='scp -Cr'
 # ##################################################
 # Workspace
 # ##################################################
+export LESSGLOBALTAGS=global
 
 # Don't create ws aliases if already in some PROJECT
 if [ -z $PROJECT ]; then
@@ -259,7 +260,7 @@ if [ -z $PROJECT ]; then
             session_name=`echo $2 | sed -e "s/\./-/g"`
             tmux has-session -t "$session_name" 2> /dev/null
             if [ "$?" -eq 1 ] ; then
-                echo "Create project workspace for ${PROJECT}..."
+                echo "Create project workspace for ${PROJECT}:${session_name} ..."
                 tmux new-session -d -s "$session_name"
                 for i in {1..4}; do
                     tmux new-window -t "$session_name:$i"
