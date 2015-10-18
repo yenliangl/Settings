@@ -113,7 +113,7 @@ for p in bozaalarm tallycounter iosched cm aosp omni pa; do
     ANDROID_PROJECTS[$p]=1
 done
 # non-android projects
-for p in $DEFAULT_PROJECT libbitcoin bitcoin bitcoinxt bitcoinJ rocksdb guava; do
+for p in $DEFAULT_PROJECT libbitcoin bitcoin bitcoinxt bitcoinj rocksdb guava; do
     PROJECTS[$p]=1
 done
 
@@ -258,8 +258,10 @@ if [ -z $PROJECT ]; then
             mount_dev_image $2
             # tmux new -AD -s `echo $2 | sed -e "s/\./-/g"`
             session_name=`echo $2 | sed -e "s/\./-/g"`
-            tmux has-session -t "$session_name" 2> /dev/null
-            if [ "$?" -eq 1 ] ; then
+            # tmux has-session -t "$session_name" 2> /dev/null
+            # if [ "$?" -eq 1 ] ; then
+            has_session=`tmux list-sessions | grep "${session_name}\:"`
+            if [ ! "$has_session" ] ; then
                 echo "Create project workspace for ${PROJECT}:${session_name} ..."
                 tmux new-session -d -s "$session_name"
                 for i in {1..4}; do
