@@ -54,6 +54,10 @@ Try to finish the symbol, or indent the line."
   (local-set-key "\C-cq" 'semantic-ia-show-doc)
   (local-set-key "\C-cs" 'semantic-ia-show-summary)
   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+
+  ;; fold/unfold
+  ;; (local-set-key "\C-c-" 'senator-fold-tag)
+  ;; (local-set-key "\C-c+" 'senator-unfold-tag)
   )
 (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
 (add-hook 'java-mode-hook 'alexott/cedet-hook)
@@ -78,9 +82,13 @@ Try to finish the symbol, or indent the line."
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 (add-hook 'java-mode-hook 'yenliangl/java-mode-cedet-hook)
+
+;; GNU global
 (when (cedet-gnu-global-version-check t)
   (semanticdb-enable-gnu-global-databases 'c-mode )
-  (semanticdb-enable-gnu-global-databases 'c++-mode))
+  (semanticdb-enable-gnu-global-databases 'c++-mode)
+  (semanticdb-enable-gnu-global-databases 'java-mode )
+  )
 
 (when (cedet-ectag-version-check t)
   (semantic-load-enable-primary-ectags-support))
@@ -88,9 +96,13 @@ Try to finish the symbol, or indent the line."
 ;; SRecode
 (global-srecode-minor-mode 1)
 
+;; **********************************************************************
 ;; EDE
 (global-ede-mode 1)
 (ede-enable-generic-projects)
+(setq ede-locate-setup-options
+      '(ede-locate-global
+        ede-locate-base))
 
 ;; Setup JAVA.
 (require 'cedet-java)
