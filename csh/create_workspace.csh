@@ -6,7 +6,7 @@ set session_name=$1
 # if ( $status == 1 ) then
 
 set has_session=`tmux list-sessions | grep "${session_name}\:"`
-if ( $has_session == "" ) then
+if ( "$has_session" == "" ) then
     echo "Create project workspace for $session_name ..."
     tmux new-session -d -s "$session_name"
     foreach i ( `seq 1 4` )
