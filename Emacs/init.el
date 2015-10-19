@@ -123,9 +123,6 @@
 ;; (defconst is-after-emacs-23  (<= 23 emacs-major-version))
 ;; (defconst is-after-emacs-24  (<= 24 emacs-major-version))
 
-(setq system-type-specific-config (concat EMACS_HOME "/platform/" (prin1-to-string system-type) ".el"))
-(if (file-exists-p system-type-specific-config) (load system-type-specific-config))
-
 ;;
 (setq user-full-name "Liu Yen-Liang (Josh)")
 (setq user-mail-address "yenliangl@gmail.com")
@@ -145,3 +142,14 @@
 
 ;; remove
 ;; (remove-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; ----------------------------------------------------------------------
+;; Platform-dependent settings
+;;
+;; this may load some projects which are also platform-dependent.
+;; ----------------------------------------------------------------------
+(setq system-type-specific-config (concat EMACS_HOME "/platform/"
+                                          (replace-regexp-in-string "/" "_" (prin1-to-string system-type))
+                                          ".el"))
+(if (file-exists-p system-type-specific-config) (load system-type-specific-config))
+

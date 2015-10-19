@@ -108,12 +108,3 @@ Try to finish the symbol, or indent the line."
 (require 'cedet-java)
 (require 'semantic/db-javap)
 (setq cedet-java-jdk-root (getenv "JAVA_HOME"))
-
-;; some java projects I'm working on
-(ede-java-root-project "bitcoinj"
-                       :file "~/Work/bitcoinj/README.md"
-                       :srcroot '("core/src/main/java"
-                                  "examples/src/main/java"
-                                  "orchid/src/"
-                                  "tools/src/main/java"
-                                  "wallettemplate/src/main/java"))
