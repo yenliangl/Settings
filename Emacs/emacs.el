@@ -513,3 +513,35 @@
 
 (and (boundp 'use-org-mode) use-org-mode
      (appt-activate t))
+
+;; ----------------------------------------------------------------------
+;; Programming goodies
+;;
+;; --------------------------------------------------
+;; show unncessary whitespace that can mess up your diff
+(add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
+
+;; --------------------------------------------------
+;; ws-butler
+;;
+;; remove trailing whitespaces in a smart way. only lines touched are processed.
+;;
+(require 'ws-butler)
+(add-hook 'c-mode-common-hook 'ws-butler-mode)
+(add-hook 'java-mode-hook 'ws-butler-mode)
+(add-hook 'emacs-lisp-mode-hook 'ws-butler-mode)
+
+;; --------------------------------------------------
+;; smartparens
+;;
+(require 'smartparens-config)
+(show-smartparens-global-mode +1)
+(smartparens-global-mode 1)
+
+;; when you press RET, the curly braces automatically
+;; add another newline
+(sp-with-modes '(c-mode c++-mode java-mode)
+               (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
+               (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
+                                                         ("* ||\n[i]" "RET"))))
+
