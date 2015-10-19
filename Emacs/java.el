@@ -5,7 +5,6 @@
 ;; Sets the basic indentation for Java source files
 ;; to two spaces.
 
-(setq-default indent-tabs-mode nil)
 (defun fill-column-hook () (setq fill-column 80)) ; use 80 column width
 (defun comment-column-hook () (setq comment-column 40)) ; start comments in column 40
 
