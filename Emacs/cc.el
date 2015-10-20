@@ -39,9 +39,3 @@
     ;; (setq kde-use-pc-select nil)            ;don't use pc-select
     (setq magic-keys-mode t)
     (load-file (concat EMACS_HOME "/kde-emacs.el"))))
-
-(add-hook 'c-mode-common-hook
-          (lambda()
-            ;; (local-set-key  (kbd "<f6>") 'ff-find-other-file)))
-            (local-set-key  (kbd "<f6>") 'eassist-switch-h-cpp)
-            (local-set-key  (kbd "<f7>") 'eassist-list-methods)))
