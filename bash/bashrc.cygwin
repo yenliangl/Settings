@@ -18,11 +18,12 @@ fi
 # ##################################################
 export ANDROID_HOME=$HOME/tools/android-sdk-windows
 # export ANDROID_HOME=`cygpath --windows --mixed $HOME/tools/android-sdk-windows`
-export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_71
+export JAVA_HOME=/cygdrive/c/Java/jdk1.8.0_66
 
 # development binaries
 APACHE_ANT_HOME=~/tools/apache-ant/current
-export PATH=$JAVA_HOME/bin:$APACHE_ANT_HOME/bin:$PATH
+MVN_HOME=/cygdrive/c/Java/apache-maven-3.3.3
+export PATH=$JAVA_HOME/bin:$MVN_HOME/bin:$APACHE_ANT_HOME/bin:$PATH
 
 # source code of android
 ANDROID_SRC=`cygpath --unix ${ANDROID_HOME}`/sources/android-19/sources
