@@ -62,8 +62,10 @@ line."
 (global-set-key [mouse-4] 'scroll-down)
 
 ;; window management
-(global-set-key "\C-x(" 'shrink-window)
-(global-set-key "\C-x)" 'enlarge-window)
+(global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>")  'shrink-window)
+(global-set-key (kbd "S-C-<up>")    'enlarge-window)
 
 ;; --------------------------------------------------
 ;; For Rxvt only
