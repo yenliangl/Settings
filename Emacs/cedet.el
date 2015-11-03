@@ -37,8 +37,8 @@ Try to finish the symbol, or indent the line."
          (save-excursion
            (forward-char -1)
            (looking-at "[A-Za-z0-9:>_\\-\\&\\.(){}\\*\\+/]")))
-    ;; (senator-complete-symbol))
-    (semantic-ia-complete-symbol))
+    (senator-complete-symbol))
+    ;;(semantic-ia-complete-symbol))
    (t
     (c-indent-command))))
 
