@@ -67,6 +67,9 @@ line."
 (global-set-key (kbd "S-C-<down>")  'shrink-window)
 (global-set-key (kbd "S-C-<up>")    'enlarge-window)
 
+;; revert buffer
+(global-set-key "\C-cr" 'revert-buffer)
+
 ;; --------------------------------------------------
 ;; For Rxvt only
 ;; --------------------------------------------------

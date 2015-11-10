@@ -309,7 +309,9 @@
            (mode . groovy-mode)
            ;; etc
            ))
-	 ("Help" (or (name . "\*Help\*")
+         ("TestFile" ;; prog stuff not already in MyProjectX
+          (name . "^\\.ext$"))
+         ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*")))
          ("ERC" (mode . erc-mode)))))

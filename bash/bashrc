@@ -109,7 +109,7 @@ PROJECT_DIR=~/Work
 # android projects which will be appened '-android'
 declare -A ANDROID_PROJECTS
 declare -A PROJECTS
-for p in bozaalarm tallycounter iosched cm aosp omni pa bitcoin-wallet; do
+for p in bozaalarm tallycounter iosched cm aosp omni pa bitcoinw; do
     ANDROID_PROJECTS[$p]=1
 done
 # non-android projects

@@ -34,8 +34,9 @@
 ;; ----------------------------------------------------------------------
 ;; Kde-emacs
 ;; ----------------------------------------------------------------------
+(load-file (concat EMACS_HOME "/kde-emacs.el"))
 (unless use-cedet
   (progn
     ;; (setq kde-use-pc-select nil)            ;don't use pc-select
     (setq magic-keys-mode t)
-    (load-file (concat EMACS_HOME "/kde-emacs.el"))))
+    (load-file (concat EMACS_HOME "/kde-emacs-bindings.el"))))
