@@ -35,6 +35,15 @@
 ;; Kde-emacs
 ;; ----------------------------------------------------------------------
 (load-file (concat EMACS_HOME "/kde-emacs.el"))
+(add-hook 'c++-mode-hook 'kde-c++-mode-hook)
+(add-hook 'c-mode-hook 'kde-c-mode-hook)
+; always end a file with a newline
+(setq-default require-final-newline t)
+; 'next-line won't be adding newlines
+(setq-default next-line-add-newlines nil)
+
+(if kde-emacs-newline-semicolon
+    (define-key c++-mode-map "\;" 'insert-semicolon))
 (unless use-cedet
   (progn
     ;; (setq kde-use-pc-select nil)            ;don't use pc-select
