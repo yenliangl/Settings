@@ -70,9 +70,9 @@ With arg, do it arg times."
       (delete-region b (point-marker)))))
 
 (c-add-style "kde-c" '("stroustrup"
-		       (c-basic-offset . 2)
+                       (c-basic-offset . 2)
 		       (c-offsets-alist
-			(case-label . 2)
+                        (case-label . 2)
 			(access-label . -)
 			(label . 0)
 			(statement-cont . c-lineup-math)
@@ -89,7 +89,7 @@ With arg, do it arg times."
 			 ))
 
 (defun kde-c++-mode-hook ()
-  (c-set-style kde-c++-style)
+  ;(c-set-style kde-c++-style)
   (font-lock-mode)
   (define-key c++-mode-map "\C-m"  'c-context-line-break)
   (when (or
@@ -108,17 +108,17 @@ With arg, do it arg times."
   ;; to disable the magic keys in C++ mode.
   (and (boundp 'magic-keys-mode) magic-keys-mode
        (progn
-	 ;; (define-key c++-mode-map "\(" 'insert-parens)
-	 ;; (define-key c++-mode-map "\)" 'insert-parens2)
+         ;; (define-key c++-mode-map "\(" 'insert-parens)
+         ;; (define-key c++-mode-map "\)" 'insert-parens2)
 	 (define-key c++-mode-map "\," 'insert-comma)
-	 (define-key c++-mode-map "\{" 'insert-curly-brace)
+         ;(define-key c++-mode-map "\{" 'insert-curly-brace)
 	 ))
   )
 
 (defun kde-c-mode-hook ()
+  ;(c-set-style kde-c-style)
   (font-lock-mode)
-  (define-key c-mode-map [(f6)] 'kde-switch-cpp-h)
-  (c-set-style kde-c-style))
+  (define-key c-mode-map [(f6)] 'kde-switch-cpp-h))
 
 (defun match-paren ()
   "Go to the matching parenthesis if on parenthesis otherwise do nothing."

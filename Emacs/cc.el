@@ -35,6 +35,7 @@
 ;; Kde-emacs
 ;; ----------------------------------------------------------------------
 (load-file (concat EMACS_HOME "/kde-emacs.el"))
+(setq c-default-style "java")
 (add-hook 'c++-mode-hook 'kde-c++-mode-hook)
 (add-hook 'c-mode-hook 'kde-c-mode-hook)
 ; always end a file with a newline

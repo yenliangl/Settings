@@ -127,3 +127,11 @@
 ;; Load android development library from SDK
 ;; (add-to-list 'load-path (concat "~/tools/android-sdk-mac_x86/tools/lib"))
 ;; (require 'android)
+
+;; ----------------------------------------------------------------------
+;; My Programming Style
+;; ----------------------------------------------------------------------
+(defun my-c-mode-hook ()
+  (c-set-style "java"))
+(add-hook 'c++-mode-hook 'my-c-mode-hook)
+(add-hook 'c-mode-hook 'my-c-mode-hook)

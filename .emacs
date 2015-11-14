@@ -77,3 +77,13 @@
                )
              auto-mode-alist))
 (setq p4-file-refresh-timer-time 0)
+
+;; ----------------------------------------------------------------------
+;; My Programming Style
+;; ----------------------------------------------------------------------
+(defun snps-c-mode-hook ()
+  (c-set-style kde-c-style))
+(defun snps-c++-mode-hook ()
+  (c-set-style kde-c++-style))
+(add-hook 'c++-mode-hook 'my-c-mode-hook)
+(add-hook 'c-mode-hook 'my-c-mode-hook)
