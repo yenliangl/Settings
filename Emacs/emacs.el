@@ -547,3 +547,8 @@
                (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
                                                          ("* ||\n[i]" "RET"))))
 
+;; Display function name in the status bar
+(which-function-mode 1)
+
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
