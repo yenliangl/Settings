@@ -85,5 +85,5 @@
   (c-set-style kde-c-style))
 (defun snps-c++-mode-hook ()
   (c-set-style kde-c++-style))
-(add-hook 'c++-mode-hook 'my-c-mode-hook)
-(add-hook 'c-mode-hook 'my-c-mode-hook)
+(add-hook 'c++-mode-hook 'snps-c++-mode-hook)
+(add-hook 'c-mode-hook 'snps-c-mode-hook)
