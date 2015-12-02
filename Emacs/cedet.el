@@ -23,6 +23,16 @@
 ;; Activate semantic
 (semantic-mode 1)
 
+;;
+;; Parsing Optimization
+;;
+;; Increase the delay before activation
+(setq semantic-idle-scheduler-idle-time 10)
+;; Don't reparse really big buffers.
+(setq semantic-idle-scheduler-max-buffer-size 100000)
+;; Increase the delay before doing slow work to 2 minutes.
+(setq semantic-idle-scheduler-work-idle-time 120)
+
 ;; load contrib library
 (require 'eassist)
 (require 'semantic/senator)

@@ -529,7 +529,7 @@
 ;; remove trailing whitespaces in a smart way. only lines touched are processed.
 ;;
 (require 'ws-butler)
-(add-hook 'c-mode-common-hook 'ws-butler-mode)
+;;(add-hook 'c-mode-common-hook 'ws-butler-mode)
 (add-hook 'java-mode-hook 'ws-butler-mode)
 (add-hook 'emacs-lisp-mode-hook 'ws-butler-mode)
 
