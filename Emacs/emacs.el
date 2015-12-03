@@ -134,12 +134,6 @@
 ;; (global-eclim-mode)
 ;; (setq eclim-auto-save t)
 
-;; (add-to-list 'load-path (expand-file-name (concat LISP_HOME "/company-0.5")))
-;; (require 'company)
-;; (require 'company-emacs-eclim)
-;; (company-emacs-eclim-setup)
-;; (global-company-mode t)
-
 ;; ----------------------------------------------------------------------
 ;; ECB
 ;; ----------------------------------------------------------------------
@@ -150,26 +144,19 @@
 ;; ----------------------------------------------------------------------
 ;; Tags/Global
 ;; ----------------------------------------------------------------------
-;; (autoload 'gtags-mode "gtags" "" t)
-;; (dolist (hook (list 'c-mode-hook
-;;                     'c++-mode-hook
-;;                     'java-mode-hook))
-;;   (add-hook hook '(lambda ()
-;;                     (gtags-mode 1)
-;;                     )))
-;; (add-hook 'gtags-mode-hook
-;;           '(lambda ()
-;;              (setq gtags-pop-delete t)
-;;              (setq gtags-path-style 'absolute)
-;;              (local-set-key (kbd "M-.") 'gtags-find-tag)   ; find a tag, also M-.
-;;              (local-set-key (kbd "M-,") 'gtags-find-rtag)  ; reverse tag
-;;              ))
+;; (require 'ggtags)
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+;;               (ggtags-mode 1))))
 
-;; (add-hook 'gtags-select-mode-hook
-;;           '(lambda ()
-;;              (setq hl-line-face 'underline)
-;;              (hl-line-mode 1)
-;;              ))
+;; (define-key ggtags-mode-map (kbd "M .") 'ggtags-find-other-symbol)
+;; (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+;; (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+;; (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+;; (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+;; (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+;; (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
 
 ;; ----------------------------------------------------------------------
 ;; _+ Fontlock mode
@@ -547,9 +534,26 @@
                (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
                                                          ("* ||\n[i]" "RET"))))
 
+;; --------------------------------------------------
 ;; Display function name in the status bar
 (which-function-mode 1)
 
+;; --------------------------------------------------
+;; sr-speedbar
+;;
+(require 'sr-speedbar)
+;;(global-set-key (kbd "s-s" 'sr-speedbar-toggle))
+(setq sr-speedbar-skip-other-window-p t)
+
+;; --------------------------------------------------
+;; company mode
+;;
+(require 'company)
+(add-hook 'after-make-console-frame-hooks 'global-company-mode)
+
+;; ----------------------------------------------------------------------
+;; helm
+;;
 (require 'helm-config)
 (helm-mode 1)
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -565,7 +569,17 @@
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'java-mode-hook 'helm-gtags-mode)
-(setq helm-gtags-path-style 'relative)
-(setq helm-gtags-ignore-case t)
-(setq helm-gtags-auto-update t)
-(setq helm-split-window-in-side-p t)
+(setq helm-gtags-path-style 'relative
+      helm-gtags-ignore-case t
+      helm-gtags-auto-update t
+      helm-gtags-use-input-at-cursor t
+      helm-gtags-pulse-at-cursor t
+      helm-gtags-prefix-key "\C-cg"
+      helm-gtags-suggested-key-mapping t
+      )
+(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
