@@ -150,26 +150,26 @@
 ;; ----------------------------------------------------------------------
 ;; Tags/Global
 ;; ----------------------------------------------------------------------
-(autoload 'gtags-mode "gtags" "" t)
-(dolist (hook (list 'c-mode-hook
-                    'c++-mode-hook
-                    'java-mode-hook))
-  (add-hook hook '(lambda ()
-                    (gtags-mode 1)
-                    )))
-(add-hook 'gtags-mode-hook
-          '(lambda ()
-             (setq gtags-pop-delete t)
-             (setq gtags-path-style 'absolute)
-             (local-set-key (kbd "M-.") 'gtags-find-tag)   ; find a tag, also M-.
-             (local-set-key (kbd "M-,") 'gtags-find-rtag)  ; reverse tag
-             ))
+;; (autoload 'gtags-mode "gtags" "" t)
+;; (dolist (hook (list 'c-mode-hook
+;;                     'c++-mode-hook
+;;                     'java-mode-hook))
+;;   (add-hook hook '(lambda ()
+;;                     (gtags-mode 1)
+;;                     )))
+;; (add-hook 'gtags-mode-hook
+;;           '(lambda ()
+;;              (setq gtags-pop-delete t)
+;;              (setq gtags-path-style 'absolute)
+;;              (local-set-key (kbd "M-.") 'gtags-find-tag)   ; find a tag, also M-.
+;;              (local-set-key (kbd "M-,") 'gtags-find-rtag)  ; reverse tag
+;;              ))
 
-(add-hook 'gtags-select-mode-hook
-          '(lambda ()
-             (setq hl-line-face 'underline)
-             (hl-line-mode 1)
-             ))
+;; (add-hook 'gtags-select-mode-hook
+;;           '(lambda ()
+;;              (setq hl-line-face 'underline)
+;;              (hl-line-mode 1)
+;;              ))
 
 ;; ----------------------------------------------------------------------
 ;; _+ Fontlock mode
@@ -556,3 +556,16 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key [f3] 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+;;; Enable helm-gtags-mode
+(require 'helm-gtags)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'java-mode-hook 'helm-gtags-mode)
+(setq helm-gtags-path-style 'relative)
+(setq helm-gtags-ignore-case t)
+(setq helm-gtags-auto-update t)
+(setq helm-split-window-in-side-p t)
