@@ -550,6 +550,9 @@
 ;;
 (require 'company)
 (add-hook 'after-make-console-frame-hooks 'global-company-mode)
+(setq company-backends (delete 'company-semantic company-backends))
+(define-key c-mode-map (kbd "C-i") 'company-complete)
+(define-key c++-mode-map (kbd "C-i") 'company-complete)
 
 ;; ----------------------------------------------------------------------
 ;; helm
