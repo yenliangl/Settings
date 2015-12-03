@@ -121,3 +121,6 @@ export FIGNORE=DS_Store
 
 alias ls='gls'
 alias find='gfind'
+
+#
+export PKG_CONFIG_PATH=$HOME/tools/libbitcoin/lib/pkgconfig:$PKG_CONFIG_PATH

@@ -529,7 +529,7 @@
 ;; remove trailing whitespaces in a smart way. only lines touched are processed.
 ;;
 (require 'ws-butler)
-(add-hook 'c-mode-common-hook 'ws-butler-mode)
+;;(add-hook 'c-mode-common-hook 'ws-butler-mode)
 (add-hook 'java-mode-hook 'ws-butler-mode)
 (add-hook 'emacs-lisp-mode-hook 'ws-butler-mode)
 
@@ -547,3 +547,12 @@
                (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
                                                          ("* ||\n[i]" "RET"))))
 
+;; Display function name in the status bar
+(which-function-mode 1)
+
+(require 'helm-config)
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key [f3] 'helm-find-files)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
