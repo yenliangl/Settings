@@ -139,7 +139,7 @@ unset internal_cshrc
 #  PROJECT_LIST_0
 #  PROJECT_LIST_1
 # ######################################################################
-setenv TERM xterm
+setenv TERM xterm-256color
 if ( ! $?WM ) then
     set WM=tmux
 endif

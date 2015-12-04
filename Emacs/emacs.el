@@ -546,6 +546,14 @@
 (setq sr-speedbar-skip-other-window-p t)
 
 ;; --------------------------------------------------
+;; eshell
+;;
+(setq eshell-prompt-function (lambda nil
+                               (concat
+                                (eshell/pwd) " > ")))
+(setq eshell-highlight-prompt nil)
+
+;; --------------------------------------------------
 ;; company mode
 ;;
 (require 'company)
