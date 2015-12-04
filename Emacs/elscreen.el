@@ -5,7 +5,7 @@
 
 (require 'elscreen)
 ;; (require 'elscreen-buffer-list)
-(require 'elscreen-color-theme)
+;(require 'elscreen-color-theme)
 
  (defmacro elscreen-create-automatically (ad-do-it)
    (` (if (not (elscreen-one-screen-p))

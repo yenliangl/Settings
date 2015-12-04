@@ -3,7 +3,7 @@
 ;; Feature control
 (setq use-org-mode nil
       use-git-mode nil
-      use-cedet t                       ;for android/java
+      use-cedet nil                       ;for android/java
       use-jdee nil
       use-tabbar nil
       use-ecb nil)
@@ -21,7 +21,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("4f5bb895d88b6fe6a983e63429f154b8d939b4a8c581956493783b2515e22d6d" "ad950f1b1bf65682e390f3547d479fd35d8c66cafa2b8aa28179d78122faa947" "74d9d61cb5280832ed33110cf83b8a1cb83bec5c18509cdbfb0ba94c41e34b71" "9b402e9e8f62024b2e7f516465b63a4927028a7055392290600b776e4a5b9905" "405b0ac2ac4667c5dab77b36e3dd87a603ea4717914e30fcf334983f79cfd87e" "94ba29363bfb7e06105f68d72b268f85981f7fba2ddef89331660033101eb5e5" default)))
  '(default-input-method "chinese-zozy"))
 
 (custom-set-faces
@@ -29,8 +29,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(comint-highlight-prompt ((t (:foreground "light blue"))))
- '(minibuffer-prompt ((t (:foreground "red")))))
+ )
 
 (when window-system
   (progn
