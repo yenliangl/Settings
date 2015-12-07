@@ -25,6 +25,13 @@ if ( $?TMUX == 0 ) then
         alias ws_$p "$PRE_SCREEN_CMD; ~/Settings/csh/create_workspace.csh $session_name; setenv PROJECT $OLD_PROJECT"
     end
 
+    # self learning projects
+    foreach p ( $PROJECT_LIST_2 $DEFAULT_PROJECT )
+        set PRE_SCREEN_CMD="setenv PROJECT learn.$p; setenv XORELEASE 2012.12; setenv XOBRANCH 1;"
+	set session_name=$p
+        alias ws_$p "$PRE_SCREEN_CMD; ~/Settings/csh/create_workspace.csh $session_name; setenv PROJECT $OLD_PROJECT"
+    end
+
     unset PRE_SCREEN_CMD
     unset OLD_PROJECT
 endif
