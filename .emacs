@@ -6,6 +6,7 @@
       use-cedet nil                       ;for android/java
       use-jdee nil
       use-tabbar nil
+      use-ws-butler nil                 ; remove whitespaces
       use-ecb nil)
 
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))

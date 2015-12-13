@@ -16,6 +16,8 @@
       use-cedet t                       ;for android/java
       use-jdee nil
       use-tabbar nil
+      use-helm nil
+      use-ws-butler t                 ; remove whitespaces
       use-ecb nil)
 
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
@@ -27,7 +29,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("9122dfb203945f6e84b0de66d11a97de6c9edf28b3b5db772472e4beccc6b3c5" default))))
+    ("cc60d17db31a53adf93ec6fad5a9cfff6e177664994a52346f81f62840fe8e23" "2dd32048690787844d8cba601ed3dd8b2f419e9bd985898d0c3792671a05b96b" "ea489f6710a3da0738e7dbdfc124df06a4e3ae82f191ce66c2af3e0a15e99b90" "3f78849e36a0a457ad71c1bda01001e3e197fe1837cb6eaa829eb37f0a4bdad5" "74d9d61cb5280832ed33110cf83b8a1cb83bec5c18509cdbfb0ba94c41e34b71" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "9122dfb203945f6e84b0de66d11a97de6c9edf28b3b5db772472e4beccc6b3c5" default))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -135,3 +137,17 @@
   (c-set-style "java"))
 (add-hook 'c++-mode-hook 'my-c-mode-hook)
 (add-hook 'c-mode-hook 'my-c-mode-hook)
+
+(define-key c++-mode-map [(f8)] 'my-synmake-compile-command)
+(define-key c++-mode-map [(f9)] 'my-synmake-g-compile-command)
+
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+
+;; projects
+(and (boundp 'use-cedet) use-cedet
+     (progn
+       (load "~/Settings/Emacs/project.el")
+       )
+     )
