@@ -127,6 +127,7 @@ setenv EDITOR 'emacsclient -s $PROJECT -t -a ""'
 # ############################################################
 # source internal settings
 # ############################################################
+setenv TERM xterm-256color
 set internal_cshrc="~/.cshrc.internal"
 echo "Loading internal settings from ${internal_cshrc} ..."
 if ( -e $internal_cshrc ) then
@@ -139,7 +140,6 @@ unset internal_cshrc
 #  PROJECT_LIST_0
 #  PROJECT_LIST_1
 # ######################################################################
-setenv TERM xterm-256color
 if ( ! $?WM ) then
     set WM=tmux
 endif
