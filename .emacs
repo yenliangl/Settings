@@ -7,6 +7,7 @@
       use-jdee nil
       use-tabbar nil
       use-ws-butler nil                 ; remove whitespaces
+      use-helm nil
       use-ecb nil)
 
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
