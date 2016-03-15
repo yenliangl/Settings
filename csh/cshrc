@@ -127,7 +127,6 @@ setenv EDITOR 'emacsclient -s $PROJECT -t -a ""'
 # ############################################################
 # source internal settings
 # ############################################################
-setenv TERM xterm-256color
 set internal_cshrc="~/.cshrc.internal"
 echo "Loading internal settings from ${internal_cshrc} ..."
 if ( -e $internal_cshrc ) then

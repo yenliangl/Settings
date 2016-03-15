@@ -560,15 +560,15 @@
 ;; --------------------------------------------------
 ;; company mode
 ;;
-(require 'company)
-(add-hook 'after-make-console-frame-hooks 'global-company-mode)
-(setq company-backends (delete 'company-semantic company-backends))
-(define-key c-mode-map (kbd "C-i") 'company-complete)
-(define-key c++-mode-map (kbd "C-i") 'company-complete)
+;; (require 'company)
+;; (add-hook 'after-make-console-frame-hooks 'global-company-mode)
+;; (setq company-backends (delete 'company-semantic company-backends))
+;; (define-key c-mode-map (kbd "C-i") 'company-complete)
+;; (define-key c++-mode-map (kbd "C-i") 'company-complete)
 
 ;; ----------------------------------------------------------------------
 ;; helm
 ;;
-(and (boundp 'use-org-mode) use-org-mode
-     (load-file (concat EMACS_HOME "/helm.el"))
-     )
+;; (and (boundp 'use-org-mode) use-org-mode
+;;      (load-file (concat EMACS_HOME "/helm.el"))
+;;      )
