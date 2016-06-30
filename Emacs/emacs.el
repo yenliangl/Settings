@@ -169,16 +169,20 @@
 (make-face 'font-lock-todo-face)
 (make-face 'font-lock-question-face)
 (make-face 'font-lock-small-face)
+(set-face-attribute 'font-lock-fixme-face    nil :background "red"   :weight 'bold)
+(set-face-attribute 'font-lock-todo-face     nil :background "blue"  :weight 'bold)
+(set-face-attribute 'font-lock-question-face nil :background "green" :weight 'bold)
+
 (set-face-attribute 'font-lock-small-face nil :height 0.9)
 (mapc (lambda (mode)
         (font-lock-add-keywords
          mode
-         '(("\\<\\(FIXME\\):" 1 'font-lock-fixme-face t))))
+         '(("\\<\\(FIXME\\|BUG\\):" 1 'font-lock-fixme-face t))))
       keyword-highlight-modes)
 
 (mapc (lambda (mode)
         (font-lock-add-keywords
-         mode '(("\\<\\(TODO\\):" 1 'font-lock-todo-face t))))
+         mode '(("\\<\\(TODO\\|NOTE\\):" 1 'font-lock-todo-face t))))
       keyword-highlight-modes)
 
 (mapc (lambda (mode)
@@ -515,10 +519,14 @@
 ;;
 ;; remove trailing whitespaces in a smart way. only lines touched are processed.
 ;;
-(require 'ws-butler)
-;;(add-hook 'c-mode-common-hook 'ws-butler-mode)
-(add-hook 'java-mode-hook 'ws-butler-mode)
-(add-hook 'emacs-lisp-mode-hook 'ws-butler-mode)
+(and (boundp 'use-ws-butler) use-ws-butler
+     (progn
+       (require 'ws-butler)
+       (add-hook 'c-mode-common-hook 'ws-butler-mode)
+       (add-hook 'java-mode-hook 'ws-butler-mode)
+       (add-hook 'emacs-lisp-mode-hook 'ws-butler-mode)
+       )
+     )
 
 ;; --------------------------------------------------
 ;; smartparens
@@ -546,43 +554,33 @@
 (setq sr-speedbar-skip-other-window-p t)
 
 ;; --------------------------------------------------
+;; eshell
+;;
+(setq eshell-prompt-function (lambda nil
+                               (concat
+                                (eshell/pwd) " > ")))
+(setq eshell-highlight-prompt nil)
+
+;; --------------------------------------------------
 ;; company mode
 ;;
-(require 'company)
-(add-hook 'after-make-console-frame-hooks 'global-company-mode)
-(setq company-backends (delete 'company-semantic company-backends))
-(define-key c-mode-map (kbd "C-i") 'company-complete)
-(define-key c++-mode-map (kbd "C-i") 'company-complete)
+;; (require 'company)
+;; (add-hook 'after-make-console-frame-hooks 'global-company-mode)
+;; (setq company-backends (delete 'company-semantic company-backends))
+;; (define-key c-mode-map (kbd "C-i") 'company-complete)
+;; (define-key c++-mode-map (kbd "C-i") 'company-complete)
 
 ;; ----------------------------------------------------------------------
 ;; helm
 ;;
-(require 'helm-config)
-(helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key [f3] 'helm-find-files)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+;; (and (boundp 'use-org-mode) use-org-mode
+;;      (load-file (concat EMACS_HOME "/helm.el"))
+;;      )
 
-;;; Enable helm-gtags-mode
-(require 'helm-gtags)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'java-mode-hook 'helm-gtags-mode)
-(setq helm-gtags-path-style 'relative
-      helm-gtags-ignore-case t
-      helm-gtags-auto-update t
-      helm-gtags-use-input-at-cursor t
-      helm-gtags-pulse-at-cursor t
-      helm-gtags-prefix-key "\C-cg"
-      helm-gtags-suggested-key-mapping t
-      )
-(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+;;
+;; Proced
+;; 
+(defun proced-settings ()
+  (proced-toggle-auto-update))
+
+(add-hook 'proced-mode-hook 'proced-settings)

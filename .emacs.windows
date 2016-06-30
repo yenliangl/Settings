@@ -6,6 +6,7 @@
       use-cedet t                       ;for android/java
       use-jdee nil
       use-tabbar nil
+      use-ws-butler t                   ;remove whitespaces
       use-ecb nil)
 
 (load-file (expand-file-name "~/Settings/Emacs/emacs.el"))
@@ -56,3 +57,11 @@
       (format "\\(%s\\)\\|\\(%s\\)"
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
+
+;; projects
+(and (boundp 'use-cedet) use-cedet
+     (progn
+       ;; common java projects
+       (load "~/Settings/Emacs/project.el")
+       )
+     )

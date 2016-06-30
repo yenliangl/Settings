@@ -9,16 +9,9 @@
 (defconst ELPA_HOME (expand-file-name (concat user-emacs-directory "/elpa")))
 (add-to-list 'load-path LISP_HOME)
 
-;;(require 'cask "/usr/local/Cellar/cask/0.7.2_1/cask.el")
-;;(cask-initialize)
-;;(require 'pallet)
-;;(pallet-mode t)
-
 ;; ----------------------------------------------------------------------
 ;; Basic settings
 ;; ----------------------------------------------------------------------
-;; (mouse-wheel-mode 1)
-
 ;; Language environment
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -98,6 +91,7 @@
 ;; --------------------------------------------------
 (setq-default show-trailing-whitespace t)
 (setq default-indicate-empty-lines t)
+;; (remove-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; --------------------------------------------------
 ;; system-specific
@@ -139,17 +133,3 @@
        ))
 
 (setq compilation-scroll-output t)
-
-;; remove
-;; (remove-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; ----------------------------------------------------------------------
-;; Platform-dependent settings
-;;
-;; this may load some projects which are also platform-dependent.
-;; ----------------------------------------------------------------------
-(setq system-type-specific-config (concat EMACS_HOME "/platform/"
-                                          (replace-regexp-in-string "/" "_" (prin1-to-string system-type))
-                                          ".el"))
-(if (file-exists-p system-type-specific-config) (load system-type-specific-config))
-
