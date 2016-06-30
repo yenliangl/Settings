@@ -22,6 +22,9 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(custom-safe-themes
+   (quote
+    ("b0266ff95532a85b3d1288ed65c1570905b8e9957b233ed1395f2dbf4486df79" default)))
  '(default-input-method "chinese-zozy")
  '(show-paren-mode t))
 
@@ -30,7 +33,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
 
 (when window-system
   (progn
