@@ -97,7 +97,7 @@ alias myps       'ps -aux | grep ${USER}'
 alias rm         'rm -i'
 alias gr         'grep -n'
 alias cgrep      "find . -type f -iregex '.*\.\(c\|C\|cc\|h\|ht\|hh\|cxx\|cpp\)' -print0 | xargs -0 grep --color -n"
-alias hgrep      "find . -type f -iregex '.*\.\(h\|ht\|hh\)' -print0 | xargs -0 grep --color -n"
+alias hgrep      "find . -type f -iregex '.*\.\(h\|ht\|hh\|hpp\)' -print0 | xargs -0 grep --color -n"
 alias mgrep      "find . -regextype posix-egrep -iregex '(.*\/Makefile|.*\/Makefile\..*|.*\.make|.*\.hier|.*\.mak|.*\.mk)' -type f -p\
 rint0 | xargs -0 grep --color -n"
 alias sgrep      "find . -type f -iregex '.*\.\(c\|C\|h\|cpp\|S\|java\|xml\|sh\|hier\|make\)' -print0 | xargs -0 grep --color -n"
@@ -139,7 +139,6 @@ unset internal_cshrc
 #  PROJECT_LIST_0
 #  PROJECT_LIST_1
 # ######################################################################
-setenv TERM xterm-256color
 if ( ! $?WM ) then
     set WM=tmux
 endif

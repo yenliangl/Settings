@@ -21,10 +21,16 @@
 (add-hook 'after-make-console-frame-hooks
           (lambda ()
             (load-theme 'jbeans)
-            ;;(load-theme 'badger)
+
+            ;; I like the color but the background
+            ;;(load-theme 'twilight)
+            ;;(set-face-background 'default "black")
             ))
 ;; (autoload 'color-theme-approximate-on "color-theme-approximate")
 ;; (color-theme-approximate-on)
+
+;; for TERM=xterm
+;;(set-face-foreground 'minibuffer-prompt "red")
 
 ;; --------------------------------------------------
 ;; Org-mode

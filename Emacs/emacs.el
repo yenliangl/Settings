@@ -169,16 +169,20 @@
 (make-face 'font-lock-todo-face)
 (make-face 'font-lock-question-face)
 (make-face 'font-lock-small-face)
+(set-face-attribute 'font-lock-fixme-face    nil :background "red"   :weight 'bold)
+(set-face-attribute 'font-lock-todo-face     nil :background "blue"  :weight 'bold)
+(set-face-attribute 'font-lock-question-face nil :background "green" :weight 'bold)
+
 (set-face-attribute 'font-lock-small-face nil :height 0.9)
 (mapc (lambda (mode)
         (font-lock-add-keywords
          mode
-         '(("\\<\\(FIXME\\):" 1 'font-lock-fixme-face t))))
+         '(("\\<\\(FIXME\\|BUG\\):" 1 'font-lock-fixme-face t))))
       keyword-highlight-modes)
 
 (mapc (lambda (mode)
         (font-lock-add-keywords
-         mode '(("\\<\\(TODO\\):" 1 'font-lock-todo-face t))))
+         mode '(("\\<\\(TODO\\|NOTE\\):" 1 'font-lock-todo-face t))))
       keyword-highlight-modes)
 
 (mapc (lambda (mode)
@@ -560,15 +564,23 @@
 ;; --------------------------------------------------
 ;; company mode
 ;;
-(require 'company)
-(add-hook 'after-make-console-frame-hooks 'global-company-mode)
-(setq company-backends (delete 'company-semantic company-backends))
-(define-key c-mode-map (kbd "C-i") 'company-complete)
-(define-key c++-mode-map (kbd "C-i") 'company-complete)
+;; (require 'company)
+;; (add-hook 'after-make-console-frame-hooks 'global-company-mode)
+;; (setq company-backends (delete 'company-semantic company-backends))
+;; (define-key c-mode-map (kbd "C-i") 'company-complete)
+;; (define-key c++-mode-map (kbd "C-i") 'company-complete)
 
 ;; ----------------------------------------------------------------------
 ;; helm
 ;;
-(and (boundp 'use-org-mode) use-org-mode
-     (load-file (concat EMACS_HOME "/helm.el"))
-     )
+;; (and (boundp 'use-org-mode) use-org-mode
+;;      (load-file (concat EMACS_HOME "/helm.el"))
+;;      )
+
+;;
+;; Proced
+;; 
+(defun proced-settings ()
+  (proced-toggle-auto-update))
+
+(add-hook 'proced-mode-hook 'proced-settings)
