@@ -1,6 +1,13 @@
 ;; -*- mode: Lisp;-*-
 
 ;; have packages installed by Homwbrew
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
     (normal-top-level-add-subdirs-to-load-path))
 
@@ -13,7 +20,7 @@
 ;; Feature control
 (setq use-org-mode nil
       use-git-mode nil
-      use-cedet t                       ;for android/java
+      use-cedet nil                       ;for android/java
       use-jdee nil
       use-tabbar nil
       use-helm nil
@@ -29,7 +36,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("cc60d17db31a53adf93ec6fad5a9cfff6e177664994a52346f81f62840fe8e23" "2dd32048690787844d8cba601ed3dd8b2f419e9bd985898d0c3792671a05b96b" "ea489f6710a3da0738e7dbdfc124df06a4e3ae82f191ce66c2af3e0a15e99b90" "3f78849e36a0a457ad71c1bda01001e3e197fe1837cb6eaa829eb37f0a4bdad5" "74d9d61cb5280832ed33110cf83b8a1cb83bec5c18509cdbfb0ba94c41e34b71" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "9122dfb203945f6e84b0de66d11a97de6c9edf28b3b5db772472e4beccc6b3c5" default))))
+    ("45712b65018922c9173439d9b1b193cb406f725f14d02c8c33e0d2cdad844613" "b0266ff95532a85b3d1288ed65c1570905b8e9957b233ed1395f2dbf4486df79" "cc60d17db31a53adf93ec6fad5a9cfff6e177664994a52346f81f62840fe8e23" "2dd32048690787844d8cba601ed3dd8b2f419e9bd985898d0c3792671a05b96b" "ea489f6710a3da0738e7dbdfc124df06a4e3ae82f191ce66c2af3e0a15e99b90" "3f78849e36a0a457ad71c1bda01001e3e197fe1837cb6eaa829eb37f0a4bdad5" "74d9d61cb5280832ed33110cf83b8a1cb83bec5c18509cdbfb0ba94c41e34b71" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "9122dfb203945f6e84b0de66d11a97de6c9edf28b3b5db772472e4beccc6b3c5" default)))
+ '(package-selected-packages
+   (quote
+    (xterm-color ws-butler term+mux sr-speedbar smartparens p4 magit log4j-mode jbeans-theme hideshowvis helm-proc helm-package helm-make helm-ls-git helm-gtags helm-git-files helm-git gitty ggtags fsm company))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -44,7 +54,7 @@
 (when window-system
   (progn
     (setq ns-antialias-text t)
-    (set-default-font "-apple-Ubuntu_Mono-medium-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+    (set-frame-font "Ubuntu Mono-15" nil t)
     ;; (set-default-font "-apple-Monaco-medium-r-normal--13-*-*-*-*-*-*-*")
     ;; (set-default-font "-apple-PT_Mono-medium-r-normal--14-*-*-*-*-*-*-*")
     ;; (set-default-font "-apple-Source_Code_Pro-medium-r-normal--14-*-*-*-*-*-*-*")
