@@ -6,7 +6,7 @@
 ;; arguments, but requires 1".
 (setq byte-compile-warning nil)
 
-(setq CEDET_HOME (file-name-as-directory (concat LISP_HOME "/cedet/trunk/")))
+(setq CEDET_HOME (file-name-as-directory (concat LISP_HOME "/cedet/cedet-git/")))
 (load-file (concat CEDET_HOME "cedet-devel-load.el"))
 (add-to-list 'load-path (concat CEDET_HOME "contrib"))
 
