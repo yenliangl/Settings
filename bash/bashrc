@@ -95,7 +95,7 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 #export SHELL=/bin/bash
-export TERM=xterm
+export TERM=xterm-256color
 #export LC_CTYPE="zh_TW.utf8"
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/Dropbox/bin:$PATH"
 
@@ -109,11 +109,15 @@ PROJECT_DIR=~/Work
 # android projects which will be appened '-android'
 declare -A ANDROID_PROJECTS
 declare -A PROJECTS
-for p in bozaalarm tallycounter iosched cm aosp omni pa bitcoinw; do
+for p in bozaalarm tallycounter bitcoinw; do
     ANDROID_PROJECTS[$p]=1
 done
-# non-android projects
-for p in $DEFAULT_PROJECT libbitcoin bitcoin bitcoinxt bitcoinj rocksdb guava; do
+# projects
+for p in $DEFAULT_PROJECT guava; do
+    PROJECTS[$p]=1
+done
+# bitcoin projects
+for p in $DEFAULT_PROJECT libbitcoin bitcoinc bitcoinj; do
     PROJECTS[$p]=1
 done
 
@@ -287,3 +291,5 @@ if [ -z $PROJECT ]; then
 
     export PROJECT=$DEFAULT_PROJECT
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

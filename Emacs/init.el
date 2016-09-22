@@ -115,7 +115,7 @@
 (if (file-exists-p version-specific-config) (load version-specific-config))
 
 ;; (defconst is-after-emacs-23  (<= 23 emacs-major-version))
-;; (defconst is-after-emacs-24  (<= 24 emacs-major-version))
+(defconst is-after-emacs-24 (<= 24 emacs-major-version))
 
 ;;
 (setq user-full-name "Liu Yen-Liang (Josh)")
