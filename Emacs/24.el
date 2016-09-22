@@ -8,7 +8,7 @@
 ;(require 'package)
 (setq package-enable-at-startup nil)
 (package-initialize)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 ;; --------------------------------------------------
 ;; Color theme
@@ -20,6 +20,8 @@
             ))
 (add-hook 'after-make-console-frame-hooks
           (lambda ()
+            ;; (load-theme 'distinguished)
+            ;; (load-theme 'quasi-monochrome)
             (load-theme 'jbeans)
 
             ;; I like the color but the background
