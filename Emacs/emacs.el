@@ -549,6 +549,7 @@
 ;; --------------------------------------------------
 ;; sr-speedbar
 ;;
+(setq byte-compile-warnings '(not free-vars ))
 (require 'sr-speedbar)
 ;;(global-set-key (kbd "s-s" 'sr-speedbar-toggle))
 (setq sr-speedbar-skip-other-window-p t)
