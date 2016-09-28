@@ -16,13 +16,15 @@
 (add-hook 'after-make-window-system-frame-hooks
           (lambda ()
             ;; (load-theme 'firecode)
-            (load-theme 'jbeans)
+            (load-theme 'ample-zen)
+            ;; (load-theme 'jbeans)
             ))
 (add-hook 'after-make-console-frame-hooks
           (lambda ()
             ;; (load-theme 'distinguished)
             ;; (load-theme 'quasi-monochrome)
-            (load-theme 'jbeans)
+            (load-theme 'ample-zen)
+            ;; (load-theme 'jbeans)
 
             ;; I like the color but the background
             ;;(load-theme 'twilight)
