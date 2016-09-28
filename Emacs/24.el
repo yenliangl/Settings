@@ -18,17 +18,16 @@
             ;; (load-theme 'firecode)
             (load-theme 'ample-zen)
             ;; (load-theme 'jbeans)
+            (set-face-background 'default "black")
             ))
 (add-hook 'after-make-console-frame-hooks
           (lambda ()
-            ;; (load-theme 'distinguished)
-            ;; (load-theme 'quasi-monochrome)
+            ;;(load-theme 'jbeans)
             (load-theme 'ample-zen)
-            ;; (load-theme 'jbeans)
 
             ;; I like the color but the background
             ;;(load-theme 'twilight)
-            ;;(set-face-background 'default "black")
+            (set-face-background 'default "black")
             ))
 ;; (autoload 'color-theme-approximate-on "color-theme-approximate")
 ;; (color-theme-approximate-on)
