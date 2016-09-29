@@ -51,14 +51,13 @@
 
 ;; customize compile mode for StarRC
 ;;     main.C  Master.hier  Master.make
-(define-key c++-mode-map [(f8)] 'my-synmake-compile-command)
-(define-key c++-mode-map [(f9)] 'my-synmake-g-compile-command)
+;; (define-key c++-mode-map [(f8)] 'my-synmake-compile-command)
+;; (define-key c++-mode-map [(f9)] 'my-synmake-g-compile-command)
 
 (defun my-synmake-compile-command ()
   (interactive)
   (set (make-local-variable 'compile-command)
        (concat (getenv "SYNMAKE") " TARGET_ARCH=" (getenv "TARGET_ARCH") " -C " default-directory))
-  ;; (setq current-prefix-arg '(4))        ;C-u
   (call-interactively 'compile))
 
 (defun my-synmake-g-compile-command ()
@@ -95,3 +94,16 @@
   (c-set-style kde-c++-style))
 (add-hook 'c++-mode-hook 'snps-c++-mode-hook)
 (add-hook 'c-mode-hook 'snps-c-mode-hook)
+
+;; ----------------------------------------------------------------------
+;; multi-compile
+;; ----------------------------------------------------------------------
+(require 'multi-compile)
+(setq multi-compile-alist
+      '((c++-mode . (("synmake-o" . (concat (getenv "SYNMAKE") " TARGET_ARCH=" (getenv "TARGET_ARCH") " -C " default-directory))
+                     ("synmake-g" . (concat (getenv "SYNMAKE") " TARGET_ARCH=" (getenv "TARGET_ARCH") " install-debug -C " default-directory))
+                     ("make" "make" (locate-dominating-file buffer-file-name ".git"))
+                     ))
+        ))
+(setq multi-compile-completion-system 'ido)
+(define-key c++-mode-map [(f8)] 'multi-compile-run)
