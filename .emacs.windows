@@ -1,9 +1,16 @@
 ;; -*- mode: emacs-lisp -*-
 
 ;; Feature control
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq use-org-mode nil
       use-git-mode nil
-      use-cedet t                       ;for android/java
+      use-cedet nil                       ;for android/java
       use-jdee nil
       use-tabbar nil
       use-ws-butler t                   ;remove whitespaces
@@ -24,8 +31,11 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("b0266ff95532a85b3d1288ed65c1570905b8e9957b233ed1395f2dbf4486df79" default)))
+    ("51e228ffd6c4fff9b5168b31d5927c27734e82ec61f414970fc6bcce23bc140d" "1160f5fc215738551fce39a67b2bcf312ed07ef3568d15d53c87baa4fd1f4d4e" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "1db337246ebc9c083be0d728f8d20913a0f46edc0a00277746ba411c149d7fe5" "45712b65018922c9173439d9b1b193cb406f725f14d02c8c33e0d2cdad844613" "b0266ff95532a85b3d1288ed65c1570905b8e9957b233ed1395f2dbf4486df79" default)))
  '(default-input-method "chinese-zozy")
+ '(package-selected-packages
+   (quote
+    (twilight-theme atom-dark-theme atom-one-dark-theme yatemplate ws-butler vlf smartparens p4 org magit log4j-mode jbeans-theme java-snippets hideshowvis helm-proc helm-package helm-make helm-ls-git helm-gtags helm-git-files helm-git gitty ggtags fsm company ample-zen-theme abyss-theme)))
  '(show-paren-mode t))
 
 (custom-set-faces
