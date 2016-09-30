@@ -55,7 +55,6 @@
 ;; customize compile mode for StarRC
 ;;     main.C  Master.hier  Master.make
 ;; (define-key c++-mode-map [(f8)] 'my-synmake-compile-command)
-;; (define-key c++-mode-map [(f9)] 'my-synmake-g-compile-command)
 
 (defun my-synmake-compile-command ()
   (interactive)
@@ -103,10 +102,18 @@
 ;; ----------------------------------------------------------------------
 (require 'multi-compile)
 (setq multi-compile-alist
-      '((c++-mode . (("synmake-o" . (concat (getenv "SYNMAKE") " TARGET_ARCH=" (getenv "TARGET_ARCH") " -C " default-directory))
-                     ("synmake-g" . (concat (getenv "SYNMAKE") " TARGET_ARCH=" (getenv "TARGET_ARCH") " install-debug -C " default-directory))
-                     ("make" "make" (locate-dominating-file buffer-file-name ".git"))
+      '((c++-mode . (("smake-o"     . "/depot/qsc/QSCM/bin/synmake -C %dir")
+                     ("smake-g"     . "/depot/qsc/QSCM/bin/synmake -C %dir install-debug")
+                     ("smake-check" . "/depot/qsc/QSCM/bin/synmake check")
+                     ("smake-dbXtract-o" "/depot/qsc/QSCM/bin/synmake" (locate-dominating-file buffer-file-name "dbxtract"))
+                     ("smake-dbXtract-g" "/depot/qsc/QSCM/bin/synmake install-debug" (locate-dominating-file buffer-file-name "dbxtract"))
+                     ("smake-xTractor-o" "/depot/qsc/QSCM/bin/synmake" (locate-dominating-file buffer-file-name "nextract"))
+                     ("smake-xTractor-g" "/depot/qsc/QSCM/bin/synmake install-debug" (locate-dominating-file buffer-file-name "nextract"))
+                     ;;("gtest_unit_check" "/depot/qsc/QSCM/bin/synmake check" (locate-dominating-file buffer-file-name "gtest_unit"))
+                     ("make" "make" (locate-dominating-file buffer-file-name "dbxtract"))
                      ))
+        ;; Other modes
         ))
 (setq multi-compile-completion-system 'ido)
 (define-key c++-mode-map [(f8)] 'multi-compile-run)
+(define-key c++-mode-map [(f9)] 'my-synmake-compile-command)
