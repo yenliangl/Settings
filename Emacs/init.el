@@ -4,7 +4,7 @@
 
 (unless (boundp 'DROPBOX)
         (defconst DROPBOX (expand-file-name "~/Dropbox")))
-(setq user-emacs-directory (concat DROPBOX "/.emacs.d"))
+(setq user-emacs-directory (concat DROPBOX "/.emacs.d." (number-to-string emacs-major-version)))
 (defconst LISP_HOME (expand-file-name (concat user-emacs-directory "/elisp")))
 (defconst ELPA_HOME (expand-file-name (concat user-emacs-directory "/elpa")))
 (add-to-list 'load-path LISP_HOME)
