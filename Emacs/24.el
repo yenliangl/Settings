@@ -7,6 +7,7 @@
 ;; --------------------------------------------------
 ;(require 'package)
 (setq package-enable-at-startup nil)
+(setq package-user-dir ELPA_HOME)
 (package-initialize)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
@@ -17,7 +18,7 @@
           (lambda ()
             ;; (load-theme 'firecode)
             ;; (load-theme 'ample-zen)
-            (load-theme 'jbeans)
+            ;;(load-theme 'jbeans)
             ;; (load-theme 'twilight)
             (set-face-background 'default "black")
             ))
@@ -27,7 +28,6 @@
             ;; (load-theme 'ample-zen)
             ;; (load-theme 'atom-one-dark)
             ;; (load-theme 'twilight)
-
             ;; I like the color but the background
             ;;(load-theme 'twilight)
             (set-face-background 'default "black")
