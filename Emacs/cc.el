@@ -35,9 +35,13 @@
 ;; Kde-emacs
 ;; ----------------------------------------------------------------------
 (load-file (concat EMACS_HOME "/kde-emacs.el"))
-(setq c-default-style "java")
+;(setq c-default-style "java")
 (add-hook 'c++-mode-hook 'kde-c++-mode-hook)
 (add-hook 'c-mode-hook 'kde-c-mode-hook)
+ ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+ ;; (add-hook 'c++-mode-common-hook 'google-set-c-style)
+ ;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
 ; always end a file with a newline
 (setq-default require-final-newline t)
 ; 'next-line won't be adding newlines

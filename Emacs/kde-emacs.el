@@ -84,12 +84,13 @@ With arg, do it arg times."
 					; (insert-tab-mode nil)
                          (c-access-key . ,kde-access-labels)
 			 (c-opt-access-key . ,kde-access-labels)
-			 (c-offsets-alist . ((case-label . 0)
+                         (c-offsets-alist . ((case-label . 0)
+                                             (innamespace . [0])
 					     (inline-open . 0)))
 			 ))
 
 (defun kde-c++-mode-hook ()
-  ;(c-set-style kde-c++-style)
+  (c-set-style kde-c++-style)
   (font-lock-mode)
   (define-key c++-mode-map "\C-m"  'c-context-line-break)
   (when (or
@@ -116,7 +117,7 @@ With arg, do it arg times."
   )
 
 (defun kde-c-mode-hook ()
-  ;(c-set-style kde-c-style)
+  (c-set-style kde-c-style)
   (font-lock-mode)
   (define-key c-mode-map [(f6)] 'kde-switch-cpp-h))
 
