@@ -10,20 +10,13 @@ if ( "$has_session" == "" ) then
     echo "Create project workspace for $session_name ..."
     tmux new-session -d -s "$session_name"
     foreach i ( `seq 1 4` )
-        tmux new-window -t "${session_name}:$i" -c "${CLIENT_ROOT}"
+        tmux new-window -t "${session_name}:$i"
     end
     # create a 3x3 pane layout on this QA window
-    tmux new-window -t "${session_name}:5" -n QA -c "${QA_DISK}/fast"
-    tmux split-window -h -p 50 -c "${QA_DISK}/unit"
-    tmux split-window -h -p 50 -c "${QA_DISK}/unit"
-    tmux split-window -h -p 50 -c "${QA_DISK}/unit"
-    tmux select-pane -t 0
-    tmux split-window -v -p 50 -c "${QA_DISK}/unit"
-    tmux split-window -v -p 50 -c "${QA_DISK}/unit"
-    tmux split-window -v -p 50 -c "${QA_DISK}/unit"
-    tmux select-pane -t 6
-    tmux split-window -v -p 50 -c "${QA_DISK}/unit"
-    tmux split-window -v -p 50 -c "${QA_DISK}/unit"
+    tmux new-window -t "${session_name}:5" -n Testing
+    tmux split-window -h -p 50
+    tmux split-window -h -p 50
+    tmux split-window -h -p 50
     tmux select-layout tiled
 endif
 tmux select-window -t "${session_name}:0"
