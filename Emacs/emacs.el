@@ -596,3 +596,10 @@
 ;;         "/path/to/yasnippet/snippets"         ;; the default collection
          ))
 (yas-global-mode 1)
+
+;; ----------------------------------------------------------------------
+;; ace-window
+;; ----------------------------------------------------------------------
+(global-set-key (kbd "M-p") 'ace-window)
+;;(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(setq aw-keys '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
