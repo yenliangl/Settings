@@ -294,14 +294,15 @@
            (mode . c++-mode)
            (mode . perl-mode)
            (mode . python-mode)
-           (mode . emacs-lisp-mode)
            (mode . java-mode)
            (mode . jde-mode)
            (mode . groovy-mode)
            ;; etc
            ))
-         ("TestFile" ;; prog stuff not already in MyProjectX
-          (name . "^\\.ext$"))
+         ("Lisp" ;; prog stuff not already in MyProjectX
+          (mode . emacs-lisp-mode))
+         ("Regresso" ;; prog stuff not already in MyProjectX
+          (filename . ".ext$"))
          ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*")))
@@ -596,3 +597,10 @@
 ;;         "/path/to/yasnippet/snippets"         ;; the default collection
          ))
 (yas-global-mode 1)
+
+;; ----------------------------------------------------------------------
+;; ace-window
+;; ----------------------------------------------------------------------
+(global-set-key (kbd "M-p") 'ace-window)
+;;(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(setq aw-keys '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
