@@ -125,7 +125,8 @@
 
 ;; List our sites
 (setq display-time-world-list
-      '(("Asia/Taipei"          "Taipei")
-        ("Europe/Paris"         "Paris")
-        ("Ameria/San_Francisco" "San Francisco")
-        ("Asia/Shanghai"        "Shanghai")))
+      '(("Asia/Taipei"           "Taipei")
+        ("Europe/Paris"          "Paris")
+        ("America/Los_Angeles"   "San Francisco")
+        ("Asia/Shanghai"         "Shanghai")))
+(display-time-world)
