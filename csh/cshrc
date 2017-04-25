@@ -105,6 +105,7 @@ alias du1        "du -h -d 1"
 alias rmcore     'find . -name "core.*" -print0 | xargs -0 \rm -rf'
 alias top        "htop"
 alias crontab    "crontab -i"
+alias bc         "bc -l"
 
 # ##################################################
 # Default project
@@ -168,3 +169,6 @@ alias valgrind     "valgrind --log-file=valgrind_report.log --leak-check=full --
 
 alias my-shelve          "p4 changes -s shelved -u $USER -c ${USER}_starrc_${PROJECT}"
 alias my-shelve-for-this "p4 changes -s shelved -u $USER -c ${USER}_starrc_${PROJECT}"
+
+
+# setenv PUREOPTIONS "-inuse-at-exit=no -leaks-at-exit=yes -first-only=yes -show-directory=yes -chain-length=40 -logfile=./purify.log -append-log-file -view-file=./purify.pv"

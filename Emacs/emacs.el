@@ -303,6 +303,7 @@
           (mode . emacs-lisp-mode))
          ("Regresso" ;; prog stuff not already in MyProjectX
           (filename . ".ext$"))
+         ("Perforce" (name . "\*P4\*"))
          ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*")))
