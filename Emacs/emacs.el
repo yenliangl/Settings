@@ -294,14 +294,16 @@
            (mode . c++-mode)
            (mode . perl-mode)
            (mode . python-mode)
-           (mode . emacs-lisp-mode)
            (mode . java-mode)
            (mode . jde-mode)
            (mode . groovy-mode)
            ;; etc
            ))
-         ("TestFile" ;; prog stuff not already in MyProjectX
-          (name . "^\\.ext$"))
+         ("Lisp" ;; prog stuff not already in MyProjectX
+          (mode . emacs-lisp-mode))
+         ("Regresso" ;; prog stuff not already in MyProjectX
+          (filename . ".ext$"))
+         ("Perforce" (name . "\*P4\*"))
          ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*")))
