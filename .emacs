@@ -122,3 +122,11 @@
         (append
          (split-string-and-unquote path ":")
          exec-path)))
+
+;; List our sites
+(setq display-time-world-list
+      '(("Asia/Taipei"           "Taipei")
+        ("Europe/Paris"          "Paris")
+        ("America/Los_Angeles"   "San Francisco")
+        ("Asia/Shanghai"         "Shanghai")))
+(display-time-world)
