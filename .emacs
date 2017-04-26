@@ -34,7 +34,7 @@
  '(default-input-method "chinese-zozy")
  '(package-selected-packages
    (quote
-    (ace-window ample-theme google-c-style gradle-mode smart-compile twilight-theme atom-dark-theme atom-one-dark-theme ample-zen-theme yasnippet async dash epl git-commit helm-core hydra magit-popup pkg-info with-editor helm ws-butler sr-speedbar smartparens quasi-monochrome-theme projectile popup pandoc-mode p4 monochrome-theme minimal-theme magit jbeans-theme java-snippets distinguished-theme company common-lisp-snippets bison-mode))))
+    (ztree ace-window ample-theme google-c-style gradle-mode smart-compile twilight-theme atom-dark-theme atom-one-dark-theme ample-zen-theme yasnippet async dash epl git-commit helm-core hydra magit-popup pkg-info with-editor helm ws-butler sr-speedbar smartparens quasi-monochrome-theme projectile popup pandoc-mode p4 monochrome-theme minimal-theme magit jbeans-theme java-snippets distinguished-theme company common-lisp-snippets bison-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
