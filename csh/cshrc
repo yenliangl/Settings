@@ -165,10 +165,11 @@ alias list-all-emacs   ps -fp `pgrep -f "emacs \-\-daemon="`
 alias list-projects    'tmux list-sessions -F "[#S:#{session_id}]: #{session_windows} windows (created #{session_created_string}) [#{session_width}x#{session_height}) (#{?session_attached,attached,detached})"'
 alias gdb              "gdb --data-directory=$HOME/tools/gdb/share/gdb"
 #alias ls-by-size       `/bin/ls -lhS | awk '{printf "%5s  %s\n", $5, $9}'`
-alias valgrind     "valgrind --log-file=valgrind_report.log --leak-check=full --show-reachable=yes"
+alias valgrind         "valgrind --leak-check=full --num-callers=24 --log-file=starrc.valgrind.log --fullpath-after= --gen-suppressions=all --suppressions=$(CLIENTROOT)/valgrind_suppression --show-reachable=yes "
 
 alias my-shelve          "p4 changes -s shelved -u $USER -c ${USER}_starrc_${PROJECT}"
 alias my-shelve-for-this "p4 changes -s shelved -u $USER -c ${USER}_starrc_${PROJECT}"
 
+alias valgrind-server    "\valgrind --vgdb=yes --vgdb-error=0 "
 
 # setenv PUREOPTIONS "-inuse-at-exit=no -leaks-at-exit=yes -first-only=yes -show-directory=yes -chain-length=40 -logfile=./purify.log -append-log-file -view-file=./purify.pv"

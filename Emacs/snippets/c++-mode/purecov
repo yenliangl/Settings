@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: purecov
+# key: purecov
+# --
+/* ------------------------------ purecov: ${word} tested ------------------------------ */
+$0
