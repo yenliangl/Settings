@@ -610,6 +610,7 @@
 (defun cleanup-region (beg end)
   "cleanup the selected region with the following steps"
   (interactive "r")
+  (delete-trailing-whitespace beg end)
   (indent-region beg end)
   (untabify beg end)
   (align beg end))
