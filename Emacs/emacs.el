@@ -606,3 +606,10 @@
 (global-set-key (kbd "M-p") 'ace-window)
 ;;(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (setq aw-keys '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+
+(defun cleanup-region (beg end)
+  "cleanup the selected region with the following steps"
+  (interactive "r")
+  (indent-region beg end)
+  (untabify beg end)
+  (align beg end))
