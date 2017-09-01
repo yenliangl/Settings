@@ -299,6 +299,11 @@
            (mode . groovy-mode)
            ;; etc
            ))
+         ("NDM Code" ;; prog stuff not already in MyProjectX
+          (or
+           (filename . "^ndm*.cc$")
+           (filename . "^ndm*.h$")
+           ))
          ("Lisp" ;; prog stuff not already in MyProjectX
           (mode . emacs-lisp-mode))
          ("Regresso" ;; prog stuff not already in MyProjectX
@@ -607,10 +612,11 @@
 ;;(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (setq aw-keys '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
-(defun cleanup-region (beg end)
+(defun my-beautify-region (beg end)
   "cleanup the selected region with the following steps"
   (interactive "r")
-  (delete-trailing-whitespace beg end)
+;  (delete-trailing-whitespace beg end)
   (indent-region beg end)
   (untabify beg end)
   (align beg end))
+(define-key esc-map "\C-\\" 'my-beautify-region)

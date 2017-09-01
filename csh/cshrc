@@ -180,4 +180,4 @@ alias valgrind-server    "\valgrind --vgdb=yes --vgdb-error=0 --tool=memcheck --
 
 # setenv PUREOPTIONS "-inuse-at-exit=no -leaks-at-exit=yes -first-only=yes -show-directory=yes -chain-length=40 -logfile=./purify.log -append-log-file -view-file=./purify.pv"
 
-setenv PATH "${PATH}:."
+# setenv PATH "${PATH}:."
