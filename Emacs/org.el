@@ -610,8 +610,10 @@ org-mode."
 ;; encryption
 (require 'org-crypt)
 (org-crypt-use-before-save-magic) ; Encrypt all entries before saving
-(setq org-tags-exclude-from-inheritance (quote ("crypt"))) ; Which tag is used to mark headings to be encrypted
-(setq org-crypt-key "0C6F5345") ;; yenliangl@gmail.com
+(setq org-crypt-tag-matcher "secret")
+(setq org-tags-exclude-from-inheritance (quote ("secret"))) ; Which tag is used to mark headings to be encrypted
+; (setq org-crypt-key "0C6F5345") ;; yenliangl@gmail.com
+(setq org-crypt-key "nil") ;; yenliangl@gmail.com
 
 ;; unique id for every task
 (require 'org-id)

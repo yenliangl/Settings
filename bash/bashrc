@@ -109,15 +109,15 @@ PROJECT_DIR=~/Work
 # android projects which will be appened '-android'
 declare -A ANDROID_PROJECTS
 declare -A PROJECTS
-for p in bozaalarm tallycounter bitcoinw signal; do
+for p in bozaalarm tallycounter; do
     ANDROID_PROJECTS[$p]=1
 done
 # projects
-for p in $DEFAULT_PROJECT guava; do
+for p in $DEFAULT_PROJECT guava note; do
     PROJECTS[$p]=1
 done
 # bitcoin projects
-for p in $DEFAULT_PROJECT libbitcoin bitcoinc bitcoinj; do
+for p in $DEFAULT_PROJECT libbitcoin bitcoinc bitcoinj bitcoinw; do
     PROJECTS[$p]=1
 done
 
