@@ -5,6 +5,7 @@ set session_name=$1
 # # $status the return status of last command
 # if ( $status == 1 ) then
 
+alias tmux "tmux -u"
 set has_session=`tmux list-sessions | grep "${session_name}\:"`
 if ( "$has_session" == "" ) then
     echo "Create project workspace for $session_name ..."

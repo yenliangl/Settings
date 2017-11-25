@@ -169,9 +169,9 @@
 (make-face 'font-lock-todo-face)
 (make-face 'font-lock-question-face)
 (make-face 'font-lock-small-face)
-(set-face-attribute 'font-lock-fixme-face    nil :background "red"   :weight 'bold)
-(set-face-attribute 'font-lock-todo-face     nil :background "blue"  :weight 'bold)
-(set-face-attribute 'font-lock-question-face nil :background "green" :weight 'bold)
+(set-face-attribute 'font-lock-fixme-face    nil :background "red"   ) ;:weight 'bold)
+(set-face-attribute 'font-lock-todo-face     nil :background "blue"  ) ;:weight 'bold)
+(set-face-attribute 'font-lock-question-face nil :background "green" ) ;:weight 'bold)
 
 (set-face-attribute 'font-lock-small-face nil :height 0.9)
 (mapc (lambda (mode)
@@ -182,7 +182,7 @@
 
 (mapc (lambda (mode)
         (font-lock-add-keywords
-         mode '(("\\<\\(TODO\\|NOTE\\):" 1 'font-lock-todo-face t))))
+         mode '(("\\<\\(TODO\\|NOTE\\|TODO_STREAM\\|STREAM\\):" 1 'font-lock-todo-face t))))
       keyword-highlight-modes)
 
 (mapc (lambda (mode)
@@ -298,6 +298,11 @@
            (mode . jde-mode)
            (mode . groovy-mode)
            ;; etc
+           ))
+         ("NDM Code" ;; prog stuff not already in MyProjectX
+          (or
+           (filename . "^ndm*.cc$")
+           (filename . "^ndm*.h$")
            ))
          ("Lisp" ;; prog stuff not already in MyProjectX
           (mode . emacs-lisp-mode))
@@ -593,6 +598,7 @@
 ;; ----------------------------------------------------------------------
 (setq yas-snippet-dirs
       '("~/Dropbox/.emacs.d/snippets"                 ;; personal snippets
+        "~/Settings/Emacs/snippets"
 ;;         "/path/to/some/collection/"           ;; foo-mode and bar-mode snippet collection
 ;;         "/path/to/yasnippet/yasmate/snippets" ;; the yasmate collection
 ;;         "/path/to/yasnippet/snippets"         ;; the default collection
@@ -605,3 +611,12 @@
 (global-set-key (kbd "M-p") 'ace-window)
 ;;(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (setq aw-keys '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+
+(defun my-beautify-region (beg end)
+  "cleanup the selected region with the following steps"
+  (interactive "r")
+;  (delete-trailing-whitespace beg end)
+  (indent-region beg end)
+  (untabify beg end)
+  (align beg end))
+(define-key esc-map "\C-\\" 'my-beautify-region)
