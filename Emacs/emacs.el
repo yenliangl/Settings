@@ -620,3 +620,17 @@
   (untabify beg end)
   (align beg end))
 (define-key esc-map "\C-\\" 'my-beautify-region)
+
+
+;; ----------------------------------------------------------------------
+;; Octave mode
+;; ----------------------------------------------------------------------
+(autoload 'octave-mode "octave-mod" nil t)
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (if (eq window-system 'x)
+                (font-lock-mode 1))))
